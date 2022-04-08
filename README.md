@@ -6,6 +6,8 @@ Apresentação e entrega do Desafio Reskilling Java.
 
 - [Pré-requisitos](#pré-requisitos)
 - [Tarefa Principal](#tarefa-principal)
+- [Execução](#execução)
+- [Links](#links)
 
 ## Pré-requisitos
 
@@ -50,3 +52,9 @@ Para fins de exercício
     - Disponibilize uma coleção do Postman com todos endpoints.
     - Se utilizar um banco de dados diferente do H2, um dockerfile deve ser dispobinilizado para o banco de dados.
 
+## Execução
+
+
+## Links
+
+###### GitHub - 
