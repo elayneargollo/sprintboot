@@ -50,7 +50,7 @@ Para fins de exercício
     - Implemente testes unitários com ao menos 50% de cobertura de código.
     - Utilize Swagger para documentar sua API.
     - Disponibilize uma coleção do Postman com todos endpoints.
-    - Se utilizar um banco de dados diferente do H2, um dockerfile deve ser dispobinilizado para o banco de dados.
+    - Se utilizar um banco de dados diferente do H2, um dockerfile deve ser disponibilizado para o banco de dados.
 
 ## Execução
 
