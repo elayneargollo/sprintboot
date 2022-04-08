@@ -3,6 +3,7 @@
 Apresentação e entrega do Desafio Reskilling Java.
 
 ## Conteúdo
+---
 
 - [Pré-requisitos](#pré-requisitos)
 - [Tarefa Principal](#tarefa-principal)
@@ -10,6 +11,7 @@ Apresentação e entrega do Desafio Reskilling Java.
 - [Links](#links)
 
 ## Pré-requisitos
+---
 
 É necessário que você tenha instalado em sua máquina:
 
@@ -19,6 +21,7 @@ Apresentação e entrega do Desafio Reskilling Java.
    _A instalação deve ser Eclipse IDE for C/C++ Developers
 
 ## Tarefa Principal
+---
 
 Em uma cooperativa, cada associado possui um voto e as decisões são tomadas através de assembleias, por votação. A partir disso, você precisa criar o backend para gerenciar essas sessões de votação. A solução deve atender os seguintes requisitos através de uma API REST: 
 
@@ -51,8 +54,20 @@ Em uma cooperativa, cada associado possui um voto e as decisões são tomadas at
        - Se utilizar um banco de dados diferente do H2, um dockerfile deve ser disponibilizado para o banco de dados.
 
 ## Execução
-
+---
 
 ## Links
+---
 
 ###### GitHub - 
+
+
+### Autora
+---
+
+<img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/48841005?s=40&v=4" width="100px;" alt=""/>
+ 
+Feito por Elayne Natália 👋🏽 Entre em contato!
+
+[![Linkedin Badge](https://img.shields.io/badge/-Elayne-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/elayne/)](https://www.linkedin.com/in/elayne-nat%C3%A1lia/) 
+
