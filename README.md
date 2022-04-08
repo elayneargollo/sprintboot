@@ -3,15 +3,13 @@
 Apresentação e entrega do Desafio Reskilling Java.
 
 ## Conteúdo
----
 
 - [Pré-requisitos](#pré-requisitos)
-- [Tarefa Principal](#tarefa-principal)
 - [Execução](#execução)
 - [Links](#links)
+- [Tarefa Principal](#tarefa-principal)
 
 ## Pré-requisitos
----
 
 É necessário que você tenha instalado em sua máquina:
 
@@ -20,8 +18,18 @@ Apresentação e entrega do Desafio Reskilling Java.
 - Recomendamos a IDE [Eclipse](https://www.eclipse.org/downloads/)
    _A instalação deve ser Eclipse IDE for C/C++ Developers
 
+## Execução
+
+1. Clonar repositório git 
+       https://github.com/elayneargollo/votacao_solutis.git
+
+## Links
+
+###### GitHub - 
+###### Swagger - 
+
+
 ## Tarefa Principal
----
 
 Em uma cooperativa, cada associado possui um voto e as decisões são tomadas através de assembleias, por votação. A partir disso, você precisa criar o backend para gerenciar essas sessões de votação. A solução deve atender os seguintes requisitos através de uma API REST: 
 
@@ -53,17 +61,7 @@ Em uma cooperativa, cada associado possui um voto e as decisões são tomadas at
        - Disponibilize uma coleção do Postman com todos endpoints.
        - Se utilizar um banco de dados diferente do H2, um dockerfile deve ser disponibilizado para o banco de dados.
 
-## Execução
----
-
-## Links
----
-
-###### GitHub - 
-
-
 ### Autora
----
 
 <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/48841005?s=40&v=4" width="100px;" alt=""/>
  
