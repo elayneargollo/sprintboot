@@ -56,7 +56,7 @@ Em uma cooperativa, cada associado possui um voto e as decisões são tomadas at
 - Para fins de exercício
 
        - A segurança pode ser abstraída e qualquer chamada para a API pode ser considerada autorizada.
-       - Para fins de exercício, você pode cadastrar previamente um conjunto de asociados.
+       - Para fins de exercício, você pode cadastrar previamente um conjunto de associados.
        - Implemente testes unitários com ao menos 50% de cobertura de código.
        - Utilize Swagger para documentar sua API.
        - Disponibilize uma coleção do Postman com todos endpoints.
