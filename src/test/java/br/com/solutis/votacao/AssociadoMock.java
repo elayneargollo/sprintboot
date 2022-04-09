@@ -3,12 +3,11 @@ package br.com.solutis.votacao;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import br.com.solutis.votacao.model.Associado;
 
 public final class AssociadoMock {
 
-	public static Optional<Associado> GetAssociado() {
+	/*public static Optional<Associado> GetAssociado() {
 		return Optional.of(new Associado(1, "Elayne Natália", "elayne@email.com.br"));
 	}
 
@@ -18,6 +17,5 @@ public final class AssociadoMock {
 		associados.add(new Associado(2, "Natália", "natalia@email.com.br"));
 		
         return associados;
-    }
-
+    }*/
 }

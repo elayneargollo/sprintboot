@@ -17,7 +17,7 @@ public class SwaggerConfig {
 	        .groupName("votacao-api-1.1")
 	        .select()
 	        .apis(RequestHandlerSelectors.basePackage("br.com.solutis.votacao.controller"))
-	        .paths(PathSelectors.ant("/api/associado/v1.1/**"))
+	        .paths(PathSelectors.ant("/api/**/v1.1/**"))
 	        .build()
 	        .apiInfo(metaInfo("v1.1"));
 	}
@@ -27,7 +27,7 @@ public class SwaggerConfig {
 		return new Docket(DocumentationType.SWAGGER_2)
 				.select()
 				.apis(RequestHandlerSelectors.basePackage("br.com.solutis.votacao.controller"))
-				.paths(PathSelectors.ant("/api/associado/v1.0/**"))
+				.paths(PathSelectors.ant("/api/**/v1.0/**"))
 				.build()
 				.apiInfo(metaInfo("v1.0"));
 	}

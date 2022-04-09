@@ -13,7 +13,7 @@ public class Associado {
 	@Column(name = "id", nullable = false)
 	private Integer id;
 	
-	@NotEmpty @NotBlank @NotNull @Size(min=10, max=255)
+	@NotEmpty @NotBlank @NotNull @Size(min=10, max=255) 
 	private String nome;
 	
 	@NotEmpty @NotBlank @NotNull @Size(min=20, max=255)
@@ -27,7 +27,31 @@ public class Associado {
 		this.nome = nome;
 		this.email = email;
 	}
+	
+	public Integer getId() {
+		return id;
+	}
 
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(email, id, nome);
@@ -43,29 +67,5 @@ public class Associado {
 			return false;
 		Associado other = (Associado) obj;
 		return Objects.equals(email, other.email) && Objects.equals(id, other.id) && Objects.equals(nome, other.nome);
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 }
