@@ -21,7 +21,7 @@ public class Voto {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", nullable = false)
 	private Integer id;
+	private Integer idAssociado;
 	private EnumVoto descricao;
 	private Date dataVotacao;
-	private Integer idAssociado;
 }

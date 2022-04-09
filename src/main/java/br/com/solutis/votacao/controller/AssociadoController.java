@@ -9,20 +9,26 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import br.com.solutis.votacao.model.Associado;
 import br.com.solutis.votacao.service.IAssociadoService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/api/associado")
+@Api(value="API ASSOCIADO")
+@CrossOrigin(origins="*")
 public class AssociadoController {
 
 	@Autowired
 	private IAssociadoService associadoService;
 
 	@GetMapping()
+	@ApiOperation(value="Retorna uma lista de associados")
 	public ResponseEntity<List<Associado>> GetAll() {
 		return ResponseEntity.ok(associadoService.GetAll());
 	}
 	
 	@GetMapping("/{id}")
+	@ApiOperation(value="Retorna um associado por id")
 	public ResponseEntity<Associado> getById(@PathVariable("id") Integer id) {
 
 		Optional<Associado> associado = associadoService.GetById(id);
