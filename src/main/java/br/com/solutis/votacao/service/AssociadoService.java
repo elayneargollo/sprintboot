@@ -20,5 +20,4 @@ public class AssociadoService implements IAssociadoService{
 	public List<Associado> GetAll(){
         return associadoRepository.findAll();
     }
-
 }

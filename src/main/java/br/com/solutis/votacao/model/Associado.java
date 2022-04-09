@@ -2,6 +2,7 @@ package br.com.solutis.votacao.model;
 
 import java.util.Objects;
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 @Entity
 @Table(name = "ASSOCIADO")
@@ -11,7 +12,11 @@ public class Associado {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", nullable = false)
 	private Integer id;
+	
+	@NotEmpty @NotBlank @NotNull @Size(min=10, max=255)
 	private String nome;
+	
+	@NotEmpty @NotBlank @NotNull @Size(min=20, max=255)
 	private String email;
 	
 	public Associado() {}
