@@ -13,6 +13,15 @@ public class Associado {
 	private Integer id;
 	private String nome;
 	private String email;
+	
+	public Associado() {}
+	
+	public Associado(Integer id, String nome, String email) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.email = email;
+	}
 
 	@Override
 	public int hashCode() {

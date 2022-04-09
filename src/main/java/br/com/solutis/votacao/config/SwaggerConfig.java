@@ -12,7 +12,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SwaggerConfig {
 	
 	@Bean
-	public Docket swaggerVotacaoApi10() {
+	public Docket api11() {
 	    return new Docket(DocumentationType.SWAGGER_2)
 	        .groupName("votacao-api-1.1")
 	        .select()
