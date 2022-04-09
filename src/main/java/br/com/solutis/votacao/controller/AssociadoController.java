@@ -20,13 +20,13 @@ public class AssociadoController {
 	@Autowired
 	private IAssociadoService associadoService;
 
-	@GetMapping()
+	@GetMapping("/v1.0/")
 	@ApiOperation(value="Retorna uma lista de associados")
 	public ResponseEntity<List<Associado>> GetAll() {
 		return ResponseEntity.ok(associadoService.GetAll());
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping({"/v1.0/{id}", "/v1.1/{id}"})
 	@ApiOperation(value="Retorna um associado por id")
 	public ResponseEntity<Associado> getById(@PathVariable("id") Integer id) {
 
