@@ -1,4 +1,4 @@
-package br.com.solutis.votacao;
+package br.com.solutis.votacao.mocks;
 
 import java.util.ArrayList;
 import java.util.List;
