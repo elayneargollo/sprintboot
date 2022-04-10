@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @WebMvcTest(controllers = AssociadoController.class)
 class AssociadorControllerTest {
 
-	/*@Autowired
+	@Autowired
 	private MockMvc mock;
 
 	@MockBean
@@ -64,5 +64,5 @@ class AssociadorControllerTest {
 		assertNotNull(associadosReturn);
 		assertThat(associadosReturn).isEqualTo(associadosMock);
 		assertThat(associadosReturn.size()).isEqualTo(associadosMock.size());
-	}*/
+	}
 }
