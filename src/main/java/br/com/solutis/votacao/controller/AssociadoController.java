@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import br.com.solutis.votacao.model.Associado;
@@ -37,11 +38,10 @@ public class AssociadoController {
 
 		Optional<Associado> associado = associadoService.GetById(id);
 		
-		if(associado.isEmpty())
-			return ResponseEntity.notFound().build();
-		
-		HttpHeaders responseHeaders = new HttpHeaders();
-		return ResponseEntity.ok().headers(responseHeaders).body(associado.get());
+		if(associado.isPresent())
+			return ResponseEntity.ok().body(associado.get());
+			
+		 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 	
 	@GetMapping("/v1.1/")
