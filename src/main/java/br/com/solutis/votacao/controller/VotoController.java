@@ -44,13 +44,6 @@ public class VotoController {
 	@PostMapping("/v1.0/")
 	@ApiOperation(value="Persiste voto no sistema")
 	public ResponseEntity<Voto> Add(@RequestBody @Valid Voto voto) {
-		
-		try {
-			return ResponseEntity.ok(votoService.Add(voto));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return null;
+		return ResponseEntity.ok(votoService.Add(voto));
 	}
 }

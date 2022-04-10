@@ -6,5 +6,4 @@ import br.com.solutis.votacao.model.Associado;
 
 @Repository
 public interface IAssociadoRepository extends JpaRepository<Associado, Integer> {
-
 }

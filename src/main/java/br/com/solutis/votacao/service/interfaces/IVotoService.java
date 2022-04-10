@@ -10,5 +10,5 @@ public interface IVotoService {
 	Optional<Voto> GetById(Integer id);
 	Page<Voto> GetAll(Pageable paginacao);
 	List<Voto> GetAll();
-	Voto Add(Voto voto) throws Exception;
+	Voto Add(Voto voto);
 }

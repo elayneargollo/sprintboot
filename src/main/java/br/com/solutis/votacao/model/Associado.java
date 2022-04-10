@@ -28,6 +28,11 @@ public class Associado {
 		this.email = email;
 	}
 	
+	public Associado (String nome, String email) {
+		this.nome = nome;
+		this.email = email;
+	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -67,5 +72,10 @@ public class Associado {
 			return false;
 		Associado other = (Associado) obj;
 		return Objects.equals(email, other.email) && Objects.equals(id, other.id) && Objects.equals(nome, other.nome);
+	}
+
+	@Override
+	public String toString() {
+		return "Associado [id=" + id + ", nome=" + nome + ", email=" + email + "]";
 	}
 }

@@ -22,8 +22,10 @@ public class Sessao {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", nullable = false)
 	private Integer id;
+	
 	@NotEmpty @NotBlank @NotNull @Size(min=10, max=255)
 	private String descricao;
+	
 	@NotEmpty @NotBlank @NotNull @Size(min=10, max=255)
 	private String tipo;
 	private long tempoDuracao;
@@ -72,5 +74,12 @@ public class Sessao {
 			tempoDuracao = 60;
 			
 		this.tempoDuracao = tempoDuracao;
+	}
+
+	@Override
+	public String toString() {
+		return "Sessao [id=" + id + ", descricao=" + descricao + ", tipo=" + tipo + ", tempoDuracao=" + tempoDuracao
+				+ "]";
 	}	
+	
 }

@@ -1,7 +1,8 @@
-package br.com.solutis.votacao.config;
+package br.com.solutis.votacao.config.validacao;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.el.MethodNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -31,6 +32,14 @@ public class ValidacaoHandler {
 			erros.add(erro);
 		});
 		
+		return erros;
+	}
+	
+	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(MethodNotFoundException.class)
+	public VotacaoException handle(MethodNotFoundException exception) {
+
+		VotacaoException erros = new VotacaoException("-",exception.getMessage());
 		return erros;
 	}
 }

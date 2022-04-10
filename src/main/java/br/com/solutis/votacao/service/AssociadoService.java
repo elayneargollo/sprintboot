@@ -17,7 +17,7 @@ public class AssociadoService implements IAssociadoService{
 	IAssociadoRepository associadoRepository;
 	
 	public Optional<Associado> GetById(Integer id){
-        return  associadoRepository.findById(id);
+        return associadoRepository.findById(id);
 	}
 
 	@Override
@@ -28,5 +28,10 @@ public class AssociadoService implements IAssociadoService{
 	@Override
 	public List<Associado> GetAll() {
 		return associadoRepository.findAll();
+	}
+
+	@Override
+	public Associado Add(Associado associado) {
+		return associadoRepository.save(associado);
 	}
 }

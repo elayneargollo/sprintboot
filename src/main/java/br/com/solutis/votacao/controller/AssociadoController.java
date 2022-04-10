@@ -11,6 +11,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import br.com.solutis.votacao.model.Associado;
+import br.com.solutis.votacao.model.dto.AssociadoDto;
 import br.com.solutis.votacao.service.interfaces.IAssociadoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -23,12 +24,6 @@ public class AssociadoController {
 
 	@Autowired
 	private IAssociadoService associadoService;
-	
-	@GetMapping("/v1.1/")
-	@ApiOperation(value="Retorna uma lista de associados")
-	public ResponseEntity<List<Associado>> GetAll() {
-		return ResponseEntity.ok(associadoService.GetAll());
-	}
 
 	@GetMapping("/v1.0/")
 	@ApiOperation(value="Retorna uma paginação de associados")
@@ -47,5 +42,18 @@ public class AssociadoController {
 		
 		HttpHeaders responseHeaders = new HttpHeaders();
 		return ResponseEntity.ok().headers(responseHeaders).body(associado.get());
+	}
+	
+	@GetMapping("/v1.1/")
+	@ApiOperation(value="Retorna uma lista de associados")
+	public ResponseEntity<List<Associado>> GetAll() {
+		return ResponseEntity.ok(associadoService.GetAll());
+	}
+	
+	@PostMapping("/v1.1/")
+	@ApiOperation(value="Cria um associado")
+	public ResponseEntity<Associado> Add(@RequestBody AssociadoDto associadoDto) {
+		Associado associado = associadoDto.converterByAssociado(associadoDto);
+		return ResponseEntity.ok(associadoService.Add(associado));
 	}
 }

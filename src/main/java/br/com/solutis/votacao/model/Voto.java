@@ -1,6 +1,7 @@
 package br.com.solutis.votacao.model;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -9,11 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank; 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Value;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,63 +23,90 @@ public class Voto {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", nullable = false)
 	private Integer id;
-	@NotEmpty @NotBlank @NotNull 
-	private String descricao;
+	
+	@Enumerated(EnumType.STRING)
+	private OpcaoVoto descricao;
+	
 	@Value("${LocalDateTime.now()}")
 	private LocalDateTime dataVotacao;
-	@NotEmpty @NotBlank
 	private Integer associadoId;
-	@NotEmpty @NotBlank
 	private Integer pautaId;
 	
 	public Voto() {}
-	
-	public Voto(Integer id, @NotEmpty @NotBlank @NotNull String descricao, LocalDateTime dataVotacao,
-			Integer associadoId, Integer pautaId) {
-		super();
+
+	public Voto(Integer id, OpcaoVoto descricao, LocalDateTime dataVotacao, Integer associadoId, Integer pautaId) {
 		this.id = id;
 		this.descricao = descricao;
 		this.dataVotacao = dataVotacao;
 		this.associadoId = associadoId;
 		this.pautaId = pautaId;
 	}
-	
+
 	public Integer getId() {
 		return id;
 	}
-	
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
-	public String getDescricao() {
+
+	public OpcaoVoto getDescricao() {
 		return descricao;
 	}
-	
-	public void setDescricao(String descricao) {
+
+	public void setDescricao(OpcaoVoto descricao) {
 		this.descricao = descricao;
 	}
-	
+
 	public LocalDateTime getDataVotacao() {
 		return dataVotacao;
 	}
-	
+
 	public void setDataVotacao(LocalDateTime dataVotacao) {
 		this.dataVotacao = dataVotacao;
 	}
-	
-	public Integer getIdAssociate() {
+
+	public Integer getAssociadoId() {
 		return associadoId;
 	}
-	
-	public void setIdAssociate(Integer associadoId) {
+
+	public void setAssociadoId(Integer associadoId) {
 		this.associadoId = associadoId;
 	}
-	
-	public Integer getIdPauta() {
+
+	public Integer getPautaId() {
 		return pautaId;
 	}
-	public void setIdPauta(Integer pautaId) {
-		this.associadoId = pautaId;
+
+	public void setPautaId(Integer pautaId) {
+		this.pautaId = pautaId;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(associadoId, dataVotacao, descricao, id, pautaId);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Voto other = (Voto) obj;
+		return Objects.equals(associadoId, other.associadoId) && Objects.equals(dataVotacao, other.dataVotacao)
+				&& Objects.equals(descricao, other.descricao) && Objects.equals(id, other.id)
+				&& Objects.equals(pautaId, other.pautaId);
+	}
+
+	@Override
+	public String toString() {
+		return "Voto [id=" + id + ", descricao=" + descricao + ", dataVotacao=" + dataVotacao + ", associadoId="
+				+ associadoId + ", pautaId=" + pautaId + ", getId()=" + getId() + ", getDescricao()=" + getDescricao()
+				+ ", getDataVotacao()=" + getDataVotacao() + ", getAssociadoId()=" + getAssociadoId()
+				+ ", getPautaId()=" + getPautaId() + ", hashCode()=" + hashCode() + ", getClass()=" + getClass()
+				+ ", toString()=" + super.toString() + "]";
 	}
 }
