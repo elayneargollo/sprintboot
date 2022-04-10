@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import org.springframework.beans.factory.annotation.Value;
+
+import br.com.solutis.votacao.model.enumeracao.OpcaoVoto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

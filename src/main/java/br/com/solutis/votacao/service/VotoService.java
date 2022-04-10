@@ -8,8 +8,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.com.solutis.votacao.config.validacao.VotacaoException;
-import br.com.solutis.votacao.model.Status;
 import br.com.solutis.votacao.model.Voto;
+import br.com.solutis.votacao.model.enumeracao.Status;
 import br.com.solutis.votacao.repository.IAssociadoRepository;
 import br.com.solutis.votacao.repository.IPautaRepository;
 import br.com.solutis.votacao.repository.IVotoRepository;
