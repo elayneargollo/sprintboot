@@ -3,9 +3,12 @@ package br.com.solutis.votacao.model.dto;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.*;
+
 import br.com.solutis.votacao.model.enumeracao.Status;
 
 public class PautaDto {
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	private Status status;
 	

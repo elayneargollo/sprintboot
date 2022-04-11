@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import br.com.solutis.votacao.exception.AssociadoNaoExiste;
+
 @RestControllerAdvice
 public class ValidacaoHandler {
 	
@@ -35,11 +37,9 @@ public class ValidacaoHandler {
 		return erros;
 	}
 	
-	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+	@ResponseStatus(code = HttpStatus.NOT_FOUND)
 	@ExceptionHandler(MethodNotFoundException.class)
-	public VotacaoException handle(MethodNotFoundException exception) {
-
-		VotacaoException erros = new VotacaoException("-",exception.getMessage());
-		return erros;
+	public AssociadoNaoExiste handle(MethodNotFoundException exception) {
+		return new AssociadoNaoExiste(exception.getMessage());
 	}
 }

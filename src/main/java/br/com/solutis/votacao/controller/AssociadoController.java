@@ -2,6 +2,9 @@ package br.com.solutis.votacao.controller;
 
 import java.util.List;
 import java.util.Optional;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -52,7 +55,7 @@ public class AssociadoController {
 	
 	@PostMapping("/v1.1/")
 	@ApiOperation(value="Cria um associado")
-	public ResponseEntity<Associado> Add(@RequestBody AssociadoDto associadoDto) {
+	public ResponseEntity<Associado> Add(@RequestBody @Valid AssociadoDto associadoDto) {
 		Associado associado = Mapper.converterByAssociado(associadoDto);
 		return ResponseEntity.ok(associadoService.Add(associado));
 	}

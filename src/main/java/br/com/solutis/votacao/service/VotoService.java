@@ -7,7 +7,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import br.com.solutis.votacao.config.validacao.IVotacaoException;
 import br.com.solutis.votacao.config.validacao.VotacaoException;
+import br.com.solutis.votacao.exception.AssociadoNaoExiste;
+import br.com.solutis.votacao.exception.PautaNaoAbertaException;
+import br.com.solutis.votacao.exception.VotoNaoUnicoExcepiton;
 import br.com.solutis.votacao.model.Voto;
 import br.com.solutis.votacao.model.enumeracao.Status;
 import br.com.solutis.votacao.repository.IAssociadoRepository;
@@ -33,13 +37,13 @@ public class VotoService implements IVotoService{
 		var pauta = pautaRepository.getById(voto.getPautaId());
 		
 		if(!associadoEncontrado) 
-			throw new VotacaoException("Associado não encontrado");
+			throw new AssociadoNaoExiste("Associado não encontrado");
 		
 		if(pauta.getStatus() != (Status.ABERTO))
-			throw new VotacaoException("Para votar é necessário que a pauta esteja aberta !");
+			throw new PautaNaoAbertaException("Para votar é necessário que a pauta esteja aberta !");
 		
 		if(!GetJaVotou(voto.getAssociadoId(), pauta.getId()))
-			throw new VotacaoException("Votos únicos por pauta.");
+			throw new VotoNaoUnicoExcepiton("Votos únicos por pauta.");
 		
 		return votoRepository.save(voto);
 	}
