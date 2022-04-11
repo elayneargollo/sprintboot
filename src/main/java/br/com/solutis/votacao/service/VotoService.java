@@ -28,6 +28,7 @@ public class VotoService implements IVotoService{
 	@Override
 	public Voto Add(Voto voto){
 		
+		System.out.println(voto.getPautaId());
 		var associadoEncontrado = associadoRepository.existsById(voto.getAssociadoId());
 		var pauta = pautaRepository.getById(voto.getPautaId());
 		

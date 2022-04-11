@@ -16,7 +16,7 @@ public class Associado {
 	@NotEmpty @NotBlank @NotNull @Size(min=10, max=255) 
 	private String nome;
 	
-	@NotEmpty @NotBlank @NotNull @Size(min=20, max=255)
+	@NotEmpty @NotBlank @NotNull @Email @Size(min=20, max=255)
 	private String email;
 	
 	public Associado() {}

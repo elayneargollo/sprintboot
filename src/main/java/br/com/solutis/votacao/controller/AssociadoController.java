@@ -7,10 +7,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import br.com.solutis.votacao.config.mapper.Mapper;
 import br.com.solutis.votacao.model.Associado;
 import br.com.solutis.votacao.model.dto.AssociadoDto;
 import br.com.solutis.votacao.service.interfaces.IAssociadoService;
@@ -53,7 +53,7 @@ public class AssociadoController {
 	@PostMapping("/v1.1/")
 	@ApiOperation(value="Cria um associado")
 	public ResponseEntity<Associado> Add(@RequestBody AssociadoDto associadoDto) {
-		Associado associado = associadoDto.converterByAssociado(associadoDto);
+		Associado associado = Mapper.converterByAssociado(associadoDto);
 		return ResponseEntity.ok(associadoService.Add(associado));
 	}
 }

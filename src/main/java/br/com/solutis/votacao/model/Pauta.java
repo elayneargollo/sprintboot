@@ -39,6 +39,11 @@ public class Pauta {
 		this.status = status;
 		this.sessao = sessao;
 	}
+	
+	public Pauta(Status status, Sessao sessao) {
+		this.status = status;
+		this.sessao = sessao;
+	}
 
 	public Integer getId() {
 		return id;

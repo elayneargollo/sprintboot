@@ -11,7 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import org.springframework.beans.factory.annotation.Value;
-
+import br.com.solutis.votacao.model.dto.AssociadoDto;
 import br.com.solutis.votacao.model.enumeracao.OpcaoVoto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,17 +31,25 @@ public class Voto {
 	
 	@Value("${LocalDateTime.now()}")
 	private LocalDateTime dataVotacao;
+	
 	private Integer associadoId;
 	private Integer pautaId;
 	
 	public Voto() {}
 
-	public Voto(Integer id, OpcaoVoto descricao, LocalDateTime dataVotacao, Integer associadoId, Integer pautaId) {
+	public Voto(Integer id, OpcaoVoto descricao, Integer associadoId, Integer pautaId) {
 		this.id = id;
 		this.descricao = descricao;
-		this.dataVotacao = dataVotacao;
 		this.associadoId = associadoId;
 		this.pautaId = pautaId;
+		this.dataVotacao = LocalDateTime.now();
+	}
+	
+	public Voto(OpcaoVoto descricao, Integer associadoId, Integer pautaId) {
+		this.descricao = descricao;
+		this.associadoId = associadoId;
+		this.pautaId = pautaId;
+		this.dataVotacao = LocalDateTime.now();
 	}
 
 	public Integer getId() {
@@ -87,8 +95,13 @@ public class Voto {
 	@Override
 	public int hashCode() {
 		return Objects.hash(associadoId, dataVotacao, descricao, id, pautaId);
+	}	
+	
+	public Associado converterByAssociado(AssociadoDto associadoDto)
+	{
+		return new Associado(associadoDto.getNome(), associadoDto.getEmail());
 	}
-
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

@@ -1,7 +1,6 @@
 package br.com.solutis.votacao.controller;
 
 import java.util.List;
-
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,7 +14,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import br.com.solutis.votacao.config.mapper.Mapper;
 import br.com.solutis.votacao.model.Voto;
+import br.com.solutis.votacao.model.dto.VotoDto;
 import br.com.solutis.votacao.service.interfaces.IVotoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -43,7 +45,8 @@ public class VotoController {
 	
 	@PostMapping("/v1.0/")
 	@ApiOperation(value="Persiste voto no sistema")
-	public ResponseEntity<Voto> Add(@RequestBody @Valid Voto voto) {
+	public ResponseEntity<Voto> Add(@RequestBody @Valid VotoDto votoDto) {
+		Voto voto = Mapper.ConverteParaVoto(votoDto);
 		return ResponseEntity.ok(votoService.Add(voto));
 	}
 }

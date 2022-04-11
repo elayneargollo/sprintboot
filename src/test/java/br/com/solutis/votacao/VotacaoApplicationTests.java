@@ -7,6 +7,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.http.HttpHeaders;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import br.com.solutis.votacao.config.mapper.Mapper;
 import br.com.solutis.votacao.controller.AssociadoController;
 import br.com.solutis.votacao.mocks.AssociadoMock;
 import br.com.solutis.votacao.model.Associado;
@@ -96,8 +98,8 @@ class AssociadorControllerTest {
 	public void GetAdd() throws Exception {
 
 		AssociadoDto associadoDtoMock = AssociadoMock.GetAssociadoDto();
-		Associado associadoMock = associadoDtoMock.converterByAssociado(associadoDtoMock);
-
+		Associado associadoMock = Mapper.converterByAssociado(associadoDtoMock);
+		
 		when(associadoService.Add(associadoMock)).thenReturn(associadoMock);
 
 		mock.perform(post(BASE_URL + "/v1.1/").content(objectMapper.writeValueAsString(associadoDtoMock))

@@ -1,7 +1,5 @@
 package br.com.solutis.votacao.model.dto;
 
-import br.com.solutis.votacao.model.Associado;
-
 public class AssociadoDto {
 	private String nome;
 	private String email;
@@ -29,15 +27,4 @@ public class AssociadoDto {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	public AssociadoDto converterByAssociadoDto(Associado associado)
-	{
-		return new AssociadoDto(associado.getEmail(), associado.getEmail());
-	}
-	
-	public Associado converterByAssociado(AssociadoDto associadoDto)
-	{
-		return new Associado(associadoDto.getNome(), associadoDto.getEmail());
-	}
-	
 }

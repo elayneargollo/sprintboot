@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import br.com.solutis.votacao.config.mapper.Mapper;
 import br.com.solutis.votacao.model.Pauta;
+import br.com.solutis.votacao.model.dto.PautaDto;
 import br.com.solutis.votacao.service.interfaces.IPautaService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -42,7 +44,8 @@ public class PautaController {
 	
 	@PostMapping("/v1.0/")
 	@ApiOperation(value="Persiste pauta no sistema")
-	public ResponseEntity<Pauta> Add(@RequestBody @Valid Pauta pauta) {
+	public ResponseEntity<Pauta> Add(@RequestBody @Valid PautaDto pautaDto) {
+		Pauta pauta = Mapper.converterByPauta(pautaDto);
 		
 		try {
 			return ResponseEntity.ok(pautaService.Add(pauta));

@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import br.com.solutis.votacao.config.mapper.Mapper;
 import br.com.solutis.votacao.model.Sessao;
+import br.com.solutis.votacao.model.dto.SessaoDto;
 import br.com.solutis.votacao.service.interfaces.ISessaoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -44,7 +46,8 @@ public class SessaoController {
 	
 	@PostMapping("/v1.0/")
 	@ApiOperation(value="Persiste sessão no sistema")
-	public ResponseEntity<Sessao> Add(@RequestBody @Valid Sessao sessao) {
+	public ResponseEntity<Sessao> Add(@RequestBody @Valid SessaoDto sessaoDto) {
+		Sessao sessao = Mapper.converterBySessao(sessaoDto);
 		
 		try {
 			return ResponseEntity.ok(sessaoService.Add(sessao));
