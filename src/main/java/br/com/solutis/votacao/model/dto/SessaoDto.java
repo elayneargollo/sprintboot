@@ -15,8 +15,7 @@ public class SessaoDto {
 	
 	public SessaoDto() {}
 	
-	public SessaoDto(@NotEmpty @NotBlank @NotNull @Size(min = 10, max = 255) String descricao,
-			long tempoDuracao,  @Size(min = 10, max = 255) String tipo) {
+	public SessaoDto(String descricao, long tempoDuracao, String tipo) {
 		this.descricao = descricao;
 		this.tipo = tipo;
 		setTempoDuracao(tempoDuracao);
@@ -47,6 +46,5 @@ public class SessaoDto {
 			tempoDuracao = 60;
 			
 		this.tempoDuracao = tempoDuracao;
-	}
-	
+	}	
 }

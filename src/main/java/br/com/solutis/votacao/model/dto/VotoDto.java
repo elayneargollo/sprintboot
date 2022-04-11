@@ -6,20 +6,18 @@ import javax.validation.constraints.Min;
 import br.com.solutis.votacao.model.enumeracao.OpcaoVoto;
 
 public class VotoDto {
-	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private OpcaoVoto descricao;
 	
-	@Min(value=1, message="valor deve ser maior que zero")
+	@Min(value=1, message="Valor deve ser maior que zero")
 	private Integer associadoId;
 	
-	@Min(value=1, message="valor deve ser maior que zero")
+	@Min(value=1, message="Valor deve ser maior que zero")
 	private Integer pautaId;
 	
 	public VotoDto() {}
 	
 	public VotoDto(OpcaoVoto descricao, Integer associadoId, Integer pautaId) {
-		super();
 		this.descricao = descricao;
 		this.associadoId = associadoId;
 		this.pautaId = pautaId;
