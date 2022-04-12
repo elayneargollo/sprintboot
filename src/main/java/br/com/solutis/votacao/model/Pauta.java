@@ -1,5 +1,6 @@
 package br.com.solutis.votacao.model;
 
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -9,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import br.com.solutis.votacao.model.enumeracao.Status;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,16 +21,14 @@ import lombok.Setter;
 @Entity @Table(name = "PAUTA")
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor @Builder
 public class Pauta {
-	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", nullable = false)
 	private Integer id;
-	
 	@Enumerated(EnumType.STRING)
 	private Status status;
-	
 	@OneToOne
 	private Sessao sessao;
+	public LocalDateTime dataAbertura;
 	
 	public Pauta() {}
 
@@ -37,11 +37,17 @@ public class Pauta {
 		this.id = id;
 		this.status = status;
 		this.sessao = sessao;
+		setDataAbertura(LocalDateTime.now());
 	}
 	
 	public Pauta(Status status, Sessao sessao) {
 		this.status = status;
 		this.sessao = sessao;
+		setDataAbertura(LocalDateTime.now());
+	}
+	
+	public void setDataAbertura(LocalDateTime dataAbertura) {
+		this.dataAbertura = dataAbertura;
 	}
 
 	public Integer getId() {

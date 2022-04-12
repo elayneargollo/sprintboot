@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,12 +31,6 @@ public class PautaController {
 	@Autowired
 	private IPautaService pautaService;
 	
-	@GetMapping("/v1.1/")
-	@ApiOperation(value="Retorna uma lista de pautas")
-	public ResponseEntity<List<Pauta>> GetAll() {
-		return ResponseEntity.ok(pautaService.GetAll());
-	}
-	
 	@GetMapping("/v1.0/")
 	@ApiOperation(value="Retorna uma paginação de pautas")
 	public ResponseEntity<Page<Pauta>> GetAllPage(@PageableDefault(sort="id", direction = Direction.ASC, page=0, size=10) Pageable paginacao) {
@@ -54,5 +49,17 @@ public class PautaController {
 		}
 		
 		return null;
+	}
+	
+	@PutMapping("/v1.0/")
+	@ApiOperation(value="Start pauta")
+	public ResponseEntity<String> StartPauta(Integer idPauta) {
+		return ResponseEntity.ok(pautaService.IniciarPauta(idPauta));
+	}
+	
+	@GetMapping("/v1.1/")
+	@ApiOperation(value="Retorna uma lista de pautas")
+	public ResponseEntity<List<Pauta>> GetAll() {
+		return ResponseEntity.ok(pautaService.GetAll());
 	}
 }

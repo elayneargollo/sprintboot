@@ -6,12 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import br.com.solutis.votacao.config.validacao.IVotacaoException;
-import br.com.solutis.votacao.config.validacao.VotacaoException;
 import br.com.solutis.votacao.exception.AssociadoNaoExiste;
 import br.com.solutis.votacao.exception.PautaNaoAbertaException;
 import br.com.solutis.votacao.exception.VotoNaoUnicoExcepiton;
+import br.com.solutis.votacao.model.Pauta;
 import br.com.solutis.votacao.model.Voto;
 import br.com.solutis.votacao.model.enumeracao.Status;
 import br.com.solutis.votacao.repository.IAssociadoRepository;
@@ -31,10 +29,9 @@ public class VotoService implements IVotoService{
 	
 	@Override
 	public Voto Add(Voto voto){
-		
-		System.out.println(voto.getPautaId());
-		var associadoEncontrado = associadoRepository.existsById(voto.getAssociadoId());
-		var pauta = pautaRepository.getById(voto.getPautaId());
+
+		boolean associadoEncontrado = associadoRepository.existsById(voto.getAssociadoId());
+		Pauta pauta = pautaRepository.getById(voto.getPautaId());
 		
 		if(!associadoEncontrado) 
 			throw new AssociadoNaoExiste("Associado não encontrado");
@@ -43,9 +40,15 @@ public class VotoService implements IVotoService{
 			throw new PautaNaoAbertaException("Para votar é necessário que a pauta esteja aberta !");
 		
 		if(!GetJaVotou(voto.getAssociadoId(), pauta.getId()))
-			throw new VotoNaoUnicoExcepiton("Votos únicos por pauta.");
+			throw new VotoNaoUnicoExcepiton("Votos devem ser únicos por pauta.");
 		
 		return votoRepository.save(voto);
+	}
+	
+	private Boolean GetJaVotou(Integer associadoId, Integer pautaId)
+	{
+		Optional<Voto> votoAssociado = votoRepository.findAll().stream().filter(x -> x.getAssociadoId() == associadoId && x.getPautaId() == pautaId).findFirst();
+		return votoAssociado.isEmpty();
 	}
 	
 	@Override
@@ -61,11 +64,5 @@ public class VotoService implements IVotoService{
 	@Override
 	public List<Voto> GetAll() {
 		return votoRepository.findAll();
-	}
-	
-	private Boolean GetJaVotou(Integer associadoId, Integer pautaId)
-	{
-		var votoAssociado = votoRepository.findAll().stream().filter(x -> x.getAssociadoId() == associadoId && x.getPautaId() == pautaId).findFirst();
-		return votoAssociado.isEmpty();
 	}
 }

@@ -29,7 +29,6 @@ public class Voto {
 	@Enumerated(EnumType.STRING)
 	private OpcaoVoto descricao;
 	
-	@Value("${LocalDateTime.now()}")
 	private LocalDateTime dataVotacao;
 	
 	private Integer associadoId;

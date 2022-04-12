@@ -19,13 +19,13 @@ import lombok.Setter;
 @Entity @Table(name = "SESSAO")	
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor @Builder
 public class Sessao {
+	public static final long TEMPO_PADRAO = 3600;
+	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", nullable = false)
 	private Integer id;
-	
 	@NotEmpty @NotBlank @NotNull @Size(min=10, max=255)
 	private String descricao;
-	
 	@NotEmpty @NotBlank @NotNull @Size(min=10, max=255)
 	private String tipo;
 	private long tempoDuracao;
@@ -75,7 +75,7 @@ public class Sessao {
 	
 	public void setTempoDuracao(long tempoDuracao) {
 		if(tempoDuracao == 0)
-			tempoDuracao = 60;
+			tempoDuracao = TEMPO_PADRAO;
 			
 		this.tempoDuracao = tempoDuracao;
 	}

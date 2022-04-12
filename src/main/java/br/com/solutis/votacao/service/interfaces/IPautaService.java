@@ -11,4 +11,5 @@ public interface IPautaService {
 	Page<Pauta> GetAll(Pageable paginacao);
 	List<Pauta> GetAll();
 	Pauta Add(Pauta pauta);
+	String IniciarPauta(Integer id);
 }

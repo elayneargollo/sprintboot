@@ -8,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import org.springframework.beans.factory.annotation.Value;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -25,15 +24,14 @@ public class Votacao {
 	@OneToOne
 	private Voto voto;
 	
-	@Value("${LocalDateTime.now()}")
 	private LocalDateTime dataVotacao;
 	
 	public Votacao() { }
 
-	public Votacao(Integer id, Voto voto, LocalDateTime dataVotacao) {
+	public Votacao(Integer id, Voto voto) {
 		this.id = id;
 		this.voto = voto;
-		this.dataVotacao = dataVotacao;
+		this.dataVotacao = LocalDateTime.now();
 	}
 
 	public Integer getId() {
