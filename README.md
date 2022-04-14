@@ -26,8 +26,9 @@ Apresentação e entrega do Desafio Reskilling Java.
 
 ## Links
 
-###### GitHub - 
+###### GitHub - https://github.com/elayneargollo/votacao_solutis
 ###### Swagger - http://localhost:8080/swagger-ui.html#/
+###### Coleção Postman - https://github.com/elayneargollo/votacao_solutis/blob/main/votacao.postman_collection.json
 
 ## Tarefa Principal
 
