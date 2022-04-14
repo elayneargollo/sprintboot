@@ -4,7 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import br.com.solutis.votacao.model.Associado;
+
+import br.com.solutis.votacao.model.entity.Associado;
 
 public interface IAssociadoService {
 	Optional<Associado> GetById(Integer id);

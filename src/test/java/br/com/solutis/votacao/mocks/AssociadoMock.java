@@ -3,8 +3,9 @@ package br.com.solutis.votacao.mocks;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import br.com.solutis.votacao.model.Associado;
+
 import br.com.solutis.votacao.model.dto.AssociadoDto;
+import br.com.solutis.votacao.model.entity.Associado;
 
 public final class AssociadoMock {
 

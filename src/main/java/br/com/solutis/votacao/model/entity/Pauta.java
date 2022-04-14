@@ -1,4 +1,4 @@
-package br.com.solutis.votacao.model;
+package br.com.solutis.votacao.model.entity;
 
 import java.time.LocalDateTime;
 import javax.persistence.Column;
@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
 import br.com.solutis.votacao.model.enumeracao.Status;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

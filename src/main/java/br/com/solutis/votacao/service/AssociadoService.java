@@ -6,7 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import br.com.solutis.votacao.model.Associado;
+
+import br.com.solutis.votacao.model.entity.Associado;
 import br.com.solutis.votacao.repository.IAssociadoRepository;
 import br.com.solutis.votacao.service.interfaces.IAssociadoService;
 

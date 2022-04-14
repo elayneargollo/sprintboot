@@ -4,7 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import br.com.solutis.votacao.model.Voto;
+
+import br.com.solutis.votacao.model.entity.Voto;
 
 public interface IVotoService {
 	Optional<Voto> GetById(Integer id);

@@ -1,4 +1,4 @@
-package br.com.solutis.votacao.model;
+package br.com.solutis.votacao.model.entity;
 
 import br.com.solutis.votacao.model.enumeracao.OpcaoVoto;
 

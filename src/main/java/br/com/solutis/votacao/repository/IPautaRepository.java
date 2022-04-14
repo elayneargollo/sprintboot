@@ -7,13 +7,13 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import br.com.solutis.votacao.model.Pauta;
+import br.com.solutis.votacao.model.entity.Pauta;
 import br.com.solutis.votacao.model.enumeracao.Status;
 
 public interface IPautaRepository extends JpaRepository<Pauta, Integer> {
 
 	@Modifying
 	@Transactional
-	@Query("update Pauta p set p.status = :status where p.id = :id")
+	@Query("UPDATE Pauta p SET p.status = :status WHERE p.id = :id")
 	void AlterarStatusPauta(@Param("status") Status status, @Param("id") Integer id);
 }

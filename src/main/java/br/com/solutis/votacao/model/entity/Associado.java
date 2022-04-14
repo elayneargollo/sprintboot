@@ -1,4 +1,4 @@
-package br.com.solutis.votacao.model;
+package br.com.solutis.votacao.model.entity;
 
 import java.util.Objects;
 import javax.persistence.*;

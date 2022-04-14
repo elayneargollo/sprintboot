@@ -1,13 +1,13 @@
 package br.com.solutis.votacao.config.mapper;
 
-import br.com.solutis.votacao.model.Associado;
-import br.com.solutis.votacao.model.Pauta;
-import br.com.solutis.votacao.model.Sessao;
-import br.com.solutis.votacao.model.Voto;
 import br.com.solutis.votacao.model.dto.AssociadoDto;
 import br.com.solutis.votacao.model.dto.PautaDto;
 import br.com.solutis.votacao.model.dto.SessaoDto;
 import br.com.solutis.votacao.model.dto.VotoDto;
+import br.com.solutis.votacao.model.entity.Associado;
+import br.com.solutis.votacao.model.entity.Pauta;
+import br.com.solutis.votacao.model.entity.Sessao;
+import br.com.solutis.votacao.model.entity.Voto;
 
 public class Mapper {
 
