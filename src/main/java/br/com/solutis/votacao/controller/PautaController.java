@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import br.com.solutis.votacao.config.mapper.Mapper;
 import br.com.solutis.votacao.model.Pauta;
+import br.com.solutis.votacao.model.ResultadoVotacao;
 import br.com.solutis.votacao.model.dto.PautaDto;
 import br.com.solutis.votacao.service.interfaces.IPautaService;
 import io.swagger.annotations.Api;
@@ -52,9 +53,15 @@ public class PautaController {
 	}
 	
 	@PutMapping("/v1.0/")
-	@ApiOperation(value="Start pauta")
-	public ResponseEntity<String> StartPauta(Integer idPauta) {
+	@ApiOperation(value="Abertura para votação de uma pauta")
+	public ResponseEntity<String> IniciarPauta(Integer idPauta) {
 		return ResponseEntity.ok(pautaService.IniciarPauta(idPauta));
+	}
+	
+	@GetMapping("/v1.0/ObterResultadoPauta")
+	@ApiOperation(value="Obter resultado de pauta")
+	public ResponseEntity<ResultadoVotacao> Obter(Integer idPauta) {
+		return ResponseEntity.ok(pautaService.ObterResultadoPorPauta(idPauta));
 	}
 	
 	@GetMapping("/v1.1/")
