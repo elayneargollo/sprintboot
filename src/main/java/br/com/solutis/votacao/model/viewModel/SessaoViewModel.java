@@ -1,34 +1,13 @@
-package br.com.solutis.votacao.model.entity;
+package br.com.solutis.votacao.model.viewModel;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Entity
-@Table(name = "SESSAO")
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-public class Sessao {
+public class SessaoViewModel {
 	public static final long TEMPO_PADRAO = 3600;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "native")
-	@Column(name = "id", nullable = false, unique = true)
 	private Integer id;
 	@NotEmpty
 	@NotBlank
@@ -42,10 +21,10 @@ public class Sessao {
 	private String tipo;
 	private long tempoDuracao;
 
-	public Sessao() {
+	public SessaoViewModel() {
 	}
 
-	public Sessao(Integer id, @NotEmpty @NotBlank @NotNull @Size(min = 10, max = 255) String descricao,
+	public SessaoViewModel(Integer id, @NotEmpty @NotBlank @NotNull @Size(min = 10, max = 255) String descricao,
 			long tempoDuracao, @Size(min = 10, max = 255) String tipo) {
 		this.id = id;
 		this.descricao = descricao;
@@ -53,7 +32,7 @@ public class Sessao {
 		setTempoDuracao(tempoDuracao);
 	}
 
-	public Sessao(@NotEmpty @NotBlank @NotNull @Size(min = 10, max = 255) String descricao, long tempoDuracao,
+	public SessaoViewModel(@NotEmpty @NotBlank @NotNull @Size(min = 10, max = 255) String descricao, long tempoDuracao,
 			@Size(min = 10, max = 255) String tipo) {
 		this.descricao = descricao;
 		this.tipo = tipo;
@@ -100,4 +79,5 @@ public class Sessao {
 		return "Sessao [id=" + id + ", descricao=" + descricao + ", tipo=" + tipo + ", tempoDuracao=" + tempoDuracao
 				+ "]";
 	}
+
 }

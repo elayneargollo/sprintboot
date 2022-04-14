@@ -1,34 +1,15 @@
-package br.com.solutis.votacao.model.entity;
+package br.com.solutis.votacao.model.viewModel;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import br.com.solutis.votacao.model.dto.AssociadoDto;
+import br.com.solutis.votacao.model.entity.Associado;
 import br.com.solutis.votacao.model.enumeracao.OpcaoVoto;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Entity
-@Table(name = "VOTO")
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-public class Voto {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "native")
-	@Column(name = "id", nullable = false, unique = true)
+public class VotoViewModel {
 	private Integer id;
 	@Enumerated(EnumType.STRING)
 	private OpcaoVoto descricao;
@@ -38,10 +19,10 @@ public class Voto {
 	@Column(name = "pautaId", nullable = false)
 	private Integer pautaId;
 
-	public Voto() {
+	public VotoViewModel() {
 	}
 
-	public Voto(Integer id, OpcaoVoto descricao, Integer associadoId, Integer pautaId) {
+	public VotoViewModel(Integer id, OpcaoVoto descricao, Integer associadoId, Integer pautaId) {
 		this.id = id;
 		this.descricao = descricao;
 		this.associadoId = associadoId;
@@ -49,7 +30,7 @@ public class Voto {
 		this.dataVotacao = LocalDateTime.now();
 	}
 
-	public Voto(OpcaoVoto descricao, Integer associadoId, Integer pautaId) {
+	public VotoViewModel(OpcaoVoto descricao, Integer associadoId, Integer pautaId) {
 		this.descricao = descricao;
 		this.associadoId = associadoId;
 		this.pautaId = pautaId;
@@ -103,28 +84,5 @@ public class Voto {
 
 	public Associado converterByAssociado(AssociadoDto associadoDto) {
 		return new Associado(associadoDto.getNome(), associadoDto.getEmail());
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Voto other = (Voto) obj;
-		return Objects.equals(associadoId, other.associadoId) && Objects.equals(dataVotacao, other.dataVotacao)
-				&& Objects.equals(descricao, other.descricao) && Objects.equals(id, other.id)
-				&& Objects.equals(pautaId, other.pautaId);
-	}
-
-	@Override
-	public String toString() {
-		return "Voto [id=" + id + ", descricao=" + descricao + ", dataVotacao=" + dataVotacao + ", associadoId="
-				+ associadoId + ", pautaId=" + pautaId + ", getId()=" + getId() + ", getDescricao()=" + getDescricao()
-				+ ", getDataVotacao()=" + getDataVotacao() + ", getAssociadoId()=" + getAssociadoId()
-				+ ", getPautaId()=" + getPautaId() + ", hashCode()=" + hashCode() + ", getClass()=" + getClass()
-				+ ", toString()=" + super.toString() + "]";
 	}
 }

@@ -1,5 +1,6 @@
 package br.com.solutis.votacao.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +16,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import br.com.solutis.votacao.config.mapper.Mapper;
+import br.com.solutis.votacao.config.mapper.PautaMapper;
 import br.com.solutis.votacao.model.dto.PautaDto;
 import br.com.solutis.votacao.model.entity.Pauta;
 import br.com.solutis.votacao.model.entity.ResultadoVotacao;
+import br.com.solutis.votacao.model.viewModel.PautaViewModel;
 import br.com.solutis.votacao.service.interfaces.IPautaService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -40,11 +42,14 @@ public class PautaController {
 	
 	@PostMapping("/v1.0/")
 	@ApiOperation(value="Persiste pauta no sistema")
-	public ResponseEntity<Pauta> Add(@RequestBody @Valid PautaDto pautaDto) {
-		Pauta pauta = Mapper.converterByPauta(pautaDto);
+	public ResponseEntity<PautaViewModel> Add(@RequestBody @Valid PautaDto pautaDto) {
+		Pauta pauta = PautaMapper.converterByPauta(pautaDto);
 		
 		try {
-			return ResponseEntity.ok(pautaService.Add(pauta));
+			
+			pauta = pautaService.Add(pauta);
+			return ResponseEntity.ok(PautaMapper.converterByPautaViewModel(pauta));
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -66,7 +71,13 @@ public class PautaController {
 		
 	@GetMapping("/v1.1/")
 	@ApiOperation(value="Retorna uma lista de pautas")
-	public ResponseEntity<List<Pauta>> GetAll() {
-		return ResponseEntity.ok(pautaService.GetAll());
+	public ResponseEntity<List<PautaViewModel>> GetAll() {
+		
+		var pautas = pautaService.GetAll();
+		
+		List<PautaViewModel> pautaViewModel = new ArrayList<PautaViewModel>();
+		pautas.forEach(pauta -> pautaViewModel.add(PautaMapper.converterByPautaViewModel(pauta)));
+		
+		return ResponseEntity.ok(pautaViewModel);
 	}
 }

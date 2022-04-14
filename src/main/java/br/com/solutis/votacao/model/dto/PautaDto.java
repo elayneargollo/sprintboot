@@ -5,11 +5,14 @@ import javax.persistence.Enumerated;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.*;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import br.com.solutis.votacao.model.enumeracao.Status;
 
 public class PautaDto {
 	@NotNull
 	@Enumerated(EnumType.STRING)
+	@JsonProperty("status")
 	private Status status;
 
 	@OneToOne

@@ -1,5 +1,6 @@
 package br.com.solutis.votacao.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import br.com.solutis.votacao.config.mapper.Mapper;
+import br.com.solutis.votacao.config.mapper.SessaoMapper;
 import br.com.solutis.votacao.model.dto.SessaoDto;
 import br.com.solutis.votacao.model.entity.Sessao;
+import br.com.solutis.votacao.model.viewModel.SessaoViewModel;
 import br.com.solutis.votacao.service.interfaces.ISessaoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -32,27 +34,34 @@ public class SessaoController {
 	
 	@GetMapping("/v1.1/")
 	@ApiOperation(value="Retorna uma lista de sessão")
-	public ResponseEntity<List<Sessao>> GetAll() {
-		return ResponseEntity.ok(sessaoService.GetAll());
+	public ResponseEntity<List<SessaoViewModel>> GetAll() {
+		
+		var sessoes = sessaoService.GetAll();
+		
+		List<SessaoViewModel> sessaoViewModel = new ArrayList<SessaoViewModel>();
+	    sessoes.forEach(sessao -> sessaoViewModel.add(SessaoMapper.converterBySessaoViewModel(sessao)));
+
+		return ResponseEntity.ok(sessaoViewModel);
 	}
 	
 	@GetMapping("/v1.0/")
 	@ApiOperation(value="Retorna uma paginação de sessões")
-	public ResponseEntity<Page<Sessao>> GetAllPage(@PageableDefault(sort="tipo", direction = Direction.ASC, page=0, size=10) Pageable paginacao) {
+	public ResponseEntity<Page<Sessao>> GetAllPage(@PageableDefault(sort="tipo", direction = Direction.ASC, page=0, size=10) Pageable paginacao) {	
 		return ResponseEntity.ok(sessaoService.GetAll(paginacao));
 	}
 	
 	@PostMapping("/v1.0/")
 	@ApiOperation(value="Persiste sessão no sistema")
-	public ResponseEntity<Sessao> Add(@RequestBody @Valid SessaoDto sessaoDto) {
-		Sessao sessao = Mapper.converterBySessao(sessaoDto);
+	public ResponseEntity<SessaoViewModel> Add(@RequestBody @Valid SessaoDto sessaoDto) {
+		Sessao sessao = SessaoMapper.converterBySessao(sessaoDto);
 		
 		try {
-			return ResponseEntity.ok(sessaoService.Add(sessao));
+			sessao = sessaoService.Add(sessao);
+			return ResponseEntity.ok(SessaoMapper.converterBySessaoViewModel(sessao));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		return null;
+		return ResponseEntity.ok(new SessaoViewModel());
 	}
 }

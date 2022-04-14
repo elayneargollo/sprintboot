@@ -9,8 +9,8 @@ import javax.validation.constraints.*;
 public class Associado {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "native")
+	@Column(name = "id", nullable = false, unique = true)
 	private Integer id;
 	
 	@NotEmpty @NotBlank @NotNull @Size(min=10, max=255) 

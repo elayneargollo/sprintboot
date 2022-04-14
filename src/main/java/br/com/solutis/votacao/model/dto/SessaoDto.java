@@ -5,18 +5,24 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class SessaoDto {
 	@NotEmpty
 	@NotBlank
 	@NotNull
 	@Size(min = 10, max = 255)
+	@JsonProperty("descricao")
 	private String descricao;
 
 	@NotEmpty
 	@NotBlank
 	@NotNull
 	@Size(min = 10, max = 255)
+	@JsonProperty("tipo")
 	private String tipo;
+	
+	@JsonProperty("tempoDuracao")
 	private long tempoDuracao;
 
 	public SessaoDto() {

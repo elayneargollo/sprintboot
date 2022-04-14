@@ -24,8 +24,8 @@ import lombok.Setter;
 @Builder
 public class Votacao {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "native")
+	@Column(name = "id", nullable = false, unique = true)
 	private Integer id;
 
 	@OneToOne
@@ -38,6 +38,11 @@ public class Votacao {
 
 	public Votacao(Integer id, Voto voto) {
 		this.id = id;
+		this.voto = voto;
+		this.dataVotacao = LocalDateTime.now();
+	}
+	
+	public Votacao(Voto voto) {
 		this.voto = voto;
 		this.dataVotacao = LocalDateTime.now();
 	}

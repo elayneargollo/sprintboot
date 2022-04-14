@@ -1,45 +1,23 @@
-package br.com.solutis.votacao.model.entity;
+package br.com.solutis.votacao.model.viewModel;
 
 import java.time.LocalDateTime;
-import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
 import br.com.solutis.votacao.model.enumeracao.Status;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Entity
-@Table(name = "PAUTA")
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-public class Pauta {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "native")
-	@Column(name = "id", nullable = false, unique = true)
+public class PautaViewModel {
 	private Integer id;
 	@Enumerated(EnumType.STRING)
 	private Status status;
 	@OneToOne
-	private Sessao sessao;
+	private SessaoViewModel sessao;
 	public LocalDateTime dataAbertura;
 
-	public Pauta() {
+	public PautaViewModel() {
 	}
 
-	public Pauta(Integer id, Status status, Sessao sessao) {
+	public PautaViewModel(Integer id, Status status, SessaoViewModel sessao) {
 		super();
 		this.id = id;
 		this.status = status;
@@ -47,7 +25,7 @@ public class Pauta {
 		setDataAbertura(LocalDateTime.now());
 	}
 
-	public Pauta(Status status, Sessao sessao) {
+	public PautaViewModel(Status status, SessaoViewModel sessao) {
 		this.status = status;
 		this.sessao = sessao;
 		setDataAbertura(LocalDateTime.now());
@@ -73,11 +51,11 @@ public class Pauta {
 		this.status = status;
 	}
 
-	public Sessao getSessao() {
+	public SessaoViewModel getSessao() {
 		return sessao;
 	}
 
-	public void setSessao(Sessao sessao) {
+	public void setSessao(SessaoViewModel sessao) {
 		this.sessao = sessao;
 	}
 

@@ -1,5 +1,6 @@
 package br.com.solutis.votacao.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import javax.validation.Valid;
@@ -11,9 +12,10 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import br.com.solutis.votacao.config.mapper.Mapper;
+import br.com.solutis.votacao.config.mapper.AssociadoMapper;
 import br.com.solutis.votacao.model.dto.AssociadoDto;
 import br.com.solutis.votacao.model.entity.Associado;
+import br.com.solutis.votacao.model.viewModel.AssociadoViewModel;
 import br.com.solutis.votacao.service.interfaces.IAssociadoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -35,26 +37,35 @@ public class AssociadoController {
 	
 	@GetMapping({"/v1.0/{id}", "/v1.1/{id}"})
 	@ApiOperation(value="Retorna um associado por id")
-	public ResponseEntity<Associado> getById(@PathVariable("id") Integer id) {
+	public ResponseEntity<AssociadoViewModel> getById(@PathVariable("id") Integer id) {
 
 		Optional<Associado> associado = associadoService.GetById(id);
 		
 		if(associado.isPresent())
-			return ResponseEntity.ok().body(associado.get());
+			return ResponseEntity.ok().body(AssociadoMapper.converterByAssociadoViewModel(associado.get()));
 			
 		 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 	
 	@GetMapping("/v1.1/")
 	@ApiOperation(value="Retorna uma lista de associados")
-	public ResponseEntity<List<Associado>> GetAll() {
-		return ResponseEntity.ok(associadoService.GetAll());
+	public ResponseEntity<List<AssociadoViewModel>> GetAll() {
+		
+		var associados = associadoService.GetAll();
+		
+		List<AssociadoViewModel> associadoViewModel = new ArrayList<AssociadoViewModel>();
+		associados.forEach(associado -> associadoViewModel.add(AssociadoMapper.converterByAssociadoViewModel(associado)));
+	    
+		return ResponseEntity.ok(associadoViewModel);
 	}
 	
 	@PostMapping("/v1.1/")
 	@ApiOperation(value="Cria um associado")
-	public ResponseEntity<Associado> Add(@RequestBody @Valid AssociadoDto associadoDto) {
-		Associado associado = Mapper.converterByAssociado(associadoDto);
-		return ResponseEntity.ok(associadoService.Add(associado));
+	public ResponseEntity<AssociadoViewModel> Add(@RequestBody @Valid AssociadoDto associadoDto) {
+		
+		Associado associado = AssociadoMapper.converterByAssociado(associadoDto);
+		associado = associadoService.Add(associado);
+
+		return ResponseEntity.ok(AssociadoMapper.converterByAssociadoViewModel(associado));
 	}
 }

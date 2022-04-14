@@ -3,16 +3,22 @@ package br.com.solutis.votacao.model.dto;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.validation.constraints.Min;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import br.com.solutis.votacao.model.enumeracao.OpcaoVoto;
 
 public class VotoDto {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonProperty("descricao")
 	private OpcaoVoto descricao;
 
 	@Min(value = 1, message = "Valor deve ser maior que zero")
+	@JsonProperty("associadoId")
 	private Integer associadoId;
 
 	@Min(value = 1, message = "Valor deve ser maior que zero")
+	@JsonProperty("pautaId")
 	private Integer pautaId;
 
 	public VotoDto() {

@@ -1,5 +1,6 @@
 package br.com.solutis.votacao.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import br.com.solutis.votacao.config.mapper.Mapper;
+import br.com.solutis.votacao.config.mapper.VotoMapper;
 import br.com.solutis.votacao.model.dto.VotoDto;
 import br.com.solutis.votacao.model.entity.Voto;
+import br.com.solutis.votacao.model.viewModel.VotoViewModel;
 import br.com.solutis.votacao.service.interfaces.IVotoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -32,8 +34,14 @@ public class VotoController {
 	
 	@GetMapping("/v1.1/")
 	@ApiOperation(value="Retorna uma lista de votos")
-	public ResponseEntity<List<Voto>> GetAll() {
-		return ResponseEntity.ok(votoService.GetAll());
+	public ResponseEntity<List<VotoViewModel>> GetAll() {
+		
+		var votos = votoService.GetAll();
+		
+		List<VotoViewModel> votoViewModel = new ArrayList<VotoViewModel>();
+		votos.forEach(voto -> votoViewModel.add(VotoMapper.converterByVotoViewModel(voto)));
+		
+		return ResponseEntity.ok(votoViewModel);
 	}
 	
 	@GetMapping("/v1.0/")
@@ -44,8 +52,11 @@ public class VotoController {
 	
 	@PostMapping("/v1.0/")
 	@ApiOperation(value="Persiste voto no sistema")
-	public ResponseEntity<Voto> Add(@RequestBody @Valid VotoDto votoDto) {
-		Voto voto = Mapper.ConverteParaVoto(votoDto);
-		return ResponseEntity.ok(votoService.Add(voto));
+	public ResponseEntity<VotoViewModel> Add(@RequestBody @Valid VotoDto votoDto) {
+		
+		Voto voto = VotoMapper.ConverteParaVoto(votoDto);
+		voto = votoService.Add(voto);
+		
+		return ResponseEntity.ok(VotoMapper.converterByVotoViewModel(voto));
 	}
 }

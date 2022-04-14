@@ -6,11 +6,14 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class AssociadoDto {
 	@NotEmpty
 	@NotBlank
 	@NotNull
 	@Size(min = 10, max = 255)
+	@JsonProperty("nome")
 	private String nome;
 
 	@NotEmpty
@@ -18,6 +21,7 @@ public class AssociadoDto {
 	@NotNull
 	@Email
 	@Size(min = 20, max = 255)
+	@JsonProperty("email")
 	private String email;
 
 	public AssociadoDto() {
