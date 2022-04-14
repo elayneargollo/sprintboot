@@ -96,10 +96,9 @@ public class PautaService implements IPautaService {
 	private ResultadoVotacao ObterResultadoVotacao(Integer idPauta) {
 		List<Voto> votosTotaisPauta = votoRepository.ObterVotosPorPauta(idPauta);
 
-		var quantidadeVotoPositivo = votosTotaisPauta.stream().filter(v -> v.getDescricao() == OpcaoVoto.SIM).toList()
-				.size();
-		var quantidadeVotoNegativo = votosTotaisPauta.stream().filter(v -> v.getDescricao() == OpcaoVoto.NAO).toList()
-				.size();
+		var quantidadeVotoPositivo = votosTotaisPauta.stream().filter(v -> v.getDescricao() == OpcaoVoto.SIM).toList().size();
+		var quantidadeVotoNegativo = votosTotaisPauta.stream().filter(v -> v.getDescricao() == OpcaoVoto.NAO).toList().size();
+		
 		var vencedor = quantidadeVotoPositivo > quantidadeVotoNegativo ? OpcaoVoto.SIM : OpcaoVoto.NAO;
 
 		ResultadoVotacao resultado = new ResultadoVotacao();
