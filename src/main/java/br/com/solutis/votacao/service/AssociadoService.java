@@ -11,13 +11,13 @@ import br.com.solutis.votacao.repository.IAssociadoRepository;
 import br.com.solutis.votacao.service.interfaces.IAssociadoService;
 
 @Service
-public class AssociadoService implements IAssociadoService{
+public class AssociadoService implements IAssociadoService {
 
 	@Autowired
 	IAssociadoRepository associadoRepository;
-	
-	public Optional<Associado> GetById(Integer id){
-        return associadoRepository.findById(id);
+
+	public Optional<Associado> GetById(Integer id) {
+		return associadoRepository.findById(id);
 	}
 
 	@Override

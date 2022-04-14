@@ -8,7 +8,10 @@ import br.com.solutis.votacao.model.Associado;
 
 public interface IAssociadoService {
 	Optional<Associado> GetById(Integer id);
+
 	Page<Associado> GetAll(Pageable paginacao);
+
 	List<Associado> GetAll();
+
 	Associado Add(Associado associado);
 }

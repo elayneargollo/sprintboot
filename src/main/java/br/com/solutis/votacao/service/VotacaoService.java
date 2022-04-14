@@ -9,7 +9,7 @@ import br.com.solutis.votacao.service.interfaces.IVotacaoService;
 import br.com.solutis.votacao.service.interfaces.IVotoService;
 
 @Service
-public class VotacaoService implements IVotacaoService{
+public class VotacaoService implements IVotacaoService {
 
 	@Autowired
 	IVotacaoRepository votacaoRepository;
@@ -20,7 +20,7 @@ public class VotacaoService implements IVotacaoService{
 	public Votacao Add(Votacao votacao) {
 		Voto voto = votoService.Add(votacao.getVoto());
 		votacao.setVoto(voto);
-		
+
 		return votacaoRepository.save(votacao);
 	}
 }

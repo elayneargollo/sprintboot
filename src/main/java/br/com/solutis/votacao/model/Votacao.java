@@ -14,19 +14,26 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity @Table(name = "VOTACAO")
-@Getter @Setter @AllArgsConstructor @NoArgsConstructor @Builder
+@Entity
+@Table(name = "VOTACAO")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Votacao {
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", nullable = false)
 	private Integer id;
-	
+
 	@OneToOne
 	private Voto voto;
-	
+
 	private LocalDateTime dataVotacao;
-	
-	public Votacao() { }
+
+	public Votacao() {
+	}
 
 	public Votacao(Integer id, Voto voto) {
 		this.id = id;

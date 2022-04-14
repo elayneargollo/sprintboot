@@ -8,7 +8,10 @@ import br.com.solutis.votacao.model.Voto;
 
 public interface IVotoService {
 	Optional<Voto> GetById(Integer id);
+
 	Page<Voto> GetAll(Pageable paginacao);
+
 	List<Voto> GetAll();
+
 	Voto Add(Voto voto);
 }

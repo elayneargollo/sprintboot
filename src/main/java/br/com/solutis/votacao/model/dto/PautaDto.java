@@ -11,11 +11,12 @@ public class PautaDto {
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	private Status status;
-	
+
 	@OneToOne
 	private SessaoDto sessaoDto;
-	
-	public PautaDto() {}
+
+	public PautaDto() {
+	}
 
 	public PautaDto(Status status, SessaoDto sessaoDto) {
 		this.status = status;

@@ -7,13 +7,21 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class AssociadoDto {
-	@NotEmpty @NotBlank @NotNull @Size(min=10, max=255) 
+	@NotEmpty
+	@NotBlank
+	@NotNull
+	@Size(min = 10, max = 255)
 	private String nome;
-	
-	@NotEmpty @NotBlank @NotNull @Email @Size(min=20, max=255)
+
+	@NotEmpty
+	@NotBlank
+	@NotNull
+	@Email
+	@Size(min = 20, max = 255)
 	private String email;
-	
-	public AssociadoDto() {}
+
+	public AssociadoDto() {
+	}
 
 	public AssociadoDto(String nome, String email) {
 		super();

@@ -10,5 +10,4 @@ public class AssociadoNaoExiste extends ResponseStatusException{
 	public AssociadoNaoExiste(String mensagem) {
 		super(HttpStatus.NOT_FOUND, mensagem);
 	}
-
 }

@@ -9,9 +9,14 @@ import br.com.solutis.votacao.model.ResultadoVotacao;
 
 public interface IPautaService {
 	Optional<Pauta> GetById(Integer id);
+
 	Page<Pauta> GetAll(Pageable paginacao);
+
 	List<Pauta> GetAll();
+
 	Pauta Add(Pauta pauta);
+
 	String IniciarPauta(Integer id);
+
 	ResultadoVotacao ObterResultadoPorPauta(Integer id);
 }

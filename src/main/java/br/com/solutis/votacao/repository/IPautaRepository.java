@@ -11,10 +11,9 @@ import br.com.solutis.votacao.model.Pauta;
 import br.com.solutis.votacao.model.enumeracao.Status;
 
 public interface IPautaRepository extends JpaRepository<Pauta, Integer> {
-	
-	@Modifying
-    @Transactional
-    @Query("update Pauta p set p.status = :status where p.id = :id")
-    void AlterarStatusPauta(@Param("status") Status status, @Param("id") Integer id);
 
+	@Modifying
+	@Transactional
+	@Query("update Pauta p set p.status = :status where p.id = :id")
+	void AlterarStatusPauta(@Param("status") Status status, @Param("id") Integer id);
 }

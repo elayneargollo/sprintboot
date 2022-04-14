@@ -9,9 +9,9 @@ import org.springframework.data.repository.query.Param;
 import br.com.solutis.votacao.model.Voto;
 
 public interface IVotoRepository extends JpaRepository<Voto, Integer> {
-	
+
 	@Modifying
-    @Transactional
-    @Query(value = "SELECT * FROM VOTO v WHERE v.pauta_Id = :idPauta", nativeQuery = true)
-	List<Voto> ObterVotosPorPauta(@Param("idPauta")Integer idPauta);
+	@Transactional
+	@Query(value = "SELECT * FROM VOTO v WHERE v.pauta_Id = :idPauta", nativeQuery = true)
+	List<Voto> ObterVotosPorPauta(@Param("idPauta") Integer idPauta);
 }

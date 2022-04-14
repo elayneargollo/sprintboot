@@ -13,8 +13,8 @@ import br.com.solutis.votacao.repository.ISessaoRepository;
 import br.com.solutis.votacao.service.interfaces.ISessaoService;
 
 @Service
-public class SessaoService implements ISessaoService{
-	
+public class SessaoService implements ISessaoService {
+
 	@Autowired
 	ISessaoRepository sesaoRepository;
 	@Autowired

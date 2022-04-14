@@ -8,7 +8,10 @@ import br.com.solutis.votacao.model.Sessao;
 
 public interface ISessaoService {
 	Optional<Sessao> GetById(Integer id);
+
 	Page<Sessao> GetAll(Pageable paginacao);
+
 	List<Sessao> GetAll();
+
 	Sessao Add(Sessao sessao) throws Exception;
 }

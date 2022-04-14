@@ -2,8 +2,6 @@ package br.com.solutis.votacao.service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -30,15 +28,14 @@ public class PautaService implements IPautaService {
 	@Autowired
 	IVotoRepository votoRepository;
 
-
 	@Override
 	public Pauta Add(Pauta pauta) {
 		Sessao sessao = sessaoRepository.save(pauta.getSessao());
 		pauta.getSessao().setId(sessao.getId());
-		
+
 		Pauta pautaSalva = pautaRepository.save(pauta);
-		
-		if(pauta.getStatus() == Status.ABERTO)
+
+		if (pauta.getStatus() == Status.ABERTO)
 			fecharVotacao(pautaSalva.getId(), sessao.getTempoDuracao());
 
 		return pautaSalva;
@@ -66,54 +63,53 @@ public class PautaService implements IPautaService {
 
 		if (pauta.getStatus() == Status.ABERTO || pauta.getStatus() == Status.FECHADO)
 			throw new PautaNaoAbertaException("Pauta encontra-se aberta ou fechada !");
-		
+
 		pautaRepository.AlterarStatusPauta(Status.ABERTO, id);
 		fecharVotacao(id, pauta.getSessao().getTempoDuracao());
-		
+
 		return "Pauta aberta !";
 	}
-	
-	public void fecharVotacao(Integer id, long duracao)
-	{
-		 new Thread(() -> {
-             try{
-            	 Thread.sleep(duracao);
-                 pautaRepository.AlterarStatusPauta(Status.FECHADO, id);
-             } catch (InterruptedException e) {
-                 Thread.currentThread().interrupt();
-             }
-         }).start();
+
+	public void fecharVotacao(Integer id, long duracao) {
+		new Thread(() -> {
+			try {
+				Thread.sleep(duracao);
+				pautaRepository.AlterarStatusPauta(Status.FECHADO, id);
+			} catch (InterruptedException e) {
+				Thread.currentThread().interrupt();
+			}
+		}).start();
 	}
 
 	@Override
 	public ResultadoVotacao ObterResultadoPorPauta(Integer id) {
-		
+
 		Pauta pauta = pautaRepository.getById(id);
 
-		if (pauta.getStatus() == Status.ABERTO || pauta.getStatus() == Status.CRIADO)
-		{
+		if (pauta.getStatus() == Status.ABERTO || pauta.getStatus() == Status.CRIADO) {
 			pautaRepository.AlterarStatusPauta(Status.FECHADO, id);
 		}
-		
+
 		return ObterResultadoVotacao(id);
 	}
-	
-	private ResultadoVotacao ObterResultadoVotacao(Integer idPauta)
-	{
+
+	private ResultadoVotacao ObterResultadoVotacao(Integer idPauta) {
 		List<Voto> votosTotaisPauta = votoRepository.ObterVotosPorPauta(idPauta);
-		
-		var quantidadeVotoPositivo = votosTotaisPauta.stream().filter(v -> v.getDescricao() == OpcaoVoto.SIM).toList().size();
-		var quantidadeVotoNegativo = votosTotaisPauta.stream().filter(v -> v.getDescricao() == OpcaoVoto.NAO).toList().size();
+
+		var quantidadeVotoPositivo = votosTotaisPauta.stream().filter(v -> v.getDescricao() == OpcaoVoto.SIM).toList()
+				.size();
+		var quantidadeVotoNegativo = votosTotaisPauta.stream().filter(v -> v.getDescricao() == OpcaoVoto.NAO).toList()
+				.size();
 		var vencedor = quantidadeVotoPositivo > quantidadeVotoNegativo ? OpcaoVoto.SIM : OpcaoVoto.NAO;
- 
+
 		ResultadoVotacao resultado = new ResultadoVotacao();
-		
-		resultado.setPercentualVotoNegativo((quantidadeVotoNegativo*100) / votosTotaisPauta.size());
-		resultado.setPercentualVotoPositivo((quantidadeVotoPositivo*100) / votosTotaisPauta.size());
+
+		resultado.setPercentualVotoNegativo((quantidadeVotoNegativo * 100) / votosTotaisPauta.size());
+		resultado.setPercentualVotoPositivo((quantidadeVotoPositivo * 100) / votosTotaisPauta.size());
 		resultado.setQuantidadeVotoNegativo(quantidadeVotoNegativo);
 		resultado.setQuantidadeVotoPositivo(quantidadeVotoPositivo);
 		resultado.setVencedor(vencedor);
-		
+
 		return resultado;
 	}
 }

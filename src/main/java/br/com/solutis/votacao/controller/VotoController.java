@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import br.com.solutis.votacao.config.mapper.Mapper;
 import br.com.solutis.votacao.model.Voto;
 import br.com.solutis.votacao.model.dto.VotoDto;

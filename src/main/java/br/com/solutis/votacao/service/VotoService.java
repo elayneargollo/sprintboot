@@ -18,7 +18,7 @@ import br.com.solutis.votacao.repository.IVotoRepository;
 import br.com.solutis.votacao.service.interfaces.IVotoService;
 
 @Service
-public class VotoService implements IVotoService{
+public class VotoService implements IVotoService {
 
 	@Autowired
 	IVotoRepository votoRepository;
@@ -26,31 +26,31 @@ public class VotoService implements IVotoService{
 	IAssociadoRepository associadoRepository;
 	@Autowired
 	IPautaRepository pautaRepository;
-	
+
 	@Override
-	public Voto Add(Voto voto){
+	public Voto Add(Voto voto) {
 
 		boolean associadoEncontrado = associadoRepository.existsById(voto.getAssociadoId());
 		Pauta pauta = pautaRepository.getById(voto.getPautaId());
-		
-		if(!associadoEncontrado) 
+
+		if (!associadoEncontrado)
 			throw new AssociadoNaoExiste("Associado não encontrado");
-		
-		if(pauta.getStatus() != (Status.ABERTO))
+
+		if (pauta.getStatus() != (Status.ABERTO))
 			throw new PautaNaoAbertaException("Para votar é necessário que a pauta esteja aberta !");
-		
-		if(!GetJaVotou(voto.getAssociadoId(), pauta.getId()))
+
+		if (!GetJaVotou(voto.getAssociadoId(), pauta.getId()))
 			throw new VotoNaoUnicoExcepiton("Votos devem ser únicos por pauta.");
-		
+
 		return votoRepository.save(voto);
 	}
-	
-	private Boolean GetJaVotou(Integer associadoId, Integer pautaId)
-	{
-		Optional<Voto> votoAssociado = votoRepository.findAll().stream().filter(x -> x.getAssociadoId() == associadoId && x.getPautaId() == pautaId).findFirst();
+
+	private Boolean GetJaVotou(Integer associadoId, Integer pautaId) {
+		Optional<Voto> votoAssociado = votoRepository.findAll().stream()
+				.filter(x -> x.getAssociadoId() == associadoId && x.getPautaId() == pautaId).findFirst();
 		return votoAssociado.isEmpty();
 	}
-	
+
 	@Override
 	public Optional<Voto> GetById(Integer id) {
 		return votoRepository.findById(id);

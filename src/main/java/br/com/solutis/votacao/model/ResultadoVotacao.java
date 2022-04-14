@@ -8,9 +8,10 @@ public class ResultadoVotacao {
 	public long quantidadeVotoPositivo;
 	public long percentualVotoNegativo;
 	public long percentualVotoPositivo;
-	
-	public ResultadoVotacao() { };
-	
+
+	public ResultadoVotacao() {
+	};
+
 	public ResultadoVotacao(OpcaoVoto vencedor, long quantidadeVotoNegativo, long quantidadeVotoPositivo,
 			long percentualVotoNegativo, long percentualVotoPositivo) {
 		super();
@@ -59,5 +60,5 @@ public class ResultadoVotacao {
 
 	public void setPercentualVotoPositivo(long percentualVotoPositivo) {
 		this.percentualVotoPositivo = percentualVotoPositivo;
-	}	
+	}
 }

@@ -63,7 +63,7 @@ public class PautaController {
 	public ResponseEntity<ResultadoVotacao> Obter(Integer idPauta) {
 		return ResponseEntity.ok(pautaService.ObterResultadoPorPauta(idPauta));
 	}
-	
+		
 	@GetMapping("/v1.1/")
 	@ApiOperation(value="Retorna uma lista de pautas")
 	public ResponseEntity<List<Pauta>> GetAll() {
