@@ -20,9 +20,21 @@ Apresentação e entrega do Desafio Reskilling Java.
 
 ## Execução
 
-1. Clonar repositório git 
+1. Clonar repositório git utilizando o comando:
 
-      https://github.com/elayneargollo/votacao_solutis.git
+      1.1 git clone https://github.com/elayneargollo/votacao_solutis.git
+      
+2. Abra o Eclipse e importe o projeto:
+ 
+      2.1 File > Import > Maven > Existing Maven Projects
+      
+      2.2 Indique o caminho do arquivo e selecione "Finish"
+
+3. Instale/atualizr as dependências do Maven 
+4. Execute o programa 
+5. Acesse o endereço para o software :
+
+   5.1 localhost:8080
 
 ## Links
 
