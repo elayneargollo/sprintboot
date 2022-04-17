@@ -22,17 +22,25 @@ Apresentação e entrega do Desafio Reskilling Java.
 
 1. Clonar repositório git utilizando o comando:
 
-      1.1 git clone https://github.com/elayneargollo/votacao_solutis.git
+         - git clone https://github.com/elayneargollo/votacao_solutis.git
       
 2. Abra o Eclipse e importe o projeto:
  
-      2.1 File > Import > Maven > Existing Maven Projects
-      
-      2.2 Indique o caminho do arquivo e selecione "Finish"
+         - File > Import > Maven > Existing Maven Projects
+         - Indique o caminho do arquivo e selecione "Finish"
 
 3. Instale/atualize as dependências do Maven 
+
+         - Selecione o projeto, clique com o botão direito, selecione Maven > Update Maven Project > ok
+      
 4. Execute o programa 
-5. Acesse a API em https://localhost:8080 ou utilize o swagger http://localhost:8080/swagger-ui.html#/
+
+         - votacao > src/main/java > votacao > VotacaoApplication.java
+         - clique em Run VotacaoApplication
+  
+5. Acesse a API
+
+         - https://localhost:8080 ou utilize o swagger http://localhost:8080/swagger-ui.html#/
 
 ## Links
 
