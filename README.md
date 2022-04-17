@@ -32,12 +32,12 @@ Apresentação e entrega do Desafio Reskilling Java.
 
 3. Instale/atualize as dependências do Maven 
 
-         - Selecione o projeto, clique com o botão direito, selecione Maven > Update Maven Project > ok
+         - Selecione o projeto, clique com o botão direito do mouse, selecione Maven > Update Maven Project > ok
       
 4. Execute o programa 
 
-         - votacao > src/main/java > votacao > VotacaoApplication.java
-         - clique em Run VotacaoApplication
+         - Duplo clique em votacao > src/main/java > votacao > VotacaoApplication.java
+         - Clique em Run VotacaoApplication
   
 5. Acesse a API
 
