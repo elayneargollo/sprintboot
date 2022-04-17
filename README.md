@@ -32,9 +32,7 @@ Apresentação e entrega do Desafio Reskilling Java.
 
 3. Instale/atualizr as dependências do Maven 
 4. Execute o programa 
-5. Acesse o endereço para o software :
-
-   5.1 localhost:8080
+5. Acesse a API em https://localhost:8080 ou utilize o swagger http://localhost:8080/swagger-ui.html#/
 
 ## Links
 
