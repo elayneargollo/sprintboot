@@ -8,7 +8,8 @@ Apresentação e entrega do Desafio Reskilling Java.
 - [Execução](#execução)
 - [Links](#links)
 - [Tarefa Principal](#tarefa-principal)
-
+- [Tarefa Bônus](#tarefa-bônus)
+- 
 ## Pré-requisitos
 
 É necessário que você tenha instalado em sua máquina:
@@ -47,7 +48,6 @@ Apresentação e entrega do Desafio Reskilling Java.
 ###### GitHub - https://github.com/elayneargollo/votacao_solutis
 ###### Swagger - http://localhost:8080/swagger-ui.html#/
 ###### Coleção Postman - https://github.com/elayneargollo/votacao_solutis/blob/main/votacao.postman_collection.json
-###### Documentação do projeto e coleção postman - https://github.com/elayneargollo/votacao_solutis_doc
 
 ## Tarefa Principal
 
@@ -80,6 +80,15 @@ Em uma cooperativa, cada associado possui um voto e as decisões são tomadas at
        - Utilize Swagger para documentar sua API.
        - Disponibilize uma coleção do Postman com todos endpoints.
        - Se utilizar um banco de dados diferente do H2, um dockerfile deve ser disponibilizado para o banco de dados.
+
+## Tarefa Bônus
+
+- Tarefa Bônus 1 - Integração com sistemas externos (GET: https://cpf-api-almfelipe.herokuapp.com/cpf/12345678901)
+- Tarefa Bônus 2 - Contabilização automática (A rotina de contabilização deve ser executada a cada minuto)
+- Tarefa Bônus 3 - Mensageria e filas (Kafka, RebbitMQ ou qualquer outra)
+- Tarefa Bônus 4 - Hospede sua API na nuven (Free Tier AWS, Heroku ou outro)
+- Tarefa Bônus 5 - Análise de qualidade do código (Sonarqube)
+- Tarefa Bônus 6 - Versionamento da API
 
 ### Autora
 
