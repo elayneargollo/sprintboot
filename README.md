@@ -9,7 +9,7 @@ Apresentação e entrega do Desafio Reskilling Java.
 - [Links](#links)
 - [Tarefa Principal](#tarefa-principal)
 - [Tarefa Bônus](#tarefa-bônus)
-- 
+
 ## Pré-requisitos
 
 É necessário que você tenha instalado em sua máquina:
