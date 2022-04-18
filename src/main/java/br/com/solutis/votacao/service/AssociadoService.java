@@ -17,11 +17,9 @@ public class AssociadoService implements IAssociadoService {
 
 	@Autowired
 	IAssociadoRepository associadoRepository;
-	
 	Logger logger = Logger.getLogger(AssociadoService.class.getName());
 
 	public Optional<Associado> GetById(Integer id) {
-		
 		logger.info("Método GetById com id: " +id);
 		return associadoRepository.findById(id);
 	}

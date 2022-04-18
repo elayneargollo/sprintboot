@@ -1,4 +1,4 @@
-package br.com.solutis.votacao.service;
+package br.com.solutis.votacao.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
