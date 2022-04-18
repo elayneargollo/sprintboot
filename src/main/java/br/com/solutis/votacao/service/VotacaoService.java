@@ -1,5 +1,7 @@
 package br.com.solutis.votacao.service;
 
+import java.util.logging.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +18,12 @@ public class VotacaoService implements IVotacaoService {
 	IVotacaoRepository votacaoRepository;
 	@Autowired
 	IVotoService votoService;
+	Logger logger = Logger.getLogger(VotacaoService.class.getName());
 
 	@Override
 	public Votacao Add(Votacao votacao) {
+		logger.info("Método Add");
+		
 		Voto voto = votoService.Add(votacao.getVoto());
 		votacao.setVoto(voto);
 
