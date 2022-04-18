@@ -37,7 +37,7 @@ class AssociadorControllerTest {
 	private final String BASE_URL = "/api/associado/";
 
 	@Test
-	public void GetById() throws Exception {
+	void GetById() throws Exception {
 
 		Associado associadoMock = AssociadoMock.GetAssociado().get();
 
@@ -55,7 +55,7 @@ class AssociadorControllerTest {
 	}
 
 	@Test
-	public void GetAll() throws Exception {
+	void GetAll() throws Exception {
 
 		List<Associado> associadosMock = AssociadoMock.GetAssociados();
 
@@ -72,7 +72,7 @@ class AssociadorControllerTest {
 	}
 
 	@Test
-	public void GetAllv11() throws Exception {
+	void GetAllv11() throws Exception {
 
 		List<Associado> associadosMock = AssociadoMock.GetAssociados();
 
@@ -89,12 +89,12 @@ class AssociadorControllerTest {
 	}
 
 	@Test
-	public void GetById_404() throws Exception {
+	void GetById_404() throws Exception {
 		mock.perform(get(BASE_URL + "v1.0" + "/2")).andExpect(status().isNotFound());
 	}
 
 	@Test
-	public void GetAdd() throws Exception {
+	void GetAdd() throws Exception {
 
 		AssociadoDto associadoDtoMock = AssociadoMock.GetAssociadoDto();
 		Associado associadoMock = AssociadoMapper.converterByAssociado(associadoDtoMock);

@@ -35,7 +35,7 @@ class SessaoControllerTest {
 	private final String BASE_URL = "/api/sessao/";
 
 	@Test
-	public void GetById() throws Exception {
+	void GetById() throws Exception {
 
 		Optional<Sessao> sessaoMock = Optional.of(SessaoMock.ObterSessao());
 
@@ -50,7 +50,7 @@ class SessaoControllerTest {
 	}
 
 	@Test
-	public void GetAll() throws Exception {
+	void GetAll() throws Exception {
 
 		List<Sessao> sessaosMock = SessaoMock.ObterSessoes();
 
@@ -67,7 +67,7 @@ class SessaoControllerTest {
 	}
 
 	@Test
-	public void GetAllv11() throws Exception {
+	void GetAllv11() throws Exception {
 
 		List<Sessao> sessaosMock = SessaoMock.ObterSessoes();
 
@@ -84,12 +84,12 @@ class SessaoControllerTest {
 	}
 
 	@Test
-	public void GetById_404() throws Exception {
+	void GetById_404() throws Exception {
 		mock.perform(get(BASE_URL + "v1.0" + "/2")).andExpect(status().isNotFound());
 	}
 
 	@Test
-	public void GetAdd() throws Exception {
+	void GetAdd() throws Exception {
 
 		Sessao sessaoMock = SessaoMock.ObterSessao();
 		

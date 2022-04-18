@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.data.domain.Pageable;
 import org.springframework.test.web.servlet.MockMvc;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import br.com.solutis.votacao.controller.VotoController;
@@ -33,7 +32,7 @@ class VotoControllerTest {
 	private final String BASE_URL = "/api/voto/";
 	
 	@Test
-	public void GetAllv11() throws Exception {
+	void GetAllv11() throws Exception {
 
 		List<Voto> votosMock = VotoMock.ObterVotos();
 

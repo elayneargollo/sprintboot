@@ -31,7 +31,7 @@ class VotacaoControllerTest {
 	private final String BASE_URL = "/api/votacao/";
 
 	@Test
-	public void GetAdd() throws Exception {
+	void GetAdd() throws Exception {
 
 		Votacao votacaoMock = VotacaoMock.ObterVotacao();
 		

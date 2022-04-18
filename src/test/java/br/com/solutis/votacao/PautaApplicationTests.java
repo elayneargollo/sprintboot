@@ -35,7 +35,7 @@ class PautaControllerTest {
 	private final String BASE_URL = "/api/pauta/";
 
 	@Test
-	public void GetById() throws Exception {
+	void GetById() throws Exception {
 
 		Optional<Pauta> pautaMock = PautaMock.ObterPauta();
 
@@ -50,7 +50,7 @@ class PautaControllerTest {
 	}
 
 	@Test
-	public void GetAll() throws Exception {
+	void GetAll() throws Exception {
 
 		List<Pauta> pautasMock = PautaMock.ObterPautas();
 
@@ -67,7 +67,7 @@ class PautaControllerTest {
 	}
 
 	@Test
-	public void GetAllv11() throws Exception {
+	void GetAllv11() throws Exception {
 
 		List<Pauta> pautasMock = PautaMock.ObterPautas();
 
@@ -84,12 +84,12 @@ class PautaControllerTest {
 	}
 
 	@Test
-	public void GetById_404() throws Exception {
+	void GetById_404() throws Exception {
 		mock.perform(get(BASE_URL + "v1.0" + "/2")).andExpect(status().isNotFound());
 	}
 
 	@Test
-	public void GetAdd() throws Exception {
+	void GetAdd() throws Exception {
 
 		Optional<Pauta> pautaMock = PautaMock.ObterPauta();
 		
@@ -104,7 +104,7 @@ class PautaControllerTest {
 	}
 	
 	@Test
-	public void IniciarPauta() throws Exception {
+	void IniciarPauta() throws Exception {
 
 		Optional<Pauta> pautaMock = PautaMock.ObterPauta();
 		
