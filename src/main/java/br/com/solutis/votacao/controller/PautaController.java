@@ -75,7 +75,7 @@ public class PautaController {
 		
 		var pautas = pautaService.getAll();
 		
-		List<PautaViewModel> pautaViewModel = new ArrayList<PautaViewModel>();
+		List<PautaViewModel> pautaViewModel = new ArrayList<>();
 		pautas.forEach(pauta -> pautaViewModel.add(PautaMapper.converterByPautaViewModel(pauta)));
 		
 		return ResponseEntity.ok(pautaViewModel);

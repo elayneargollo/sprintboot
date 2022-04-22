@@ -53,9 +53,4 @@ public class AssociadoViewModel {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	@Override
-	public int hashCode() {
-		return Objects.hash(email, id, nome);
-	}
 }

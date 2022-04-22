@@ -35,21 +35,6 @@ class SessaoControllerTest {
 	private final String BASE_URL = "/api/sessao/";
 
 	@Test
-	void GetById() throws Exception {
-
-		Optional<Sessao> sessaoMock = Optional.of(SessaoMock.ObterSessao());
-
-		when(sessaoService.getById(sessaoMock.get().getId())).thenReturn(sessaoMock);
-
-		mock.perform(get(BASE_URL + "v1.0/" + "1").contentType("application/json")
-				.content(objectMapper.writeValueAsString(sessaoMock)));
-
-		Optional<Sessao> sessaoReturn = sessaoService.getById(sessaoMock.get().getId());
-
-		assertNotNull(sessaoReturn.toString());
-	}
-
-	@Test
 	void GetAll() throws Exception {
 
 		List<Sessao> sessaosMock = SessaoMock.ObterSessoes();
@@ -83,10 +68,6 @@ class SessaoControllerTest {
 		assertThat(sessaosReturn.size()).hasSameClassAs(sessaosMock.size());
 	}
 
-	@Test
-	void GetById_404() throws Exception {
-		mock.perform(get(BASE_URL + "v1.0" + "/2")).andExpect(status().isNotFound());
-	}
 
 	@Test
 	void GetAdd() throws Exception {

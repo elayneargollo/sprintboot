@@ -4,37 +4,43 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import br.com.solutis.votacao.config.mapper.AssociadoMapper;
 import br.com.solutis.votacao.controller.AssociadoController;
 import br.com.solutis.votacao.mocks.AssociadoMock;
 import br.com.solutis.votacao.model.dto.AssociadoDto;
 import br.com.solutis.votacao.model.entity.Associado;
+import br.com.solutis.votacao.repository.ServiceCpf;
 import br.com.solutis.votacao.service.interfaces.IAssociadoService;
-import org.springframework.http.MediaType;
 import java.util.List;
 import java.util.Optional;
 import static org.mockito.Mockito.when;
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
 
 @WebMvcTest(controllers = AssociadoController.class)
-class AssociadorControllerTest {
+class AssociadoApplicationTests {
 
 	@Autowired
 	private MockMvc mock;
 
 	@MockBean
 	private IAssociadoService associadoService;
+	
+	@MockBean
+	private ServiceCpf serviceCpf;
 
 	@Autowired
 	private ObjectMapper objectMapper;
 
 	private final String BASE_URL = "/api/associado/";
+	
 
 	@Test
 	void GetById() throws Exception {

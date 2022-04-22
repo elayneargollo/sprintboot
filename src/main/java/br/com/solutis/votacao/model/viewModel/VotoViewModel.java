@@ -77,11 +77,6 @@ public class VotoViewModel {
 		this.pautaId = pautaId;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(associadoId, dataVotacao, descricao, id, pautaId);
-	}
-
 	public Associado converterByAssociado(AssociadoDto associadoDto) {
 		return new Associado(associadoDto.getNome(), associadoDto.getEmail());
 	}

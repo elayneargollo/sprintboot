@@ -3,15 +3,11 @@ package br.com.solutis.votacao.model.entity;
 import java.util.Objects;
 import javax.persistence.*;
 import javax.validation.constraints.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 
 @Entity
 @Table(name = "ASSOCIADO")
 @Data
-@AllArgsConstructor
-@Builder
 public class Associado {
 
 	@Id

@@ -38,7 +38,7 @@ public class VotoController {
 		
 		var votos = votoService.getAll();
 		
-		List<VotoViewModel> votoViewModel = new ArrayList<VotoViewModel>();
+		List<VotoViewModel> votoViewModel = new ArrayList<>();
 		votos.forEach(voto -> votoViewModel.add(VotoMapper.converterByVotoViewModel(voto)));
 		
 		return ResponseEntity.ok(votoViewModel);

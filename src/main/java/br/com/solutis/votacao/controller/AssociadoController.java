@@ -65,7 +65,7 @@ public class AssociadoController {
 		
 		var associados = associadoService.getAll();
 		
-		List<AssociadoViewModel> associadoViewModel = new ArrayList<AssociadoViewModel>();
+		List<AssociadoViewModel> associadoViewModel = new ArrayList<>();
 		associados.forEach(associado -> associadoViewModel.add(AssociadoMapper.converterByAssociadoViewModel(associado)));
 	    
 		return ResponseEntity.ok(associadoViewModel);

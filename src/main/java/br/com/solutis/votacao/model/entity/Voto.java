@@ -12,19 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import br.com.solutis.votacao.model.dto.AssociadoDto;
 import br.com.solutis.votacao.model.enumeracao.OpcaoVoto;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Table(name = "VOTO")
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
 public class Voto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "native")

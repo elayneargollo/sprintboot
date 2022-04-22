@@ -38,7 +38,7 @@ public class SessaoController {
 		
 		var sessoes = sessaoService.getAll();
 		
-		List<SessaoViewModel> sessaoViewModel = new ArrayList<SessaoViewModel>();
+		List<SessaoViewModel> sessaoViewModel = new ArrayList<>();
 	    sessoes.forEach(sessao -> sessaoViewModel.add(SessaoMapper.converterBySessaoViewModel(sessao)));
 
 		return ResponseEntity.ok(sessaoViewModel);

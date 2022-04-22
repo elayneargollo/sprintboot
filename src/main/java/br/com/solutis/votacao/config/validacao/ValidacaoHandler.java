@@ -25,7 +25,7 @@ public class ValidacaoHandler {
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public List<VotacaoException> handle(MethodArgumentNotValidException exception) {
 
-		List<VotacaoException> erros = new ArrayList<VotacaoException>();
+		List<VotacaoException> erros = new ArrayList<>();
 		List<FieldError> fieldErros = exception.getBindingResult().getFieldErrors();
 		
 		fieldErros.stream().forEach(e -> {

@@ -10,20 +10,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
 import br.com.solutis.votacao.model.enumeracao.Status;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Table(name = "PAUTA")
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
 public class Pauta {
 	@Id
@@ -39,8 +30,15 @@ public class Pauta {
 	public Pauta() {
 	}
 
-	public Pauta(Integer id, Status status, Sessao sessao) {
+	public Pauta(Integer id, Status status, Sessao sessao, LocalDateTime dataAbertura) {
 		super();
+		this.id = id;
+		this.status = status;
+		this.sessao = sessao;
+		this.dataAbertura = dataAbertura;
+	}
+
+	public Pauta(Integer id, Status status, Sessao sessao) {
 		this.id = id;
 		this.status = status;
 		this.sessao = sessao;
