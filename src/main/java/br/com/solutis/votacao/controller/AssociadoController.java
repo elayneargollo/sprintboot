@@ -37,21 +37,21 @@ public class AssociadoController {
 	
 	@GetMapping({"/v1.0/validar/{cpf}"})
 	@ApiOperation(value="Valida cpf")
-	public Mono<CpfDto> ValidarCpf(@PathVariable("cpf") String cpf) {	
-		return serviceCpf.ValidarCpf(cpf);	
+	public Mono<CpfDto> validarCpf(@PathVariable("cpf") String cpf) {	
+		return serviceCpf.validarCpf(cpf);	
 	}
 
 	@GetMapping("/v1.0/")
 	@ApiOperation(value="Retorna uma paginação de associados")
-	public ResponseEntity<Page<Associado>> GetAllPage(@PageableDefault(sort="nome", direction = Direction.ASC, page=0, size=10) Pageable paginacao) {
-		return ResponseEntity.ok(associadoService.GetAll(paginacao));
+	public ResponseEntity<Page<Associado>> getAllPage(@PageableDefault(sort="nome", direction = Direction.ASC, page=0, size=10) Pageable paginacao) {
+		return ResponseEntity.ok(associadoService.getAll(paginacao));
 	}
 	
 	@GetMapping({"/v1.0/{id}", "/v1.1/{id}"})
 	@ApiOperation(value="Retorna um associado por id")
 	public ResponseEntity<AssociadoViewModel> getById(@PathVariable("id") Integer id) {
 
-		Optional<Associado> associado = associadoService.GetById(id);
+		Optional<Associado> associado = associadoService.getById(id);
 		
 		if(associado.isPresent())
 			return ResponseEntity.ok().body(AssociadoMapper.converterByAssociadoViewModel(associado.get()));
@@ -61,9 +61,9 @@ public class AssociadoController {
 	
 	@GetMapping("/v1.1/")
 	@ApiOperation(value="Retorna uma lista de associados")
-	public ResponseEntity<List<AssociadoViewModel>> GetAll() {
+	public ResponseEntity<List<AssociadoViewModel>> getAll() {
 		
-		var associados = associadoService.GetAll();
+		var associados = associadoService.getAll();
 		
 		List<AssociadoViewModel> associadoViewModel = new ArrayList<AssociadoViewModel>();
 		associados.forEach(associado -> associadoViewModel.add(AssociadoMapper.converterByAssociadoViewModel(associado)));
@@ -73,10 +73,10 @@ public class AssociadoController {
 	
 	@PostMapping("/v1.1/")
 	@ApiOperation(value="Cria um associado")
-	public ResponseEntity<AssociadoViewModel> Add(@RequestBody @Valid AssociadoDto associadoDto) {
+	public ResponseEntity<AssociadoViewModel> add(@RequestBody @Valid AssociadoDto associadoDto) {
 		
 		Associado associado = AssociadoMapper.converterByAssociado(associadoDto);
-		associado = associadoService.Add(associado);
+		associado = associadoService.add(associado);
 
 		return ResponseEntity.ok(AssociadoMapper.converterByAssociadoViewModel(associado));
 	}

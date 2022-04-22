@@ -41,12 +41,12 @@ class AssociadorControllerTest {
 
 		Associado associadoMock = AssociadoMock.GetAssociado().get();
 
-		when(associadoService.GetById(associadoMock.getId())).thenReturn(AssociadoMock.GetAssociado());
+		when(associadoService.getById(associadoMock.getId())).thenReturn(AssociadoMock.GetAssociado());
 
 		mock.perform(get(BASE_URL + "v1.0/" + "1").contentType("application/json")
 				.content(objectMapper.writeValueAsString(associadoMock)));
 
-		Optional<Associado> associadoReturn = associadoService.GetById(associadoMock.getId());
+		Optional<Associado> associadoReturn = associadoService.getById(associadoMock.getId());
 
 		assertNotNull(associadoReturn.toString());
 		assertThat(associadoReturn.get().getNome()).isEqualTo(associadoMock.getNome());
@@ -59,12 +59,12 @@ class AssociadorControllerTest {
 
 		List<Associado> associadosMock = AssociadoMock.GetAssociados();
 
-		when(associadoService.GetAll()).thenReturn(associadosMock);
+		when(associadoService.getAll()).thenReturn(associadosMock);
 
 		mock.perform(get(BASE_URL + "v1.0/").contentType("application/json")
 				.content(objectMapper.writeValueAsString(associadosMock)));
 
-		List<Associado> associadosReturn = associadoService.GetAll();
+		List<Associado> associadosReturn = associadoService.getAll();
 
 		assertNotNull(associadosReturn);
 		assertThat(associadosReturn).isEqualTo(associadosMock);
@@ -76,12 +76,12 @@ class AssociadorControllerTest {
 
 		List<Associado> associadosMock = AssociadoMock.GetAssociados();
 
-		when(associadoService.GetAll()).thenReturn(associadosMock);
+		when(associadoService.getAll()).thenReturn(associadosMock);
 
 		mock.perform(get(BASE_URL + "v1.1/").contentType("application/json")
 				.content(objectMapper.writeValueAsString(associadosMock)));
 
-		List<Associado> associadosReturn = associadoService.GetAll();
+		List<Associado> associadosReturn = associadoService.getAll();
 
 		assertNotNull(associadosReturn);
 		assertThat(associadosReturn).isEqualTo(associadosMock);
@@ -99,12 +99,12 @@ class AssociadorControllerTest {
 		AssociadoDto associadoDtoMock = AssociadoMock.GetAssociadoDto();
 		Associado associadoMock = AssociadoMapper.converterByAssociado(associadoDtoMock);
 		
-		when(associadoService.Add(associadoMock)).thenReturn(associadoMock);
+		when(associadoService.add(associadoMock)).thenReturn(associadoMock);
 
 		mock.perform(post(BASE_URL + "/v1.1/").content(objectMapper.writeValueAsString(associadoMock))
 				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON));
 
-		Associado associadosReturn = associadoService.Add(associadoMock);
+		Associado associadosReturn = associadoService.add(associadoMock);
 
 		assertNotNull(associadosReturn);
 	}

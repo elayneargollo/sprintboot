@@ -9,15 +9,15 @@ import br.com.solutis.votacao.model.entity.Pauta;
 import br.com.solutis.votacao.model.entity.ResultadoVotacao;
 
 public interface IPautaService {
-	Optional<Pauta> GetById(Integer id);
+	Optional<Pauta> getById(Integer id);
 
-	Page<Pauta> GetAll(Pageable paginacao);
+	Page<Pauta> getAll(Pageable paginacao);
 
-	List<Pauta> GetAll();
+	List<Pauta> getAll();
 
-	Pauta Add(Pauta pauta);
+	Pauta add(Pauta pauta);
 
-	String IniciarPauta(Integer id);
+	String iniciarPauta(Integer id);
 
-	ResultadoVotacao ObterResultadoPorPauta(Integer id);
+	ResultadoVotacao obterResultadoPorPauta(Integer id);
 }

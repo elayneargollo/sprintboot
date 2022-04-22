@@ -36,18 +36,18 @@ public class PautaController {
 	
 	@GetMapping("/v1.0/")
 	@ApiOperation(value="Retorna uma paginação de pautas")
-	public ResponseEntity<Page<Pauta>> GetAllPage(@PageableDefault(sort="id", direction = Direction.ASC, page=0, size=10) Pageable paginacao) {
-		return ResponseEntity.ok(pautaService.GetAll(paginacao));
+	public ResponseEntity<Page<Pauta>> getAllPage(@PageableDefault(sort="id", direction = Direction.ASC, page=0, size=10) Pageable paginacao) {
+		return ResponseEntity.ok(pautaService.getAll(paginacao));
 	}
 	
 	@PostMapping("/v1.0/")
 	@ApiOperation(value="Persiste pauta no sistema")
-	public ResponseEntity<PautaViewModel> Add(@RequestBody @Valid PautaDto pautaDto) {
+	public ResponseEntity<PautaViewModel> add(@RequestBody @Valid PautaDto pautaDto) {
 		Pauta pauta = PautaMapper.converterByPauta(pautaDto);
 		
 		try {
 			
-			pauta = pautaService.Add(pauta);
+			pauta = pautaService.add(pauta);
 			return ResponseEntity.ok(PautaMapper.converterByPautaViewModel(pauta));
 			
 		} catch (Exception e) {
@@ -59,21 +59,21 @@ public class PautaController {
 	
 	@PutMapping("/v1.0/")
 	@ApiOperation(value="Abertura para votação de uma pauta")
-	public ResponseEntity<String> IniciarPauta(Integer idPauta) {
-		return ResponseEntity.ok(pautaService.IniciarPauta(idPauta));
+	public ResponseEntity<String> iniciarPauta(Integer idPauta) {
+		return ResponseEntity.ok(pautaService.iniciarPauta(idPauta));
 	}
 	
 	@GetMapping("/v1.0/ObterResultadoPauta")
 	@ApiOperation(value="Obter resultado de pauta")
 	public ResponseEntity<ResultadoVotacao> Obter(Integer idPauta) {
-		return ResponseEntity.ok(pautaService.ObterResultadoPorPauta(idPauta));
+		return ResponseEntity.ok(pautaService.obterResultadoPorPauta(idPauta));
 	}
 		
 	@GetMapping("/v1.1/")
 	@ApiOperation(value="Retorna uma lista de pautas")
-	public ResponseEntity<List<PautaViewModel>> GetAll() {
+	public ResponseEntity<List<PautaViewModel>> getAll() {
 		
-		var pautas = pautaService.GetAll();
+		var pautas = pautaService.getAll();
 		
 		List<PautaViewModel> pautaViewModel = new ArrayList<PautaViewModel>();
 		pautas.forEach(pauta -> pautaViewModel.add(PautaMapper.converterByPautaViewModel(pauta)));

@@ -27,10 +27,10 @@ public class VotacaoController {
 	
 	@PostMapping("/v1.0/")
 	@ApiOperation(value="Permite votação no sistema")
-	public ResponseEntity<VotacaoViewModel> Add(@RequestBody @Valid VotacaoDto votacaoDto) {
+	public ResponseEntity<VotacaoViewModel> add(@RequestBody @Valid VotacaoDto votacaoDto) {
 		
 		Votacao votacao = VotacaoMapper.ConverteParaVotacao(votacaoDto);
-		votacao = votacaoService.Add(votacao);
+		votacao = votacaoService.add(votacao);
 		
 		return ResponseEntity.ok(VotacaoMapper.converterByVotacaoViewModel(votacao));
 	}

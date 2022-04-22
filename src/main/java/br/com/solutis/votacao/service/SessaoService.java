@@ -25,25 +25,25 @@ public class SessaoService implements ISessaoService {
 	Logger logger = Logger.getLogger(SessaoService.class.getName());
 
 	@Override
-	public Sessao Add(Sessao sessao) throws Exception {
+	public Sessao add(Sessao sessao) throws Exception {
 		logger.info("Método Add");
 		return sesSaoRepository.save(sessao);
 	}
 
 	@Override
-	public Optional<Sessao> GetById(Integer id) {
+	public Optional<Sessao> getById(Integer id) {
 		logger.log(Level.INFO, "Método GetById com id:: {0} ", id);
 		return sesSaoRepository.findById(id);
 	}
 
 	@Override
-	public Page<Sessao> GetAll(Pageable paginacao) {
+	public Page<Sessao> getAll(Pageable paginacao) {
 		logger.info("Método GetAll com paginação");	
 		return sesSaoRepository.findAll(paginacao);
 	}
 
 	@Override
-	public List<Sessao> GetAll() {
+	public List<Sessao> getAll() {
 		logger.info("Método GetAll");	
 		return sesSaoRepository.findAll();
 	}

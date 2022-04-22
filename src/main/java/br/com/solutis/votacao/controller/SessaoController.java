@@ -34,9 +34,9 @@ public class SessaoController {
 	
 	@GetMapping("/v1.1/")
 	@ApiOperation(value="Retorna uma lista de sessão")
-	public ResponseEntity<List<SessaoViewModel>> GetAll() {
+	public ResponseEntity<List<SessaoViewModel>> getAll() {
 		
-		var sessoes = sessaoService.GetAll();
+		var sessoes = sessaoService.getAll();
 		
 		List<SessaoViewModel> sessaoViewModel = new ArrayList<SessaoViewModel>();
 	    sessoes.forEach(sessao -> sessaoViewModel.add(SessaoMapper.converterBySessaoViewModel(sessao)));
@@ -46,17 +46,17 @@ public class SessaoController {
 	
 	@GetMapping("/v1.0/")
 	@ApiOperation(value="Retorna uma paginação de sessões")
-	public ResponseEntity<Page<Sessao>> GetAllPage(@PageableDefault(sort="tipo", direction = Direction.ASC, page=0, size=10) Pageable paginacao) {	
-		return ResponseEntity.ok(sessaoService.GetAll(paginacao));
+	public ResponseEntity<Page<Sessao>> getAllPage(@PageableDefault(sort="tipo", direction = Direction.ASC, page=0, size=10) Pageable paginacao) {	
+		return ResponseEntity.ok(sessaoService.getAll(paginacao));
 	}
 	
 	@PostMapping("/v1.0/")
 	@ApiOperation(value="Persiste sessão no sistema")
-	public ResponseEntity<SessaoViewModel> Add(@RequestBody @Valid SessaoDto sessaoDto) {
+	public ResponseEntity<SessaoViewModel> add(@RequestBody @Valid SessaoDto sessaoDto) {
 		Sessao sessao = SessaoMapper.converterBySessao(sessaoDto);
 		
 		try {
-			sessao = sessaoService.Add(sessao);
+			sessao = sessaoService.add(sessao);
 			return ResponseEntity.ok(SessaoMapper.converterBySessaoViewModel(sessao));
 		} catch (Exception e) {
 			e.printStackTrace();

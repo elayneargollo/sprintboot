@@ -21,7 +21,7 @@ public class VotacaoService implements IVotacaoService {
 	Logger logger = Logger.getLogger(VotacaoService.class.getName());
 
 	@Override
-	public Votacao Add(Votacao votacao) {
+	public Votacao add(Votacao votacao) {
 		logger.info("Método Add");
 		
 		Voto voto = votoService.add(votacao.getVoto());

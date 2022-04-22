@@ -63,7 +63,7 @@ public class VotoService implements IVotoService {
 		logger.info("Método GetJaVotou");
 		
 		Optional<Voto> votoAssociado = votoRepository.findAll().stream()
-				.filter(x -> x.getAssociadoId() == associadoId && x.getPautaId() == pautaId).findFirst();
+				.filter(x -> x.getAssociadoId().equals(associadoId) && x.getPautaId().equals(pautaId)).findFirst();
 		return votoAssociado.isEmpty();
 	}
 

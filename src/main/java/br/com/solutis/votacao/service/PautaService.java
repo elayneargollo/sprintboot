@@ -33,7 +33,7 @@ public class PautaService implements IPautaService {
 	Logger logger = Logger.getLogger(PautaService.class.getName());
 
 	@Override
-	public Pauta Add(Pauta pauta) {
+	public Pauta add(Pauta pauta) {
 		logger.info("Método Add");
 		 
 		Sessao sessao = sessaoRepository.save(pauta.getSessao());
@@ -51,25 +51,25 @@ public class PautaService implements IPautaService {
 	}
 
 	@Override
-	public Optional<Pauta> GetById(Integer id) {
-		logger.info("Método GetById com id: " +id);		
+	public Optional<Pauta> getById(Integer id) {
+		logger.log(Level.INFO, "Método GetById com id:: {0} ", id);
 		return pautaRepository.findById(id);
 	}
 
 	@Override
-	public Page<Pauta> GetAll(Pageable paginacao) {
+	public Page<Pauta> getAll(Pageable paginacao) {
 		logger.info("Método GetAll com paginação");
 		return pautaRepository.findAll(paginacao);
 	}
 
 	@Override
-	public List<Pauta> GetAll() {
+	public List<Pauta> getAll() {
 		logger.info("Método GetAll");
 		return pautaRepository.findAll();
 	}
 
 	@Override
-	public String IniciarPauta(Integer id) {
+	public String iniciarPauta(Integer id) {
 		logger.log(Level.INFO, "Método IniciarPauta com id:: {0} ", id);
 
 		Pauta pauta = pautaRepository.getById(id);
@@ -80,7 +80,7 @@ public class PautaService implements IPautaService {
 			throw new PautaNaoAbertaException("Pauta encontra-se aberta ou fechada !");
 		}
 
-		pautaRepository.AlterarStatusPauta(Status.ABERTO, id);
+		pautaRepository.alterarStatusPauta(Status.ABERTO, id);
 		fecharVotacao(id, pauta.getSessao().getTempoDuracao());
 
 		return "Pauta aberta !";
@@ -90,7 +90,7 @@ public class PautaService implements IPautaService {
 		new Thread(() -> {
 			try {
 				Thread.sleep(duracao);
-				pautaRepository.AlterarStatusPauta(Status.FECHADO, id);
+				pautaRepository.alterarStatusPauta(Status.FECHADO, id);
 			} catch (InterruptedException e) {
 				
 				logger.info("Erro: " +e.getMessage() + "\n" + "Ao fechar pauta com id: " +id);
@@ -100,7 +100,7 @@ public class PautaService implements IPautaService {
 	}
 
 	@Override
-	public ResultadoVotacao ObterResultadoPorPauta(Integer id) {
+	public ResultadoVotacao obterResultadoPorPauta(Integer id) {
 
 		logger.log(Level.INFO, "Método ObterResultadoPorPauta com id:: {0} ", id);
 		
@@ -108,7 +108,7 @@ public class PautaService implements IPautaService {
 
 		if (pauta.getStatus() == Status.ABERTO || pauta.getStatus() == Status.CRIADO) {
 			logger.info("Fechar a pauta para contagem dos votos !");
-			pautaRepository.AlterarStatusPauta(Status.FECHADO, id);
+			pautaRepository.alterarStatusPauta(Status.FECHADO, id);
 		}
 
 		return ObterResultadoVotacao(id);
@@ -117,7 +117,7 @@ public class PautaService implements IPautaService {
 	private ResultadoVotacao ObterResultadoVotacao(Integer idPauta) {
 		logger.log(Level.INFO, "Método ObterResultadoVotacao com id:: {0} ", idPauta);
 
-		List<Voto> votosTotaisPauta = votoRepository.ObterVotosPorPauta(idPauta);
+		List<Voto> votosTotaisPauta = votoRepository.obterVotosPorPauta(idPauta);
 
 		var quantidadeVotoPositivo = votosTotaisPauta.stream().filter(v -> v.getDescricao() == OpcaoVoto.SIM).toList().size();
 		var quantidadeVotoNegativo = votosTotaisPauta.stream().filter(v -> v.getDescricao() == OpcaoVoto.NAO).toList().size();

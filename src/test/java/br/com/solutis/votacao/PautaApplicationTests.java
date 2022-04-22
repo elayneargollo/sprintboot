@@ -39,12 +39,12 @@ class PautaControllerTest {
 
 		Optional<Pauta> pautaMock = PautaMock.ObterPauta();
 
-		when(pautaService.GetById(pautaMock.get().getId())).thenReturn(pautaMock);
+		when(pautaService.getById(pautaMock.get().getId())).thenReturn(pautaMock);
 
 		mock.perform(get(BASE_URL + "v1.0/" + "1").contentType("application/json")
 				.content(objectMapper.writeValueAsString(pautaMock)));
 
-		Optional<Pauta> pautaReturn = pautaService.GetById(pautaMock.get().getId());
+		Optional<Pauta> pautaReturn = pautaService.getById(pautaMock.get().getId());
 
 		assertNotNull(pautaReturn.toString());
 	}
@@ -54,12 +54,12 @@ class PautaControllerTest {
 
 		List<Pauta> pautasMock = PautaMock.ObterPautas();
 
-		when(pautaService.GetAll()).thenReturn(pautasMock);
+		when(pautaService.getAll()).thenReturn(pautasMock);
 
 		mock.perform(get(BASE_URL + "v1.0/").contentType("application/json")
 				.content(objectMapper.writeValueAsString(pautasMock)));
 
-		List<Pauta> pautasReturn = pautaService.GetAll();
+		List<Pauta> pautasReturn = pautaService.getAll();
 
 		assertNotNull(pautasReturn);
 		assertThat(pautasReturn).isEqualTo(pautasMock);
@@ -71,12 +71,12 @@ class PautaControllerTest {
 
 		List<Pauta> pautasMock = PautaMock.ObterPautas();
 
-		when(pautaService.GetAll()).thenReturn(pautasMock);
+		when(pautaService.getAll()).thenReturn(pautasMock);
 
 		mock.perform(get(BASE_URL + "v1.1/").contentType("application/json")
 				.content(objectMapper.writeValueAsString(pautasMock)));
 
-		List<Pauta> pautasReturn = pautaService.GetAll();
+		List<Pauta> pautasReturn = pautaService.getAll();
 
 		assertNotNull(pautasReturn);
 		assertThat(pautasReturn).isEqualTo(pautasMock);
@@ -93,12 +93,12 @@ class PautaControllerTest {
 
 		Optional<Pauta> pautaMock = PautaMock.ObterPauta();
 		
-		when(pautaService.Add(pautaMock.get())).thenReturn(pautaMock.get());
+		when(pautaService.add(pautaMock.get())).thenReturn(pautaMock.get());
 
 		mock.perform(post(BASE_URL + "/v1.1/").content(objectMapper.writeValueAsString(pautaMock.get()))
 				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON));
 
-		Pauta pautasReturn = pautaService.Add(pautaMock.get());
+		Pauta pautasReturn = pautaService.add(pautaMock.get());
 
 		assertNotNull(pautasReturn);
 	}
@@ -108,12 +108,12 @@ class PautaControllerTest {
 
 		Optional<Pauta> pautaMock = PautaMock.ObterPauta();
 		
-		when(pautaService.IniciarPauta(pautaMock.get().getId())).thenReturn("Pauta aberta !");
+		when(pautaService.iniciarPauta(pautaMock.get().getId())).thenReturn("Pauta aberta !");
 
 		mock.perform(put(BASE_URL + "/v1.0/").content(objectMapper.writeValueAsString(pautaMock.get()))
 				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON));
 
-		String pautasReturn = pautaService.IniciarPauta(1);
+		String pautasReturn = pautaService.iniciarPauta(1);
 
 		assertNotNull(pautasReturn);
 	}

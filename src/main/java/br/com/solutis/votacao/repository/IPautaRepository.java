@@ -15,5 +15,5 @@ public interface IPautaRepository extends JpaRepository<Pauta, Integer> {
 	@Modifying
 	@Transactional
 	@Query("UPDATE Pauta p SET p.status = :status WHERE p.id = :id")
-	void AlterarStatusPauta(@Param("status") Status status, @Param("id") Integer id);
+	void alterarStatusPauta(@Param("status") Status status, @Param("id") Integer id);
 }

@@ -35,12 +35,12 @@ class VotacaoControllerTest {
 
 		Votacao votacaoMock = VotacaoMock.ObterVotacao();
 		
-		when(votacaoService.Add(votacaoMock)).thenReturn(votacaoMock);
+		when(votacaoService.add(votacaoMock)).thenReturn(votacaoMock);
 
 		mock.perform(post(BASE_URL + "/v1.1/").content(objectMapper.writeValueAsString(votacaoMock))
 				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON));
 
-		Votacao votacaosReturn = votacaoService.Add(votacaoMock);
+		Votacao votacaosReturn = votacaoService.add(votacaoMock);
 
 		assertNotNull(votacaosReturn);
 	}

@@ -34,7 +34,7 @@ public class VotoController {
 	
 	@GetMapping("/v1.1/")
 	@ApiOperation(value="Retorna uma lista de votos")
-	public ResponseEntity<List<VotoViewModel>> GetAll() {
+	public ResponseEntity<List<VotoViewModel>> getAll() {
 		
 		var votos = votoService.getAll();
 		
@@ -46,13 +46,13 @@ public class VotoController {
 	
 	@GetMapping("/v1.0/")
 	@ApiOperation(value="Retorna uma paginação de votos")
-	public ResponseEntity<Page<Voto>> GetAllPage(@PageableDefault(sort="descricao", direction = Direction.ASC, page=0, size=10) Pageable paginacao) {
+	public ResponseEntity<Page<Voto>> getAllPage(@PageableDefault(sort="descricao", direction = Direction.ASC, page=0, size=10) Pageable paginacao) {
 		return ResponseEntity.ok(votoService.getAll(paginacao));
 	}
 	
 	@PostMapping("/v1.0/")
 	@ApiOperation(value="Persiste voto no sistema")
-	public ResponseEntity<VotoViewModel> Add(@RequestBody @Valid VotoDto votoDto) {
+	public ResponseEntity<VotoViewModel> add(@RequestBody @Valid VotoDto votoDto) {
 		
 		Voto voto = VotoMapper.ConverteParaVoto(votoDto);
 		voto = votoService.add(voto);

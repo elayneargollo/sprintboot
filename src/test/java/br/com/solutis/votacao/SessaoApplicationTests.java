@@ -39,12 +39,12 @@ class SessaoControllerTest {
 
 		Optional<Sessao> sessaoMock = Optional.of(SessaoMock.ObterSessao());
 
-		when(sessaoService.GetById(sessaoMock.get().getId())).thenReturn(sessaoMock);
+		when(sessaoService.getById(sessaoMock.get().getId())).thenReturn(sessaoMock);
 
 		mock.perform(get(BASE_URL + "v1.0/" + "1").contentType("application/json")
 				.content(objectMapper.writeValueAsString(sessaoMock)));
 
-		Optional<Sessao> sessaoReturn = sessaoService.GetById(sessaoMock.get().getId());
+		Optional<Sessao> sessaoReturn = sessaoService.getById(sessaoMock.get().getId());
 
 		assertNotNull(sessaoReturn.toString());
 	}
@@ -54,12 +54,12 @@ class SessaoControllerTest {
 
 		List<Sessao> sessaosMock = SessaoMock.ObterSessoes();
 
-		when(sessaoService.GetAll()).thenReturn(sessaosMock);
+		when(sessaoService.getAll()).thenReturn(sessaosMock);
 
 		mock.perform(get(BASE_URL + "v1.0/").contentType("application/json")
 				.content(objectMapper.writeValueAsString(sessaosMock)));
 
-		List<Sessao> sessaosReturn = sessaoService.GetAll();
+		List<Sessao> sessaosReturn = sessaoService.getAll();
 
 		assertNotNull(sessaosReturn);
 		assertThat(sessaosReturn).isEqualTo(sessaosMock);
@@ -71,12 +71,12 @@ class SessaoControllerTest {
 
 		List<Sessao> sessaosMock = SessaoMock.ObterSessoes();
 
-		when(sessaoService.GetAll()).thenReturn(sessaosMock);
+		when(sessaoService.getAll()).thenReturn(sessaosMock);
 
 		mock.perform(get(BASE_URL + "v1.1/").contentType("application/json")
 				.content(objectMapper.writeValueAsString(sessaosMock)));
 
-		List<Sessao> sessaosReturn = sessaoService.GetAll();
+		List<Sessao> sessaosReturn = sessaoService.getAll();
 
 		assertNotNull(sessaosReturn);
 		assertThat(sessaosReturn).isEqualTo(sessaosMock);
@@ -93,12 +93,12 @@ class SessaoControllerTest {
 
 		Sessao sessaoMock = SessaoMock.ObterSessao();
 		
-		when(sessaoService.Add(sessaoMock)).thenReturn(sessaoMock);
+		when(sessaoService.add(sessaoMock)).thenReturn(sessaoMock);
 
 		mock.perform(post(BASE_URL + "/v1.1/").content(objectMapper.writeValueAsString(sessaoMock))
 				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON));
 
-		Sessao sessaosReturn = sessaoService.Add(sessaoMock);
+		Sessao sessaosReturn = sessaoService.add(sessaoMock);
 
 		assertNotNull(sessaosReturn);
 	}

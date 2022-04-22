@@ -8,11 +8,11 @@ import org.springframework.data.domain.Pageable;
 import br.com.solutis.votacao.model.entity.Sessao;
 
 public interface ISessaoService {
-	Optional<Sessao> GetById(Integer id);
+	Optional<Sessao> getById(Integer id);
 
-	Page<Sessao> GetAll(Pageable paginacao);
+	Page<Sessao> getAll(Pageable paginacao);
 
-	List<Sessao> GetAll();
+	List<Sessao> getAll();
 
-	Sessao Add(Sessao sessao) throws Exception;
+	Sessao add(Sessao sessao) throws Exception;
 }

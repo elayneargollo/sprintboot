@@ -19,26 +19,26 @@ public class AssociadoService implements IAssociadoService {
 	IAssociadoRepository associadoRepository;
 	Logger logger = Logger.getLogger(AssociadoService.class.getName());
 
-	public Optional<Associado> GetById(Integer id) {
+	public Optional<Associado> getById(Integer id) {
 		logger.log(Level.INFO, "Método GetById com id:: {0} ", id);
 
 		return associadoRepository.findById(id);
 	}
 
 	@Override
-	public Page<Associado> GetAll(Pageable paginacao) {
+	public Page<Associado> getAll(Pageable paginacao) {
 		logger.info("Método GetAll com paginação");
 		return associadoRepository.findAll(paginacao);
 	}
 
 	@Override
-	public List<Associado> GetAll() {
+	public List<Associado> getAll() {
 		logger.info("Método GetAll");
 		return associadoRepository.findAll();
 	}
 
 	@Override
-	public Associado Add(Associado associado) {
+	public Associado add(Associado associado) {
 		logger.info("Método Add");
 		return associadoRepository.save(associado);
 	}

@@ -8,11 +8,11 @@ import org.springframework.data.domain.Pageable;
 import br.com.solutis.votacao.model.entity.Associado;
 
 public interface IAssociadoService {
-	Optional<Associado> GetById(Integer id);
+	Optional<Associado> getById(Integer id);
 
-	Page<Associado> GetAll(Pageable paginacao);
+	Page<Associado> getAll(Pageable paginacao);
 
-	List<Associado> GetAll();
+	List<Associado> getAll();
 
-	Associado Add(Associado associado);
+	Associado add(Associado associado);
 }
