@@ -50,7 +50,9 @@ public class VotoService implements IVotoService {
 			throw new PautaNaoAbertaException("Para votar é necessário que a pauta esteja aberta !");
 		}
 
-		if (!getJaVotou(voto.getAssociadoId(), pauta.getId()))
+		Boolean votoUnico = getJaVotou(voto.getAssociadoId(), pauta.getId());
+		
+		if (!votoUnico)
 		{
 			logger.info("Cada associado só pode votar uma vez por pauta.");
 			throw new VotoNaoUnicoExcepiton("Votos devem ser únicos por pauta.");
