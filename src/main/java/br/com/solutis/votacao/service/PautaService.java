@@ -111,10 +111,10 @@ public class PautaService implements IPautaService {
 			pautaRepository.alterarStatusPauta(Status.FECHADO, id);
 		}
 
-		return ObterResultadoVotacao(id);
+		return obterResultadoVotacao(id);
 	}
 
-	private ResultadoVotacao ObterResultadoVotacao(Integer idPauta) {
+	private ResultadoVotacao obterResultadoVotacao(Integer idPauta) {
 		logger.log(Level.INFO, "Método ObterResultadoVotacao com id:: {0} ", idPauta);
 
 		List<Voto> votosTotaisPauta = votoRepository.obterVotosPorPauta(idPauta);

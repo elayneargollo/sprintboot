@@ -65,7 +65,7 @@ public class PautaController {
 	
 	@GetMapping("/v1.0/ObterResultadoPauta")
 	@ApiOperation(value="Obter resultado de pauta")
-	public ResponseEntity<ResultadoVotacao> Obter(Integer idPauta) {
+	public ResponseEntity<ResultadoVotacao> obter(Integer idPauta) {
 		return ResponseEntity.ok(pautaService.obterResultadoPorPauta(idPauta));
 	}
 		

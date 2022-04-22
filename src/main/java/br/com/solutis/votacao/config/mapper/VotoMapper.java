@@ -10,13 +10,17 @@ public class VotoMapper {
 	
 	static Logger logger = Logger.getLogger(VotoMapper.class.getName());
 	
-	public static VotoDto ConverteParaVotoDto(Voto voto)
+	private VotoMapper() {
+		 throw new IllegalStateException("Classe de utilidade");
+	 }
+	
+	public static VotoDto converteParaVotoDto(Voto voto)
 	{
 		logger.info("Método ConverteParaVotoDto converte uma Voto para uma VotoDto");
 		return new VotoDto(voto.getDescricao(), voto.getAssociadoId(), voto.getPautaId());
 	}
 	
-	public static Voto ConverteParaVoto(VotoDto votoDto)
+	public static Voto converteParaVoto(VotoDto votoDto)
 	{
 		logger.info("Método ConverteParaVoto converte uma VotoDto para uma Voto");
 		return new Voto(votoDto.getDescricao(), votoDto.getAssociadoId(), votoDto.getPautaId());

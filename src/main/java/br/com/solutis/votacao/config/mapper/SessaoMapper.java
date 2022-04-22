@@ -10,6 +10,10 @@ public class SessaoMapper {
 	
 	static Logger logger = Logger.getLogger(SessaoMapper.class.getName());
 	
+	 private SessaoMapper() {
+		 throw new IllegalStateException("Classe de utilidade");
+	 }
+	 
 	public static SessaoDto converterBySessaoDto(Sessao sessao)
 	{
 		logger.info("Método converterBySessaoDto converte uma Sessao para uma SessaoDto");

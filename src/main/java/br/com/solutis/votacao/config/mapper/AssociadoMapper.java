@@ -8,6 +8,10 @@ import br.com.solutis.votacao.model.viewModel.AssociadoViewModel;
 public class AssociadoMapper{
 	
 	static Logger logger = Logger.getLogger(AssociadoMapper.class.getName());
+	
+	 private AssociadoMapper() {
+		 throw new IllegalStateException("Classe de utilidade");
+	 }
 
 	public static AssociadoDto converterByAssociadoDto(Associado associado)
 	{

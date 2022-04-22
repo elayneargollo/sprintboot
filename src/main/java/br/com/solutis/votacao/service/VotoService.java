@@ -50,7 +50,7 @@ public class VotoService implements IVotoService {
 			throw new PautaNaoAbertaException("Para votar é necessário que a pauta esteja aberta !");
 		}
 
-		if (!GetJaVotou(voto.getAssociadoId(), pauta.getId()))
+		if (!getJaVotou(voto.getAssociadoId(), pauta.getId()))
 		{
 			logger.info("Cada associado só pode votar uma vez por pauta.");
 			throw new VotoNaoUnicoExcepiton("Votos devem ser únicos por pauta.");
@@ -59,7 +59,7 @@ public class VotoService implements IVotoService {
 		return votoRepository.save(voto);
 	}
 
-	private Boolean GetJaVotou(Integer associadoId, Integer pautaId) {
+	private Boolean getJaVotou(Integer associadoId, Integer pautaId) {
 		logger.info("Método GetJaVotou");
 		
 		Optional<Voto> votoAssociado = votoRepository.findAll().stream()

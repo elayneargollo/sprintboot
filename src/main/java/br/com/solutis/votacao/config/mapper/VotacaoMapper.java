@@ -10,10 +10,14 @@ public class VotacaoMapper {
 	
 	static Logger logger = Logger.getLogger(VotacaoMapper.class.getName());
 	
-	public static Votacao ConverteParaVotacao(VotacaoDto votacaoDto)
+	private VotacaoMapper() {
+		 throw new IllegalStateException("Classe de utilidade");
+	 }
+	
+	public static Votacao converteParaVotacao(VotacaoDto votacaoDto)
 	{
 		logger.info("Método ConverteParaVotacao converte uma VotacaoDto para uma Votacao");
-		return new Votacao(VotoMapper.ConverteParaVoto(votacaoDto.getVoto()));
+		return new Votacao(VotoMapper.converteParaVoto(votacaoDto.getVoto()));
 	}
 	
 	public static VotacaoViewModel converterByVotacaoViewModel(Votacao votacao)

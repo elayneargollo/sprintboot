@@ -54,7 +54,7 @@ public class VotoController {
 	@ApiOperation(value="Persiste voto no sistema")
 	public ResponseEntity<VotoViewModel> add(@RequestBody @Valid VotoDto votoDto) {
 		
-		Voto voto = VotoMapper.ConverteParaVoto(votoDto);
+		Voto voto = VotoMapper.converteParaVoto(votoDto);
 		voto = votoService.add(voto);
 		
 		return ResponseEntity.ok(VotoMapper.converterByVotoViewModel(voto));

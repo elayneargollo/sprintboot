@@ -10,6 +10,10 @@ public class PautaMapper {
 	
 	static Logger logger = Logger.getLogger(PautaMapper.class.getName());
 	
+	 private PautaMapper() {
+		 throw new IllegalStateException("Classe de utilidade");
+	 }
+	 
 	public static PautaDto converterByPautaDto(Pauta pauta)
 	{
 		logger.info("Método converterByPautaDto converte um Pauta para uma PautaDto");
