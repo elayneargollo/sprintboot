@@ -8,11 +8,11 @@ import org.springframework.data.domain.Pageable;
 import br.com.solutis.votacao.model.entity.Voto;
 
 public interface IVotoService {
-	Optional<Voto> GetById(Integer id);
+	Optional<Voto> getById(Integer id);
 
-	Page<Voto> GetAll(Pageable paginacao);
+	Page<Voto> getAll(Pageable paginacao);
 
-	List<Voto> GetAll();
+	List<Voto> getAll();
 
-	Voto Add(Voto voto);
+	Voto add(Voto voto);
 }

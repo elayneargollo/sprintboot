@@ -63,7 +63,7 @@ class SessaoControllerTest {
 
 		assertNotNull(sessaosReturn);
 		assertThat(sessaosReturn).isEqualTo(sessaosMock);
-		assertThat(sessaosReturn.size()).isEqualTo(sessaosMock.size());
+		assertThat(sessaosReturn.size()).hasSameClassAs(sessaosMock.size());
 	}
 
 	@Test
@@ -80,7 +80,7 @@ class SessaoControllerTest {
 
 		assertNotNull(sessaosReturn);
 		assertThat(sessaosReturn).isEqualTo(sessaosMock);
-		assertThat(sessaosReturn.size()).isEqualTo(sessaosMock.size());
+		assertThat(sessaosReturn.size()).hasSameClassAs(sessaosMock.size());
 	}
 
 	@Test

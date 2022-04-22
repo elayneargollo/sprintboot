@@ -68,7 +68,7 @@ class AssociadorControllerTest {
 
 		assertNotNull(associadosReturn);
 		assertThat(associadosReturn).isEqualTo(associadosMock);
-		assertThat(associadosReturn.size()).isEqualTo(associadosMock.size());
+		assertThat(associadosReturn.size()).hasSameClassAs(associadosMock.size());
 	}
 
 	@Test
@@ -85,7 +85,7 @@ class AssociadorControllerTest {
 
 		assertNotNull(associadosReturn);
 		assertThat(associadosReturn).isEqualTo(associadosMock);
-		assertThat(associadosReturn.size()).isEqualTo(associadosMock.size());
+		assertThat(associadosReturn.size()).hasSameClassAs(associadosMock.size());
 	}
 
 	@Test

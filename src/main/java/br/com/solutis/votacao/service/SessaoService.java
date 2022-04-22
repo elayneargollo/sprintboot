@@ -2,6 +2,7 @@ package br.com.solutis.votacao.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class SessaoService implements ISessaoService {
 
 	@Override
 	public Optional<Sessao> GetById(Integer id) {
-		logger.info("Método GetById com id: " +id);	
+		logger.log(Level.INFO, "Método GetById com id:: {0} ", id);
 		return sesSaoRepository.findById(id);
 	}
 

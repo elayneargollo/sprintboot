@@ -36,15 +36,15 @@ class VotoControllerTest {
 
 		List<Voto> votosMock = VotoMock.ObterVotos();
 
-		when(votoService.GetAll()).thenReturn(votosMock);
+		when(votoService.getAll()).thenReturn(votosMock);
 
 		mock.perform(get(BASE_URL + "v1.1/").contentType("application/json")
 				.content(objectMapper.writeValueAsString(votosMock)));
 
-		List<Voto> votosReturn = votoService.GetAll();
+		List<Voto> votosReturn = votoService.getAll();
 
 		assertNotNull(votosReturn);
 		assertThat(votosReturn).isEqualTo(votosMock);
-		assertThat(votosReturn.size()).isEqualTo(votosMock.size());
+		assertThat(votosReturn.size()).hasSameClassAs(votosMock.size());
 	}
 }

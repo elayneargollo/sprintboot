@@ -2,6 +2,7 @@ package br.com.solutis.votacao.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class VotoService implements IVotoService {
 	Logger logger = Logger.getLogger(VotoService.class.getName());
 
 	@Override
-	public Voto Add(Voto voto) {
+	public Voto add(Voto voto) {
 		logger.info("Método Add");
 		
 		boolean associadoEncontrado = associadoRepository.existsById(voto.getAssociadoId());
@@ -67,19 +68,19 @@ public class VotoService implements IVotoService {
 	}
 
 	@Override
-	public Optional<Voto> GetById(Integer id) {
-		logger.info("Método GetById com id: " +id);	
+	public Optional<Voto> getById(Integer id) {
+		logger.log(Level.INFO, "Método GetById com id:: {0} ", id);
 		return votoRepository.findById(id);
 	}
 
 	@Override
-	public Page<Voto> GetAll(Pageable paginacao) {
+	public Page<Voto> getAll(Pageable paginacao) {
 		logger.info("Método GetAll com paginacao");	
 		return votoRepository.findAll(paginacao);
 	}
 
 	@Override
-	public List<Voto> GetAll() {
+	public List<Voto> getAll() {
 		return votoRepository.findAll();
 	}
 }

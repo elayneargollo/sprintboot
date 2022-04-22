@@ -24,7 +24,7 @@ public class VotacaoService implements IVotacaoService {
 	public Votacao Add(Votacao votacao) {
 		logger.info("Método Add");
 		
-		Voto voto = votoService.Add(votacao.getVoto());
+		Voto voto = votoService.add(votacao.getVoto());
 		votacao.setVoto(voto);
 
 		return votacaoRepository.save(votacao);

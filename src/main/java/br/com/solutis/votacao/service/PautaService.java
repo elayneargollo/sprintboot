@@ -2,6 +2,7 @@ package br.com.solutis.votacao.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,7 +70,7 @@ public class PautaService implements IPautaService {
 
 	@Override
 	public String IniciarPauta(Integer id) {
-		logger.info("Método IniciarPauta com id: " +id);
+		logger.log(Level.INFO, "Método IniciarPauta com id:: {0} ", id);
 
 		Pauta pauta = pautaRepository.getById(id);
 
@@ -101,7 +102,7 @@ public class PautaService implements IPautaService {
 	@Override
 	public ResultadoVotacao ObterResultadoPorPauta(Integer id) {
 
-		logger.info("Método ObterResultadoPorPauta om id: " +id);
+		logger.log(Level.INFO, "Método ObterResultadoPorPauta com id:: {0} ", id);
 		
 		Pauta pauta = pautaRepository.getById(id);
 
@@ -114,8 +115,8 @@ public class PautaService implements IPautaService {
 	}
 
 	private ResultadoVotacao ObterResultadoVotacao(Integer idPauta) {
-		logger.info("Método ObterResultadoVotacao com id: " +idPauta);
-		
+		logger.log(Level.INFO, "Método ObterResultadoVotacao com id:: {0} ", idPauta);
+
 		List<Voto> votosTotaisPauta = votoRepository.ObterVotosPorPauta(idPauta);
 
 		var quantidadeVotoPositivo = votosTotaisPauta.stream().filter(v -> v.getDescricao() == OpcaoVoto.SIM).toList().size();

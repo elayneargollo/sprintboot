@@ -63,7 +63,7 @@ class PautaControllerTest {
 
 		assertNotNull(pautasReturn);
 		assertThat(pautasReturn).isEqualTo(pautasMock);
-		assertThat(pautasReturn.size()).isEqualTo(pautasMock.size());
+		assertThat(pautasReturn.size()).hasSameClassAs(pautasMock.size());
 	}
 
 	@Test
@@ -80,7 +80,7 @@ class PautaControllerTest {
 
 		assertNotNull(pautasReturn);
 		assertThat(pautasReturn).isEqualTo(pautasMock);
-		assertThat(pautasReturn.size()).isEqualTo(pautasMock.size());
+		assertThat(pautasReturn.size()).hasSameClassAs(pautasMock.size());
 	}
 
 	@Test
