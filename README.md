@@ -26,15 +26,8 @@ Apresentação e entrega do Desafio Reskilling Java.
 
          - git clone https://github.com/elayneargollo/votacao_solutis.git
       
-2. Abra o Eclipse e importe o projeto:
- 
-         - File > Import > Maven > Existing Maven Projects
-         - Indique o caminho do arquivo e selecione "Finish"
-
-3. Instale/atualize as dependências do Maven 
-
-         - Selecione o projeto, clique com o botão direito do mouse, selecione Maven > Update Maven Project > ok
-      
+2. Abra o Eclipse e importe o projeto
+3. Instale/atualize as dependências do Maven       
 4. Execute o programa 
 
          - Duplo clique em votacao > src/main/java > votacao > VotacaoApplication.java
