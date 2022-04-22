@@ -5,7 +5,8 @@ Apresentação e entrega do Desafio Reskilling Java.
 ## Conteúdo
 
 - [Pré-requisitos](#pré-requisitos)
-- [Execução](#execução)
+- [Execução Aplicação](#execução)
+- [Execução Sonarqube](#sonarqube)
 - [Links](#links)
 - [Tarefa Principal](#tarefa-principal)
 - [Tarefa Bônus](#tarefa-bônus)
@@ -41,13 +42,36 @@ Apresentação e entrega do Desafio Reskilling Java.
   
 5. Acesse a API
 
-         - https://localhost:8080 ou utilize o swagger http://localhost:8080/swagger-ui.html#/
+         - https://localhost:8080 
+         - swagger http://localhost:8080/swagger-ui.html#/
+
+## Sonarqube
+
+1. Realize o dowloand no link:
+
+         - https://www.sonarqube.org/downloads/
+      
+2. Start o sonar e realize o login:
+         
+         - http://localhost:9000 por default
+         - login padrao (admin/admin)
+
+4. Crie um projeto manualmente e escolha um nome para ele
+5. Configure o projeto manualmente inserindo um token válido
+6. Execute a análise do Sonarqube na raiz do projeto seguindo as instruções abaixo:
+
+        - mvn clean verificar sonar:sonar \
+        - Dsonar.projectKey=<nomeDoProjeto> \
+        - Dsonar.host.url=http://localhost:9000\
+        - Dsonar.login=<keyDoProjeto>
+
 
 ## Links
 
 ###### GitHub - https://github.com/elayneargollo/votacao_solutis
 ###### Swagger - http://localhost:8080/swagger-ui.html#/
 ###### Coleção Postman - https://github.com/elayneargollo/votacao_solutis/blob/main/votacao.postman_collection.json
+###### Sonarqube - http://localhost:9000/
 
 ## Tarefa Principal
 
