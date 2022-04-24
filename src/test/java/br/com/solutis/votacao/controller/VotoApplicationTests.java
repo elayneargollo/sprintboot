@@ -1,4 +1,4 @@
-package br.com.solutis.votacao;
+package br.com.solutis.votacao.controller;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,7 +6,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import br.com.solutis.votacao.controller.VotoController;
 import br.com.solutis.votacao.mocks.VotoMock;
 import br.com.solutis.votacao.model.entity.Voto;
 import br.com.solutis.votacao.service.interfaces.IVotoService;

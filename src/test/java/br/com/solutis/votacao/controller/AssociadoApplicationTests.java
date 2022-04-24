@@ -1,15 +1,14 @@
-package br.com.solutis.votacao;
+package br.com.solutis.votacao.controller;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import br.com.solutis.votacao.config.mapper.AssociadoMapper;
-import br.com.solutis.votacao.controller.AssociadoController;
 import br.com.solutis.votacao.mocks.AssociadoMock;
 import br.com.solutis.votacao.model.dto.AssociadoDto;
 import br.com.solutis.votacao.model.entity.Associado;
@@ -23,7 +22,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-
 @WebMvcTest(controllers = AssociadoController.class)
 class AssociadoApplicationTests {
 
@@ -32,7 +30,7 @@ class AssociadoApplicationTests {
 
 	@MockBean
 	private IAssociadoService associadoService;
-	
+
 	@MockBean
 	private ServiceCpf serviceCpf;
 
@@ -40,7 +38,6 @@ class AssociadoApplicationTests {
 	private ObjectMapper objectMapper;
 
 	private final String BASE_URL = "/api/associado/";
-	
 
 	@Test
 	void GetById() throws Exception {
@@ -104,14 +101,23 @@ class AssociadoApplicationTests {
 
 		AssociadoDto associadoDtoMock = AssociadoMock.GetAssociadoDto();
 		Associado associadoMock = AssociadoMapper.converterByAssociado(associadoDtoMock);
-		
+
 		when(associadoService.add(associadoMock)).thenReturn(associadoMock);
 
-		mock.perform(post(BASE_URL + "/v1.1/").content(objectMapper.writeValueAsString(associadoMock))
-				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON));
+		mock.perform(MockMvcRequestBuilders.post(BASE_URL + "/v1.1/").content(asJsonString(associadoDtoMock))
+				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
 
 		Associado associadosReturn = associadoService.add(associadoMock);
+		var associadoViewModel = AssociadoMapper.converterByAssociadoViewModel(associadosReturn);
 
-		assertNotNull(associadosReturn);
+		assertNotNull(associadoViewModel);
+	}
+
+	public static String asJsonString(final Object obj) {
+		try {
+			return new ObjectMapper().writeValueAsString(obj);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 }

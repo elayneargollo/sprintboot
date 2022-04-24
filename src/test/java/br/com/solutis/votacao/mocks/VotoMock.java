@@ -2,6 +2,8 @@ package br.com.solutis.votacao.mocks;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import br.com.solutis.votacao.model.dto.VotoDto;
 import br.com.solutis.votacao.model.entity.Voto;
 import br.com.solutis.votacao.model.enumeracao.OpcaoVoto;
 
@@ -18,8 +20,8 @@ public class VotoMock {
 		return votos;
 	}
 	
-	public static Voto ObterVoto()
+	public static VotoDto ObterVotoDto()
 	{		
-		return new Voto(OpcaoVoto.NAO, AssociadoMock.GetAssociado().get().getId(), PautaMock.ObterPauta().get().getId());
+		return new VotoDto(OpcaoVoto.NAO, AssociadoMock.GetAssociado().get().getId(), PautaMock.ObterPauta().get().getId());
 	}
 }

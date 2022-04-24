@@ -3,6 +3,7 @@ package br.com.solutis.votacao.mocks;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.solutis.votacao.model.dto.SessaoDto;
 import br.com.solutis.votacao.model.entity.Sessao;
 
 public class SessaoMock {
@@ -20,6 +21,12 @@ public class SessaoMock {
 	
 	public static Sessao ObterSessao()
 	{		
-		return new Sessao("Teste unitário de sessao com 20s", 20, "Teste unitário de sessao tipo");
+		return new Sessao(1, "Teste unitário de sessao com 20s", 20, "Teste unitário de sessao tipo");
+	}
+	
+
+	public static SessaoDto ObterSessaoDto()
+	{		
+		return new SessaoDto("Teste unitário de sessao com 20s", 20, "Teste unitário de sessao tipo");
 	}
 }

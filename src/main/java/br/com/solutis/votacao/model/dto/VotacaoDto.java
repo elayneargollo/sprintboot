@@ -6,7 +6,6 @@ import javax.persistence.OneToOne;
 public class VotacaoDto {
 	@OneToOne
 	private VotoDto voto;
-
 	private LocalDateTime dataVotacao;
 
 	public VotacaoDto() {
