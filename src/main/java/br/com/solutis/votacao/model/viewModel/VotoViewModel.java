@@ -1,7 +1,6 @@
 package br.com.solutis.votacao.model.viewModel;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;

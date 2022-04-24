@@ -1,6 +1,5 @@
 package br.com.solutis.votacao.model.viewModel;
 
-import java.util.Objects;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
