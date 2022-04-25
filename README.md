@@ -104,8 +104,8 @@ Em uma cooperativa, cada associado possui um voto e as decisões são tomadas at
 - Tarefa Bônus 2 - Contabilização automática (A rotina de contabilização deve ser executada a cada minuto)
 - Tarefa Bônus 3 - Mensageria e filas (Kafka, RebbitMQ ou qualquer outra)
 - Tarefa Bônus 4 - Hospede sua API na nuven (Free Tier AWS, Heroku ou outro)
-- Tarefa Bônus 5 - Análise de qualidade do código (Sonarqube)
-- Tarefa Bônus 6 - Versionamento da API
+- [x]  Tarefa Bônus 5 - Análise de qualidade do código (Sonarqube)
+- [x]  Tarefa Bônus 6 - Versionamento da API
 
 ### Autora
 
