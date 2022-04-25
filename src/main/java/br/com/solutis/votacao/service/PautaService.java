@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 import br.com.solutis.votacao.exception.PautaNaoAbertaException;
 import br.com.solutis.votacao.model.entity.Pauta;
 import br.com.solutis.votacao.model.entity.ResultadoVotacao;
@@ -119,8 +121,8 @@ public class PautaService implements IPautaService {
 
 		List<Voto> votosTotaisPauta = votoRepository.obterVotosPorPauta(idPauta);
 
-		var quantidadeVotoPositivo = votosTotaisPauta.stream().filter(v -> v.getDescricao() == OpcaoVoto.SIM).toList().size();
-		var quantidadeVotoNegativo = votosTotaisPauta.stream().filter(v -> v.getDescricao() == OpcaoVoto.NAO).toList().size();
+		var quantidadeVotoPositivo = votosTotaisPauta.stream().filter(v -> v.getDescricao() == OpcaoVoto.SIM).collect(Collectors.toList()).size();
+		var quantidadeVotoNegativo = votosTotaisPauta.stream().filter(v -> v.getDescricao() == OpcaoVoto.NAO).collect(Collectors.toList()).size();
 		
 		var vencedor = quantidadeVotoPositivo > quantidadeVotoNegativo ? OpcaoVoto.SIM : OpcaoVoto.NAO;
 
