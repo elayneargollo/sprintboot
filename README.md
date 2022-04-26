@@ -71,7 +71,7 @@ Após a execução a inicialização conseguirá acessar:
 
 1. Realize o dowloand no link:
 
-         - https://www.sonarqube.org/downloads/
+         https://www.sonarqube.org/downloads/
       
 2. Start o sonar e realize o login:
          
