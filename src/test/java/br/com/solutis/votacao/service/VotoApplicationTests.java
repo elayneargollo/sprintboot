@@ -4,8 +4,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import br.com.solutis.votacao.exception.AssociadoNaoExiste;
 import br.com.solutis.votacao.exception.PautaNaoAbertaException;
+import br.com.solutis.votacao.exception.PautaNaoExisteException;
+import br.com.solutis.votacao.exception.VotoNaoEncontradoExcepiton;
 import br.com.solutis.votacao.exception.VotoNaoUnicoExcepiton;
 import br.com.solutis.votacao.mocks.PautaMock;
 import br.com.solutis.votacao.mocks.VotoMock;
@@ -43,6 +44,7 @@ class VotoServiceTest {
 		var pauta = PautaMock.ObterPauta().get();
 		
 		when(associadoRepository.existsById(voto.getAssociadoId())).thenReturn(true);
+		when(pautaRepository.existsById(voto.getPautaId())).thenReturn(true);
 		when(pautaRepository.getById(voto.getPautaId())).thenReturn(pauta);
 		when(votoRepository.findAll()).thenReturn(new ArrayList<Voto>());
 
@@ -54,12 +56,27 @@ class VotoServiceTest {
 	}
 	
 	@Test
+	void Add_PautaNaoEncontrada() throws Exception {
+
+		var voto = VotoMock.ObterVotos().get(0);
+		var pauta = PautaMock.ObterPauta().get();
+		
+		when(associadoRepository.existsById(voto.getAssociadoId())).thenReturn(true);
+		when(pautaRepository.existsById(voto.getPautaId())).thenReturn(false);
+		when(pautaRepository.getById(voto.getPautaId())).thenReturn(pauta);
+		when(votoRepository.findAll()).thenReturn(new ArrayList<Voto>());
+
+		assertThrows(PautaNaoExisteException.class, () -> votoService.add(voto));
+	}
+	
+	@Test
 	void Add_VotosUnicos() throws Exception {
 
 		var voto = VotoMock.ObterVotos().get(0);
 		var pauta = PautaMock.ObterPauta().get();
 		
 		when(associadoRepository.existsById(voto.getAssociadoId())).thenReturn(true);
+		when(pautaRepository.existsById(voto.getPautaId())).thenReturn(true);
 		when(pautaRepository.getById(voto.getPautaId())).thenReturn(pauta);
 		when(votoRepository.findAll()).thenReturn(VotoMock.ObterVotos());
 		
@@ -74,6 +91,7 @@ class VotoServiceTest {
 		pauta.setStatus(Status.FECHADO);
 		
 		when(associadoRepository.existsById(voto.getAssociadoId())).thenReturn(true);
+		when(pautaRepository.existsById(voto.getPautaId())).thenReturn(true);
 		when(pautaRepository.getById(voto.getPautaId())).thenReturn(pauta);
 		when(votoRepository.findAll()).thenReturn( VotoMock.ObterVotos());
 		
@@ -81,28 +99,27 @@ class VotoServiceTest {
 	}
 	
 	@Test
-	void Add_AssociadoNaoEncontrado() throws Exception {
-
-		var voto = VotoMock.ObterVotos().get(0);
-		var pauta = PautaMock.ObterPauta().get();
-		
-		when(associadoRepository.existsById(voto.getAssociadoId())).thenReturn(false);
-		when(pautaRepository.getById(voto.getPautaId())).thenReturn(pauta);
-		when(votoRepository.findAll()).thenReturn( VotoMock.ObterVotos());
-		
-		assertThrows(AssociadoNaoExiste.class, () -> votoService.add(voto));
-	}
-	
-	@Test
 	void GetById() throws Exception {
 
 		var voto = VotoMock.ObterVotos().get(0);
 
+		when(votoRepository.existsById(voto.getId())).thenReturn(true);
 		when(votoRepository.findById(voto.getId())).thenReturn(Optional.of(voto));
 
 		var votoReturn = votoService.getById(voto.getId());
 
 		assertNotNull(votoReturn);
+	}
+	
+	@Test
+	void GetById_VotoNaoEncontrado() throws Exception {
+
+		var voto = VotoMock.ObterVotos().get(0);
+
+		when(votoRepository.existsById(voto.getId())).thenReturn(false);
+		when(votoRepository.findById(voto.getId())).thenReturn(Optional.of(voto));
+
+		assertThrows(VotoNaoEncontradoExcepiton.class, () -> votoService.getById(voto.getId()));
 	}
 	
 	@Test

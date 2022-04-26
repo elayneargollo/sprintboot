@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.com.solutis.votacao.exception.PautaNaoAbertaException;
+import br.com.solutis.votacao.exception.PautaNaoExisteException;
 import br.com.solutis.votacao.model.entity.Pauta;
 import br.com.solutis.votacao.model.entity.ResultadoVotacao;
 import br.com.solutis.votacao.model.entity.Sessao;
@@ -55,6 +56,13 @@ public class PautaService implements IPautaService {
 	@Override
 	public Optional<Pauta> getById(Integer id) {
 		logger.log(Level.INFO, "Método GetById com id:: {0} ", id);
+		
+		if(!pautaRepository.existsById(id))
+		{
+			logger.log(Level.INFO, "Pauta com id:: {0} não encontrada", id);
+			throw new PautaNaoExisteException("Pauta não encontrado");
+		}
+		
 		return pautaRepository.findById(id);
 	}
 
@@ -74,6 +82,12 @@ public class PautaService implements IPautaService {
 	public String iniciarPauta(Integer id) {
 		logger.log(Level.INFO, "Método IniciarPauta com id:: {0} ", id);
 
+		if(!pautaRepository.existsById(id))
+		{
+			logger.log(Level.INFO, "Pauta com id:: {0} não encontrada", id);
+			throw new PautaNaoExisteException("Pauta não encontrado");
+		}
+		
 		Pauta pauta = pautaRepository.getById(id);
 
 		if (pauta.getStatus() == Status.ABERTO || pauta.getStatus() == Status.FECHADO)
@@ -83,9 +97,7 @@ public class PautaService implements IPautaService {
 		}
 
 		pautaRepository.alterarStatusPauta(Status.ABERTO, id);
-		fecharVotacao(id, pauta.getSessao().getTempoDuracao());
-
-		return "Pauta aberta !";
+		return ("Pauta referente a sessão " + pauta.getSessao().getDescricao() + " aberta para votação !");
 	}
 
 	public void fecharVotacao(Integer id, long duracao) {
@@ -107,6 +119,12 @@ public class PautaService implements IPautaService {
 		logger.log(Level.INFO, "Método ObterResultadoPorPauta com id:: {0} ", id);
 		
 		Pauta pauta = pautaRepository.getById(id);
+		
+		if(!pautaRepository.existsById(id))
+		{
+			logger.log(Level.INFO, "Pauta com id:: {0} não encontrada", id);
+			throw new PautaNaoExisteException("Pauta não encontrado");
+		}
 
 		if (pauta.getStatus() == Status.ABERTO || pauta.getStatus() == Status.CRIADO) {
 			logger.info("Fechar a pauta para contagem dos votos !");

@@ -11,6 +11,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,5 +59,13 @@ public class VotoController {
 		voto = votoService.add(voto);
 		
 		return ResponseEntity.ok(VotoMapper.converterByVotoViewModel(voto));
+	}
+	
+	@GetMapping("/v1.0/{id}")
+	@ApiOperation(value="Obter voto")
+	public ResponseEntity<VotoViewModel> obter(@PathVariable("id") Integer id) {
+		
+		var votoEncontrado = votoService.getById(id).get();
+		return ResponseEntity.ok(VotoMapper.converterByVotoViewModel(votoEncontrado));
 	}
 }
