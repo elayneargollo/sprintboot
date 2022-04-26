@@ -59,7 +59,6 @@ public class PautaService implements IPautaService {
 		
 		if(!pautaRepository.existsById(id))
 		{
-			logger.log(Level.INFO, "Pauta com id:: {0} não encontrada", id);
 			throw new PautaNaoExisteException("Pauta não encontrado");
 		}
 		

@@ -24,7 +24,6 @@ import io.swagger.annotations.ApiOperation;
 import reactor.core.publisher.Mono;
 
 @RestController
-@CrossOrigin(origins="*")
 @RequestMapping("/api/associado")
 @Api(value="API ASSOCIADO")
 public class AssociadoController {
