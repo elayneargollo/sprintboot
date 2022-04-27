@@ -13,6 +13,9 @@ public class CpfDto {
 		this.cpf = cpf;
 		this.isValid = isValid;
 	}
+	
+	public CpfDto() {
+	}
 
 	public String getCpf() {
 		return cpf;
