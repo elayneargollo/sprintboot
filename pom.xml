@@ -19,6 +19,14 @@
 		<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
 		<sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
 		<sonar.language>java</sonar.language>
+		<sonar.issue.ignore.multicriteria>e1</sonar.issue.ignore.multicriteria>
+	    <sonar.issue.ignore.multicriteria.e1.ruleKey>java:S106</sonar.issue.ignore.multicriteria.e1.ruleKey>
+	    <sonar.issue.ignore.multicriteria.e1.resourceKey>
+	      **/SonarExclude.java
+	    </sonar.issue.ignore.multicriteria.e1.resourceKey>
+	     <sonar.coverage.exclusions>
+	     	/src/main/java/br/com/solutis/votacao/model/**/*
+	     </sonar.coverage.exclusions>
 	</properties>
 
 	<dependencies>
