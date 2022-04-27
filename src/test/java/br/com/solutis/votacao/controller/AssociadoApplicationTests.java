@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import br.com.solutis.votacao.config.mapper.AssociadoMapper;
 import br.com.solutis.votacao.mocks.AssociadoMock;
 import br.com.solutis.votacao.model.dto.AssociadoDto;
+import br.com.solutis.votacao.model.dto.CpfDto;
 import br.com.solutis.votacao.model.entity.Associado;
 import br.com.solutis.votacao.repository.ServiceCpf;
 import br.com.solutis.votacao.service.interfaces.IAssociadoService;
@@ -30,7 +31,7 @@ class AssociadoApplicationTests {
 
 	@MockBean
 	private IAssociadoService associadoService;
-
+	
 	@MockBean
 	private ServiceCpf serviceCpf;
 
@@ -103,6 +104,7 @@ class AssociadoApplicationTests {
 		Associado associadoMock = AssociadoMapper.converterByAssociado(associadoDtoMock);
 
 		when(associadoService.add(associadoMock)).thenReturn(associadoMock);
+		when(serviceCpf.validarCpf(associadoMock.getCpf())).thenReturn(new CpfDto(associadoMock.getCpf(), true));
 
 		mock.perform(MockMvcRequestBuilders.post(BASE_URL + "/v1.1/").content(asJsonString(associadoDtoMock))
 				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());

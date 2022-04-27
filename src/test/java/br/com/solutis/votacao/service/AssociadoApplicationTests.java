@@ -1,17 +1,21 @@
 package br.com.solutis.votacao.service;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.when;
+import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import br.com.solutis.votacao.exception.ServiceCpfException;
 import br.com.solutis.votacao.mocks.AssociadoMock;
+import br.com.solutis.votacao.model.dto.CpfDto;
 import br.com.solutis.votacao.model.entity.Associado;
 import br.com.solutis.votacao.repository.IAssociadoRepository;
-import java.util.List;
-import java.util.Optional;
-import static org.mockito.Mockito.when;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.assertj.core.api.Assertions.assertThat;
+import br.com.solutis.votacao.repository.ServiceCpf;
 
 @WebMvcTest(controllers = AssociadoService.class)
 class AssociadoServiceApplicationTests {
@@ -21,6 +25,9 @@ class AssociadoServiceApplicationTests {
 	
 	@Autowired
 	private AssociadoService associadoService;
+	
+	@MockBean
+	private ServiceCpf serviceCpf;
 
 
 	@Test
@@ -66,4 +73,28 @@ class AssociadoServiceApplicationTests {
 		assertThat(associadosReturn.size()).hasSameClassAs(associadosMock.size());
 	}
 
+	@Test
+	void Add() throws Exception {
+
+		Associado associadoMock = AssociadoMock.GetAssociado().get();
+
+		when(serviceCpf.validarCpf(associadoMock.getCpf())).thenReturn(new CpfDto("03715662034", true));
+		when(associadoRepository.save(associadoMock)).thenReturn(associadoMock);
+
+		associadoMock = associadoService.add(associadoMock);
+
+		assertNotNull(associadoMock);
+	}
+	
+	@Test
+	void Add_CpfInvalido() throws Exception {
+
+		Associado associadoMock = AssociadoMock.GetAssociado().get();
+
+		when(serviceCpf.validarCpf(associadoMock.getCpf())).thenReturn(new CpfDto("0371566203", false));
+		when(associadoRepository.save(associadoMock)).thenReturn(associadoMock);
+
+		assertThrows(ServiceCpfException.class, () -> associadoService.add(associadoMock));
+	}
+	
 }

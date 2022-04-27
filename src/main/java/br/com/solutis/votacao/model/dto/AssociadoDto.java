@@ -5,7 +5,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class AssociadoDto {
@@ -23,14 +22,16 @@ public class AssociadoDto {
 	@Size(min = 20, max = 255)
 	@JsonProperty("email")
 	private String email;
+	
+	private String cpf;
 
 	public AssociadoDto() {
 	}
 
-	public AssociadoDto(String nome, String email) {
-		super();
+	public AssociadoDto(String cpf, String nome, String email) {
 		this.nome = nome;
 		this.email = email;
+		this.cpf = cpf;
 	}
 
 	public String getNome() {
@@ -47,5 +48,13 @@ public class AssociadoDto {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 }

@@ -18,9 +18,11 @@ public class ServiceCpf {
 	@Resource
 	private WebClient webClient;
 
-	public Mono<CpfDto> validarCpf(final String cpf) {
-
-		return webClient.get().uri("/cpf/{cpf}", cpf).header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+	public CpfDto validarCpf(final String cpf) {
+		
+		Mono<CpfDto> monoCpf = webClient.get().uri("/cpf/{cpf}", cpf).header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
 				.retrieve().bodyToMono(CpfDto.class);
+		
+		return monoCpf.block();
 	}
 }

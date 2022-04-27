@@ -14,14 +14,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import br.com.solutis.votacao.config.mapper.AssociadoMapper;
 import br.com.solutis.votacao.model.dto.AssociadoDto;
-import br.com.solutis.votacao.model.dto.CpfDto;
 import br.com.solutis.votacao.model.entity.Associado;
 import br.com.solutis.votacao.model.viewModel.AssociadoViewModel;
-import br.com.solutis.votacao.repository.ServiceCpf;
 import br.com.solutis.votacao.service.interfaces.IAssociadoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/api/associado")
@@ -30,15 +27,6 @@ public class AssociadoController {
 
 	@Autowired
 	private IAssociadoService associadoService;
-	
-	@Autowired
-	private ServiceCpf serviceCpf;
-	
-	@GetMapping({"/v1.0/validar/{cpf}"})
-	@ApiOperation(value="Valida cpf")
-	public Mono<CpfDto> validarCpf(@PathVariable("cpf") String cpf) {	
-		return serviceCpf.validarCpf(cpf);	
-	}
 
 	@GetMapping("/v1.0/")
 	@ApiOperation(value="Retorna uma paginação de associados")

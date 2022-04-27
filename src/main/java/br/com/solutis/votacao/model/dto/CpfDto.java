@@ -9,6 +9,11 @@ public class CpfDto {
 	String cpf;
 	Boolean isValid;
 	
+	public CpfDto(String cpf, Boolean isValid) {
+		this.cpf = cpf;
+		this.isValid = isValid;
+	}
+
 	public String getCpf() {
 		return cpf;
 	}

@@ -16,18 +16,18 @@ public class AssociadoMapper{
 	public static AssociadoDto converterByAssociadoDto(Associado associado)
 	{
 		logger.info("Método converterByAssociadoDto converte um Associado para um AssociadoDto");
-		return new AssociadoDto(associado.getEmail(), associado.getEmail());
+		return new AssociadoDto(associado.getCpf(), associado.getEmail(), associado.getEmail());
 	}
 	
 	public static Associado converterByAssociado(AssociadoDto associadoDto)
 	{
 		logger.info("Método converterByAssociado converte um AssociadoDto para um Associado");
-		return new Associado(associadoDto.getNome(), associadoDto.getEmail());
+		return new Associado(associadoDto.getNome(), associadoDto.getEmail(), associadoDto.getCpf());
 	}
 	
 	public static AssociadoViewModel converterByAssociadoViewModel(Associado associado)
 	{
 		logger.info("Método converterByAssociadoViewModel converte um Associado para um AssociadoViewModel");
-		return new AssociadoViewModel(associado.getId(), associado.getNome(), associado.getEmail());
+		return new AssociadoViewModel(associado.getId(), associado.getNome(), associado.getEmail(), associado.getCpf());
 	}
 }

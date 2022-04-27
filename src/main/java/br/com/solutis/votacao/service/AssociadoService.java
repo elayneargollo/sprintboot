@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import br.com.solutis.votacao.exception.ServiceCpfException;
 import br.com.solutis.votacao.model.entity.Associado;
 import br.com.solutis.votacao.repository.IAssociadoRepository;
+import br.com.solutis.votacao.repository.ServiceCpf;
 import br.com.solutis.votacao.service.interfaces.IAssociadoService;
 
 @Service
@@ -17,11 +19,13 @@ public class AssociadoService implements IAssociadoService {
 
 	@Autowired
 	IAssociadoRepository associadoRepository;
+	@Autowired
+	ServiceCpf serviceCpf;
+	
 	Logger logger = Logger.getLogger(AssociadoService.class.getName());
 
 	public Optional<Associado> getById(Integer id) {
 		logger.log(Level.INFO, "Método GetById com id:: {0} ", id);
-
 		return associadoRepository.findById(id);
 	}
 
@@ -39,7 +43,13 @@ public class AssociadoService implements IAssociadoService {
 
 	@Override
 	public Associado add(Associado associado) {
-		logger.info("Método Add");
+		logger.log(Level.INFO, "Método add com cpf:: {0} ", associado.getCpf());
+		
+		var response = serviceCpf.validarCpf(associado.getCpf());
+		
+		if(!response.getIsValid())
+			throw new ServiceCpfException("CPF informado não é válido");
+			
 		return associadoRepository.save(associado);
 	}
 }
