@@ -1,13 +1,19 @@
 package br.com.solutis.votacao.repository;
 
-import br.com.solutis.votacao.model.dto.CpfDto;
-import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import java.util.List;
+
 import javax.annotation.Resource;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+
+import br.com.caelum.stella.ValidationMessage;
+import br.com.caelum.stella.validation.CPFValidator;
+import br.com.solutis.votacao.model.dto.CpfDto;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -20,9 +26,25 @@ public class ServiceCpf {
 
 	public CpfDto validarCpf(final String cpf) {
 		
-		Mono<CpfDto> monoCpf = webClient.get().uri("/cpf/{cpf}", cpf).header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-				.retrieve().bodyToMono(CpfDto.class);
+		try
+		{
+			Mono<CpfDto> monoCpf = webClient.get().uri("/cpf/{cpf}", cpf).header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+					.retrieve().bodyToMono(CpfDto.class);
+			
+			return monoCpf.block();
+		}catch (Exception e) {
+			return validar(cpf);
+		}
+	}
+	
+	private CpfDto validar(String cpf)
+	{
+		CPFValidator cpfValidador = new CPFValidator(); 
+		List<ValidationMessage> erros = cpfValidador.invalidMessagesFor(cpf); 
 		
-		return monoCpf.block();
+		if(erros.size() > 0)
+			return new CpfDto(cpf, false);
+	
+		return new CpfDto(cpf, true);
 	}
 }
