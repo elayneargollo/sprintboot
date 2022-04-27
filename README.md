@@ -65,7 +65,7 @@ Para executar este projeto é necessário instalar:
 Após a execução a inicialização conseguirá acessar:
 
    - Raiz da API
-   - Documentação no Swagger
+   - Documentação no Swagger :  http://localhost:8080/swagger-ui.html#/
 
 ## Sonarqube
 
