@@ -44,12 +44,6 @@ public class PautaService implements IPautaService {
 
 		Pauta pautaSalva = pautaRepository.save(pauta);
 
-		if (pauta.getStatus() == Status.ABERTO)
-		{
-			logger.info("Fechando votação ...");
-			fecharVotacao(pautaSalva.getId(), sessao.getTempoDuracao());
-		}
-
 		return pautaSalva;
 	}
 
