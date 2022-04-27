@@ -63,8 +63,7 @@ public class VotoController {
 	@ApiOperation(value="Obter voto")
 	public ResponseEntity<VotoViewModel> obter(@PathVariable("id") Integer id) {
 		
-		var votoEncontrado = votoService.getById(id).get();
-		
-		return ResponseEntity.ok(VotoMapper.converterByVotoViewModel(votoEncontrado));
+		var votoEncontrado = votoService.getById(id);		
+		return ResponseEntity.ok(VotoMapper.converterByVotoViewModel(votoEncontrado.orElse(new Voto())));
 	}
 }

@@ -1,27 +1,24 @@
 package br.com.solutis.votacao.controller;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.http.HttpHeaders;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import br.com.solutis.votacao.config.mapper.PautaMapper;
-import br.com.solutis.votacao.mocks.PautaMock;
-import br.com.solutis.votacao.model.dto.PautaDto;
-import br.com.solutis.votacao.model.entity.Pauta;
-import br.com.solutis.votacao.model.viewModel.PautaViewModel;
-import br.com.solutis.votacao.service.interfaces.IPautaService;
 import org.springframework.http.MediaType;
-import java.util.List;
-import java.util.Optional;
-import static org.mockito.Mockito.when;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import org.springframework.test.web.servlet.MockMvc;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import br.com.solutis.votacao.mocks.PautaMock;
+import br.com.solutis.votacao.model.entity.Pauta;
+import br.com.solutis.votacao.repository.ISessaoRepository;
+import br.com.solutis.votacao.service.interfaces.IPautaService;
 
 @WebMvcTest(controllers = PautaController.class)
 class PautaControllerTest {
@@ -34,6 +31,9 @@ class PautaControllerTest {
 
 	@Autowired
 	private ObjectMapper objectMapper;
+	
+	@MockBean
+	private ISessaoRepository sessaoRepository;
 
 	private final String BASE_URL = "/api/pauta/";
 
@@ -87,28 +87,6 @@ class PautaControllerTest {
 	}
 
 	@Test
-	void GetById_404() throws Exception {
-		mock.perform(get(BASE_URL + "v1.0" + "/2")).andExpect(status().isNotFound());
-	}
-
-	@Test
-	void GetAdd() throws Exception {
-
-		PautaDto pautaDto = PautaMock.ObterPautaDto();
-		Pauta pautaMock = PautaMapper.converterByPauta(pautaDto);
-
-		when(pautaService.add(pautaMock)).thenReturn(pautaMock);
-
-		mock.perform(MockMvcRequestBuilders.post(BASE_URL + "/v1.0/").content(asJsonString(pautaDto))
-				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
-
-		Pauta pautaReturn = pautaService.add(pautaMock);
-		PautaViewModel pautaViewModel = PautaMapper.converterByPautaViewModel(pautaReturn);
-
-		assertNotNull(pautaViewModel);
-	}
-
-	@Test
 	void IniciarPauta() throws Exception {
 
 		Optional<Pauta> pautaMock = PautaMock.ObterPauta();
@@ -121,13 +99,5 @@ class PautaControllerTest {
 		String pautasReturn = pautaService.iniciarPauta(1);
 
 		assertNotNull(pautasReturn);
-	}
-
-	public static String asJsonString(final Object obj) {
-		try {
-			return new ObjectMapper().writeValueAsString(obj);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
 	}
 }

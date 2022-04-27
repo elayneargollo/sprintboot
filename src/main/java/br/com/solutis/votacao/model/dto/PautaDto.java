@@ -17,6 +17,8 @@ public class PautaDto {
 
 	@OneToOne
 	private SessaoDto sessaoDto;
+	
+	private Integer id;
 
 	public PautaDto() {
 	}
@@ -24,6 +26,13 @@ public class PautaDto {
 	public PautaDto(Status status, SessaoDto sessaoDto) {
 		this.status = status;
 		this.sessaoDto = sessaoDto;
+	}
+
+	public PautaDto(@NotNull Status status, SessaoDto sessaoDto, Integer id) {
+		super();
+		this.status = status;
+		this.sessaoDto = sessaoDto;
+		this.id = id;
 	}
 
 	public Status getStatus() {
@@ -41,4 +50,20 @@ public class PautaDto {
 	public void setSessao(SessaoDto sessao) {
 		this.sessaoDto = sessao;
 	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	@Override
+	public String toString() {
+		return "PautaDto [status=" + status + ", sessaoDto=" + sessaoDto + ", id=" + id + "]";
+	}
+	
+	
+
 }

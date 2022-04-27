@@ -40,19 +40,11 @@ public class PautaController {
 	
 	@PostMapping("/v1.0/")
 	@ApiOperation(value="Persiste pauta no sistema")
-	public ResponseEntity<PautaViewModel> add(@RequestBody @Valid PautaDto pautaDto) {
+	public ResponseEntity<PautaViewModel> add(@RequestBody @Valid PautaDto pautaDto){
 		Pauta pauta = PautaMapper.converterByPauta(pautaDto);
+		pauta = pautaService.add(pauta);
 		
-		try {
-			
-			pauta = pautaService.add(pauta);
-			return ResponseEntity.ok(PautaMapper.converterByPautaViewModel(pauta));
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return null;
+		return ResponseEntity.ok(PautaMapper.converterByPautaViewModel(pauta));
 	}
 	
 	@PutMapping("/v1.0/")

@@ -50,16 +50,14 @@ public class SessaoController {
 	
 	@PostMapping("/v1.0/")
 	@ApiOperation(value="Persiste sessão no sistema")
-	public ResponseEntity<SessaoViewModel> add(@RequestBody @Valid SessaoDto sessaoDto) {
+	public ResponseEntity<SessaoViewModel> add(@RequestBody @Valid SessaoDto sessaoDto) throws Exception {
 		Sessao sessao = SessaoMapper.converterBySessao(sessaoDto);
 		
 		try {
 			sessao = sessaoService.add(sessao);
 			return ResponseEntity.ok(SessaoMapper.converterBySessaoViewModel(sessao));
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new Exception(e.getMessage());
 		}
-		
-		return ResponseEntity.ok(new SessaoViewModel());
 	}
 }

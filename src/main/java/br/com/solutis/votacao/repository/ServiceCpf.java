@@ -42,9 +42,9 @@ public class ServiceCpf {
 		CPFValidator cpfValidador = new CPFValidator(); 
 		List<ValidationMessage> erros = cpfValidador.invalidMessagesFor(cpf); 
 		
-		if(erros.size() > 0)
-			return new CpfDto(cpf, false);
+		if(erros.isEmpty())
+			return new CpfDto(cpf, true);
 	
-		return new CpfDto(cpf, true);
+		return new CpfDto(cpf, false);
 	}
 }
