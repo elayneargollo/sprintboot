@@ -129,7 +129,7 @@ Em uma cooperativa, cada associado possui um voto e as decisões são tomadas at
 
 ## Tarefa Bônus
 
-- Tarefa Bônus 1 - Integração com sistemas externos (GET: https://cpf-api-almfelipe.herokuapp.com/cpf/12345678901)
+- [x] Tarefa Bônus 1 - Integração com sistemas externos (GET: https://cpf-api-almfelipe.herokuapp.com/cpf/12345678901)
 - Tarefa Bônus 2 - Contabilização automática (A rotina de contabilização deve ser executada a cada minuto)
 - Tarefa Bônus 3 - Mensageria e filas (Kafka, RebbitMQ ou qualquer outra)
 - Tarefa Bônus 4 - Hospede sua API na nuven (Free Tier AWS, Heroku ou outro)
