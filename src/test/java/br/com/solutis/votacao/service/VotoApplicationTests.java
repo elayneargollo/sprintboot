@@ -5,9 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import br.com.solutis.votacao.exception.PautaNaoAbertaException;
-import br.com.solutis.votacao.exception.PautaNaoExisteException;
-import br.com.solutis.votacao.exception.VotoNaoEncontradoExcepiton;
 import br.com.solutis.votacao.exception.VotoNaoUnicoExcepiton;
+import br.com.solutis.votacao.exception.NotFoundException;
 import br.com.solutis.votacao.mocks.PautaMock;
 import br.com.solutis.votacao.mocks.VotoMock;
 import br.com.solutis.votacao.model.entity.Voto;
@@ -66,7 +65,7 @@ class VotoServiceTest {
 		when(pautaRepository.getById(voto.getPautaId())).thenReturn(pauta);
 		when(votoRepository.findAll()).thenReturn(new ArrayList<Voto>());
 
-		assertThrows(PautaNaoExisteException.class, () -> votoService.add(voto));
+		assertThrows(NotFoundException.class, () -> votoService.add(voto));
 	}
 	
 	@Test
@@ -119,7 +118,7 @@ class VotoServiceTest {
 		when(votoRepository.existsById(voto.getId())).thenReturn(false);
 		when(votoRepository.findById(voto.getId())).thenReturn(Optional.of(voto));
 
-		assertThrows(VotoNaoEncontradoExcepiton.class, () -> votoService.getById(voto.getId()));
+		assertThrows(NotFoundException.class, () -> votoService.getById(voto.getId()));
 	}
 	
 	@Test

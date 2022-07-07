@@ -10,10 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import br.com.solutis.votacao.exception.AssociadoNaoExiste;
+import br.com.solutis.votacao.exception.NotFoundException;
 import br.com.solutis.votacao.exception.PautaNaoAbertaException;
-import br.com.solutis.votacao.exception.PautaNaoExisteException;
-import br.com.solutis.votacao.exception.VotoNaoEncontradoExcepiton;
 import br.com.solutis.votacao.exception.VotoNaoUnicoExcepiton;
 import br.com.solutis.votacao.model.entity.Pauta;
 import br.com.solutis.votacao.model.entity.Voto;
@@ -42,14 +40,14 @@ public class VotoService implements IVotoService {
 
 		if (!pautaRepository.existsById(voto.getPautaId())) {
 			logger.log(Level.INFO, "Pauta com id:: {0} não encontrada durante a inserção do voto", voto.getPautaId());
-			throw new PautaNaoExisteException("Pauta não encontrado");
+			throw new NotFoundException("Pauta não encontrado");
 		}
 
 		Pauta pauta = pautaRepository.getById(voto.getPautaId());
 
 		if (!associadoEncontrado) {
 			logger.info("Não é possível realizar um voto sem um associado vinculado ao sistema");
-			throw new AssociadoNaoExiste("Associado não encontrado");
+			throw new NotFoundException("Associado não encontrado");
 		}
 
 		if (pauta.getStatus() != (Status.ABERTO)) {
@@ -81,7 +79,7 @@ public class VotoService implements IVotoService {
 		logger.log(Level.INFO, "Método GetById com id:: {0} ", id);
 		
 		if(!votoRepository.existsById(id))
-			throw new VotoNaoEncontradoExcepiton("Voto não encontrado.");
+			throw new NotFoundException("Voto não encontrada");
 		
 		return votoRepository.findById(id);
 	}

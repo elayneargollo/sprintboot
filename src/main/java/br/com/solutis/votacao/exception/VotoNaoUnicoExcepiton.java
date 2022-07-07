@@ -1,13 +1,14 @@
 package br.com.solutis.votacao.exception;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
-public class VotoNaoUnicoExcepiton extends ResponseStatusException{
+@ResponseStatus(HttpStatus.BAD_REQUEST)
+public class VotoNaoUnicoExcepiton extends RuntimeException{
 	
 	private static final long serialVersionUID = 1L;
 
 	public VotoNaoUnicoExcepiton(String mensagem) {
-		super(HttpStatus.BAD_REQUEST, mensagem);
+		super(mensagem);
 	}
 }

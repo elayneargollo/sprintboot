@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import br.com.solutis.votacao.exception.NotFoundException;
 import br.com.solutis.votacao.model.entity.Sessao;
 import br.com.solutis.votacao.repository.IPautaRepository;
 import br.com.solutis.votacao.repository.ISessaoRepository;
@@ -33,6 +34,10 @@ public class SessaoService implements ISessaoService {
 	@Override
 	public Optional<Sessao> getById(Integer id) {
 		logger.log(Level.INFO, "Método GetById com id:: {0} ", id);
+		
+		if(!sesSaoRepository.existsById(id))
+			throw new NotFoundException("Sessão não encontrada");
+		
 		return sesSaoRepository.findById(id);
 	}
 

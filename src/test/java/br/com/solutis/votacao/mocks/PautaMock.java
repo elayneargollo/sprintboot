@@ -10,7 +10,7 @@ import br.com.solutis.votacao.model.entity.Sessao;
 import br.com.solutis.votacao.model.enumeracao.Status;
 
 public final class PautaMock {
-
+	
 	public static List<Pauta> ObterPautas()
 	{
 		List<Pauta> pautas = new ArrayList<Pauta>();

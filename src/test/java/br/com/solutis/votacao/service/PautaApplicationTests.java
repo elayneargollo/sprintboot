@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import br.com.solutis.votacao.exception.PautaNaoAbertaException;
-import br.com.solutis.votacao.exception.PautaNaoExisteException;
 import br.com.solutis.votacao.mocks.PautaMock;
 import br.com.solutis.votacao.mocks.VotoMock;
 import br.com.solutis.votacao.model.entity.Pauta;
@@ -18,7 +17,7 @@ import java.util.Optional;
 import static org.mockito.Mockito.when;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
+import br.com.solutis.votacao.exception.NotFoundException;
 
 @WebMvcTest(controllers = PautaService.class)
 class PautaServiceTest {
@@ -54,7 +53,7 @@ class PautaServiceTest {
 		when(pautaRepository.existsById(pautaMock.get().getId())).thenReturn(false);	
 		when(pautaRepository.findById(pautaMock.get().getId())).thenReturn(pautaMock);
 
-		assertThrows(PautaNaoExisteException.class, () -> pautaService.getById(pautaMock.get().getId()));
+		assertThrows(NotFoundException.class, () -> pautaService.getById(pautaMock.get().getId()));
 	}
 
 	@Test
@@ -116,7 +115,7 @@ class PautaServiceTest {
 		when(pautaRepository.existsById(pautaMock.getId())).thenReturn(false);	
 		when(pautaRepository.getById(pautaMock.getId())).thenReturn(pautaMock);	
 		
-		assertThrows(PautaNaoExisteException.class, () -> pautaService.iniciarPauta(pautaMock.getId()));
+		assertThrows(NotFoundException.class, () -> pautaService.iniciarPauta(pautaMock.getId()));
 	}
 	
 	@Test
@@ -142,7 +141,7 @@ class PautaServiceTest {
 		when(pautaRepository.getById(pautaMock.getId())).thenReturn(pautaMock);	
 		when(votoRepository.obterVotosPorPauta(pautaMock.getId())).thenReturn(VotoMock.ObterVotos());	
 		
-		assertThrows(PautaNaoExisteException.class, () -> pautaService.obterResultadoPorPauta(pautaMock.getId()));
+		assertThrows(NotFoundException.class, () -> pautaService.obterResultadoPorPauta(pautaMock.getId()));
 	}
 	
 	@Test
