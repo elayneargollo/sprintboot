@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import javax.validation.Valid;
+
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,7 +14,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import br.com.solutis.votacao.config.mapper.AssociadoMapper;
 import br.com.solutis.votacao.model.dto.AssociadoDto;
 import br.com.solutis.votacao.model.entity.Associado;
 import br.com.solutis.votacao.model.viewModel.AssociadoViewModel;
@@ -27,6 +28,7 @@ public class AssociadoController {
 
 	@Autowired
 	private IAssociadoService associadoService;
+	private ModelMapper modelMapper = new ModelMapper();
 
 	@GetMapping("/v1.0/")
 	@ApiOperation(value="Retorna uma paginação de associados")
@@ -40,8 +42,8 @@ public class AssociadoController {
 
 		Optional<Associado> associado = associadoService.getById(id);
 		
-		if(associado.isPresent())
-			return ResponseEntity.ok().body(AssociadoMapper.converterByAssociadoViewModel(associado.get()));
+		if(associado.isPresent())		
+			return ResponseEntity.ok().body(modelMapper.map(associado.get(), AssociadoViewModel.class));
 			
 		 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
@@ -53,7 +55,8 @@ public class AssociadoController {
 		var associados = associadoService.getAll();
 		
 		List<AssociadoViewModel> associadoViewModel = new ArrayList<>();
-		associados.forEach(associado -> associadoViewModel.add(AssociadoMapper.converterByAssociadoViewModel(associado)));
+		
+		associados.forEach(associado -> associadoViewModel.add(modelMapper.map(associado, AssociadoViewModel.class)));
 	    
 		return ResponseEntity.ok(associadoViewModel);
 	}
@@ -62,9 +65,9 @@ public class AssociadoController {
 	@ApiOperation(value="Cria um associado")
 	public ResponseEntity<AssociadoViewModel> add(@RequestBody @Valid AssociadoDto associadoDto) {
 		
-		Associado associado = AssociadoMapper.converterByAssociado(associadoDto);
+		Associado associado = modelMapper.map(associadoDto,  Associado.class);
 		associado = associadoService.add(associado);
 
-		return ResponseEntity.ok(AssociadoMapper.converterByAssociadoViewModel(associado));
+		return ResponseEntity.ok(modelMapper.map(associado, AssociadoViewModel.class));
 	}
 }

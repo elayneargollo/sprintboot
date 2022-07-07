@@ -1,6 +1,7 @@
 package br.com.solutis.votacao.controller;
 
 import org.junit.jupiter.api.Test;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -8,11 +9,11 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import br.com.solutis.votacao.config.mapper.AssociadoMapper;
 import br.com.solutis.votacao.mocks.AssociadoMock;
 import br.com.solutis.votacao.model.dto.AssociadoDto;
 import br.com.solutis.votacao.model.dto.CpfDto;
 import br.com.solutis.votacao.model.entity.Associado;
+import br.com.solutis.votacao.model.viewModel.AssociadoViewModel;
 import br.com.solutis.votacao.repository.ServiceCpf;
 import br.com.solutis.votacao.service.interfaces.IAssociadoService;
 import java.util.List;
@@ -28,17 +29,14 @@ class AssociadoApplicationTests {
 
 	@Autowired
 	private MockMvc mock;
-
 	@MockBean
 	private IAssociadoService associadoService;
-	
 	@MockBean
 	private ServiceCpf serviceCpf;
-
 	@Autowired
 	private ObjectMapper objectMapper;
-
 	private final String BASE_URL = "/api/associado/";
+	private ModelMapper modelMapper = new ModelMapper();
 
 	@Test
 	void GetById() throws Exception {
@@ -101,7 +99,7 @@ class AssociadoApplicationTests {
 	void GetAdd() throws Exception {
 
 		AssociadoDto associadoDtoMock = AssociadoMock.GetAssociadoDto();
-		Associado associadoMock = AssociadoMapper.converterByAssociado(associadoDtoMock);
+		Associado associadoMock = modelMapper.map(associadoDtoMock, Associado.class);
 
 		when(associadoService.add(associadoMock)).thenReturn(associadoMock);
 		when(serviceCpf.validarCpf(associadoMock.getCpf())).thenReturn(new CpfDto(associadoMock.getCpf(), true));
@@ -110,7 +108,7 @@ class AssociadoApplicationTests {
 				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
 
 		Associado associadosReturn = associadoService.add(associadoMock);
-		var associadoViewModel = AssociadoMapper.converterByAssociadoViewModel(associadosReturn);
+		var associadoViewModel = modelMapper.map(associadosReturn, AssociadoViewModel.class);
 
 		assertNotNull(associadoViewModel);
 	}

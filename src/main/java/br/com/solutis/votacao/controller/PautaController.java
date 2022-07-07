@@ -3,6 +3,8 @@ package br.com.solutis.votacao.controller;
 import java.util.ArrayList;
 import java.util.List;
 import javax.validation.Valid;
+
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,7 +17,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import br.com.solutis.votacao.config.mapper.PautaMapper;
 import br.com.solutis.votacao.model.dto.PautaDto;
 import br.com.solutis.votacao.model.entity.Pauta;
 import br.com.solutis.votacao.model.entity.ResultadoVotacao;
@@ -31,6 +32,7 @@ public class PautaController {
 
 	@Autowired
 	private IPautaService pautaService;
+	private ModelMapper modelMapper = new ModelMapper();
 	
 	@GetMapping("/v1.0/")
 	@ApiOperation(value="Retorna uma paginação de pautas")
@@ -41,10 +43,11 @@ public class PautaController {
 	@PostMapping("/v1.0/")
 	@ApiOperation(value="Persiste pauta no sistema")
 	public ResponseEntity<PautaViewModel> add(@RequestBody @Valid PautaDto pautaDto){
-		Pauta pauta = PautaMapper.converterByPauta(pautaDto);
+		
+		Pauta pauta = modelMapper.map(pautaDto, Pauta.class);
 		pauta = pautaService.add(pauta);
 		
-		return ResponseEntity.ok(PautaMapper.converterByPautaViewModel(pauta));
+		return ResponseEntity.ok(modelMapper.map(pauta, PautaViewModel.class));
 	}
 	
 	@PutMapping("/v1.0/")
@@ -66,7 +69,7 @@ public class PautaController {
 		var pautas = pautaService.getAll();
 		
 		List<PautaViewModel> pautaViewModel = new ArrayList<>();
-		pautas.forEach(pauta -> pautaViewModel.add(PautaMapper.converterByPautaViewModel(pauta)));
+		pautas.forEach(pauta -> pautaViewModel.add(modelMapper.map(pauta, PautaViewModel.class)));
 		
 		return ResponseEntity.ok(pautaViewModel);
 	}

@@ -3,6 +3,7 @@ package br.com.solutis.votacao.controller;
 import java.util.ArrayList;
 import java.util.List;
 import javax.validation.Valid;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import br.com.solutis.votacao.config.mapper.VotoMapper;
 import br.com.solutis.votacao.model.dto.VotoDto;
 import br.com.solutis.votacao.model.entity.Voto;
 import br.com.solutis.votacao.model.viewModel.VotoViewModel;
@@ -30,6 +30,7 @@ public class VotoController {
 	
 	@Autowired
 	private IVotoService votoService;
+	private ModelMapper modelMapper = new ModelMapper();
 	
 	@GetMapping("/v1.1/")
 	@ApiOperation(value="Retorna uma lista de votos")
@@ -38,7 +39,7 @@ public class VotoController {
 		var votos = votoService.getAll();
 		
 		List<VotoViewModel> votoViewModel = new ArrayList<>();
-		votos.forEach(voto -> votoViewModel.add(VotoMapper.converterByVotoViewModel(voto)));
+		votos.forEach(voto -> votoViewModel.add(modelMapper.map(voto, VotoViewModel.class)));
 		
 		return ResponseEntity.ok(votoViewModel);
 	}
@@ -53,10 +54,10 @@ public class VotoController {
 	@ApiOperation(value="Persiste voto no sistema")
 	public ResponseEntity<VotoViewModel> add(@RequestBody @Valid VotoDto votoDto) {
 		
-		Voto voto = VotoMapper.converteParaVoto(votoDto);
+		Voto voto = modelMapper.map(votoDto, Voto.class);
 		voto = votoService.add(voto);
 		
-		return ResponseEntity.ok(VotoMapper.converterByVotoViewModel(voto));
+		return ResponseEntity.ok(modelMapper.map(voto, VotoViewModel.class));
 	}
 	
 	@GetMapping("/v1.0/{id}")
@@ -64,6 +65,6 @@ public class VotoController {
 	public ResponseEntity<VotoViewModel> obter(@PathVariable("id") Integer id) {
 		
 		var votoEncontrado = votoService.getById(id);		
-		return ResponseEntity.ok(VotoMapper.converterByVotoViewModel(votoEncontrado.orElse(new Voto())));
+		return ResponseEntity.ok(modelMapper.map(votoEncontrado.orElse(new Voto()), VotoViewModel.class));
 	}
 }
