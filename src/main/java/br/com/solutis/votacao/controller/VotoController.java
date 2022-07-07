@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,13 +42,13 @@ public class VotoController {
 		List<VotoViewModel> votoViewModel = new ArrayList<>();
 		votos.forEach(voto -> votoViewModel.add(modelMapper.map(voto, VotoViewModel.class)));
 		
-		return ResponseEntity.ok(votoViewModel);
+		return new ResponseEntity<>(votoViewModel, HttpStatus.OK);
 	}
 	
 	@GetMapping("/v1.0/")
 	@ApiOperation(value="Retorna uma paginação de votos")
 	public ResponseEntity<Page<Voto>> getAllPage(@PageableDefault(sort="descricao", direction = Direction.ASC, page=0, size=10) Pageable paginacao) {
-		return ResponseEntity.ok(votoService.getAll(paginacao));
+		return new ResponseEntity<>(votoService.getAll(paginacao), HttpStatus.OK);
 	}
 	
 	@PostMapping("/v1.0/")
@@ -57,7 +58,7 @@ public class VotoController {
 		Voto voto = modelMapper.map(votoDto, Voto.class);
 		voto = votoService.add(voto);
 		
-		return ResponseEntity.ok(modelMapper.map(voto, VotoViewModel.class));
+		return new ResponseEntity<>(modelMapper.map(voto, VotoViewModel.class), HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/v1.0/{id}")
@@ -65,6 +66,6 @@ public class VotoController {
 	public ResponseEntity<VotoViewModel> obter(@PathVariable("id") Integer id) {
 		
 		var votoEncontrado = votoService.getById(id);		
-		return ResponseEntity.ok(modelMapper.map(votoEncontrado.orElse(new Voto()), VotoViewModel.class));
+		return new ResponseEntity<>(modelMapper.map(votoEncontrado.orElse(new Voto()), VotoViewModel.class), HttpStatus.OK);
 	}
 }

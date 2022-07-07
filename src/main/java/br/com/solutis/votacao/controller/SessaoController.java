@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,13 +42,13 @@ public class SessaoController {
 		List<SessaoViewModel> sessaoViewModel = new ArrayList<>();
 	    sessoes.forEach(sessao -> sessaoViewModel.add(modelMapper.map(sessao, SessaoViewModel.class)));
 
-		return ResponseEntity.ok(sessaoViewModel);
+	    return new ResponseEntity<>(sessaoViewModel, HttpStatus.OK);
 	}
 	
 	@GetMapping("/v1.0/")
 	@ApiOperation(value="Retorna uma paginação de sessões")
 	public ResponseEntity<Page<Sessao>> getAllPage(@PageableDefault(sort="tipo", direction = Direction.ASC, page=0, size=10) Pageable paginacao) {	
-		return ResponseEntity.ok(sessaoService.getAll(paginacao));
+	    return new ResponseEntity<>(sessaoService.getAll(paginacao), HttpStatus.OK);
 	}
 	
 	@PostMapping("/v1.0/")
@@ -58,7 +59,7 @@ public class SessaoController {
 		
 		try {
 			sessao = sessaoService.add(sessao);
-			return ResponseEntity.ok(modelMapper.map(sessao, SessaoViewModel.class));
+			return new ResponseEntity<>(modelMapper.map(sessao, SessaoViewModel.class), HttpStatus.CREATED);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}

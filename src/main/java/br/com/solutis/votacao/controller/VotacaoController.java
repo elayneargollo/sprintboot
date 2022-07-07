@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,6 +33,6 @@ public class VotacaoController {
 		Votacao votacao = modelMapper.map(votacaoDto, Votacao.class);
 		votacao = votacaoService.add(votacao);
 		
-		return ResponseEntity.ok(modelMapper.map(votacao, VotacaoViewModel.class));
+		return new ResponseEntity<>(modelMapper.map(votacao, VotacaoViewModel.class), HttpStatus.OK);
 	}
 }

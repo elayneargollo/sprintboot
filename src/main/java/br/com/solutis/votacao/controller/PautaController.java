@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,7 +38,7 @@ public class PautaController {
 	@GetMapping("/v1.0/")
 	@ApiOperation(value="Retorna uma paginação de pautas")
 	public ResponseEntity<Page<Pauta>> getAllPage(@PageableDefault(sort="id", direction = Direction.ASC, page=0, size=10) Pageable paginacao) {
-		return ResponseEntity.ok(pautaService.getAll(paginacao));
+		return new ResponseEntity<>(pautaService.getAll(paginacao), HttpStatus.OK);
 	}
 	
 	@PostMapping("/v1.0/")
@@ -47,19 +48,19 @@ public class PautaController {
 		Pauta pauta = modelMapper.map(pautaDto, Pauta.class);
 		pauta = pautaService.add(pauta);
 		
-		return ResponseEntity.ok(modelMapper.map(pauta, PautaViewModel.class));
+		return new ResponseEntity<>(modelMapper.map(pauta, PautaViewModel.class), HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/v1.0/")
 	@ApiOperation(value="Abertura para votação de uma pauta")
 	public ResponseEntity<String> iniciarPauta(Integer idPauta) {
-		return ResponseEntity.ok(pautaService.iniciarPauta(idPauta));
+		return new ResponseEntity<>(pautaService.iniciarPauta(idPauta), HttpStatus.OK);
 	}
 	
 	@GetMapping("/v1.0/ObterResultadoPauta")
 	@ApiOperation(value="Obter resultado de pauta")
 	public ResponseEntity<ResultadoVotacao> obter(Integer idPauta) {
-		return ResponseEntity.ok(pautaService.obterResultadoPorPauta(idPauta));
+		return new ResponseEntity<>(pautaService.obterResultadoPorPauta(idPauta), HttpStatus.OK);
 	}
 		
 	@GetMapping("/v1.1/")
@@ -71,6 +72,6 @@ public class PautaController {
 		List<PautaViewModel> pautaViewModel = new ArrayList<>();
 		pautas.forEach(pauta -> pautaViewModel.add(modelMapper.map(pauta, PautaViewModel.class)));
 		
-		return ResponseEntity.ok(pautaViewModel);
+		return new ResponseEntity<>(pautaViewModel, HttpStatus.OK);
 	}
 }

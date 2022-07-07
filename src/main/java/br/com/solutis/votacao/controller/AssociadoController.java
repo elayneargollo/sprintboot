@@ -33,7 +33,7 @@ public class AssociadoController {
 	@GetMapping("/v1.0/")
 	@ApiOperation(value="Retorna uma paginação de associados")
 	public ResponseEntity<Page<Associado>> getAllPage(@PageableDefault(sort="nome", direction = Direction.ASC, page=0, size=10) Pageable paginacao) {
-		return ResponseEntity.ok(associadoService.getAll(paginacao));
+		return new ResponseEntity<>(associadoService.getAll(paginacao), HttpStatus.OK);
 	}
 	
 	@GetMapping({"/v1.0/{id}", "/v1.1/{id}"})
@@ -43,8 +43,8 @@ public class AssociadoController {
 		Optional<Associado> associado = associadoService.getById(id);
 		
 		if(associado.isPresent())		
-			return ResponseEntity.ok().body(modelMapper.map(associado.get(), AssociadoViewModel.class));
-			
+			return new ResponseEntity<>(modelMapper.map(associado.get(), AssociadoViewModel.class), HttpStatus.OK);
+		
 		 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 	
@@ -57,8 +57,7 @@ public class AssociadoController {
 		List<AssociadoViewModel> associadoViewModel = new ArrayList<>();
 		
 		associados.forEach(associado -> associadoViewModel.add(modelMapper.map(associado, AssociadoViewModel.class)));
-	    
-		return ResponseEntity.ok(associadoViewModel);
+		return new ResponseEntity<>(associadoViewModel, HttpStatus.OK);
 	}
 	
 	@PostMapping("/v1.1/")
@@ -67,7 +66,8 @@ public class AssociadoController {
 		
 		Associado associado = modelMapper.map(associadoDto,  Associado.class);
 		associado = associadoService.add(associado);
-
-		return ResponseEntity.ok(modelMapper.map(associado, AssociadoViewModel.class));
+		
+		var associadoViewModel = modelMapper.map(associado, AssociadoViewModel.class);
+		return new ResponseEntity<>(associadoViewModel, HttpStatus.CREATED);
 	}
 }
