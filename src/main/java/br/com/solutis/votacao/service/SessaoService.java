@@ -35,7 +35,9 @@ public class SessaoService implements ISessaoService {
 	public Optional<Sessao> getById(Integer id) {
 		logger.log(Level.INFO, "Método GetById com id:: {0} ", id);
 		
-		if(!sesSaoRepository.existsById(id))
+		var sessao = sesSaoRepository.findById(id);
+		
+		if(sessao.isEmpty())
 			throw new NotFoundException("Sessão não encontrada");
 		
 		return sesSaoRepository.findById(id);

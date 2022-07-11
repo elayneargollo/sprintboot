@@ -20,11 +20,15 @@ public class Voto {
 	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "native")
 	@Column(name = "id", nullable = false, unique = true)
 	private Integer id;
+	
 	@Enumerated(EnumType.STRING)
 	private OpcaoVoto descricao;
+	
 	private LocalDateTime dataVotacao;
+	
 	@Column(name = "associadoId", nullable = false)
 	private Integer associadoId;
+	
 	@Column(name = "pautaId", nullable = false)
 	private Integer pautaId;
 

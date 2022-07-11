@@ -18,10 +18,17 @@ public class Associado {
 	@Column(name = "id", nullable = false, unique = true)
 	private Integer id;
 	
-	@NotEmpty @NotBlank @NotNull @Size(min=10, max=255) 
+	@NotEmpty(message = "Nome não pode ser vazio")
+	@NotBlank(message = "Nome é obrigatório")
+	@NotNull(message = "Nome não pode está nulo")
+	@Size(min=10, max=255) 
 	private String nome;
 	
-	@NotEmpty @NotBlank @NotNull @Email @Size(min=20, max=255)
+	@NotEmpty(message = "Email não pode ser vazio")
+	@NotBlank(message = "Email é obrigatório")
+	@NotNull(message = "Email não pode está nulo")
+	@Email (message = "Email inválido")
+	@Size(min=20, max=255)
 	private String email;
 	
 	private String cpf;

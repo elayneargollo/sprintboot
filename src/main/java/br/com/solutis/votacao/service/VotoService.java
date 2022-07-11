@@ -11,7 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.com.solutis.votacao.exception.NotFoundException;
-import br.com.solutis.votacao.exception.PautaNaoAbertaException;
 import br.com.solutis.votacao.exception.VotoNaoUnicoExcepiton;
 import br.com.solutis.votacao.model.entity.Pauta;
 import br.com.solutis.votacao.model.entity.Voto;
@@ -32,56 +31,45 @@ public class VotoService implements IVotoService {
 	IPautaRepository pautaRepository;
 	Logger logger = Logger.getLogger(VotoService.class.getName());
 
+	@SuppressWarnings("unlikely-arg-type")
 	@Override
 	public Voto add(Voto voto) {
 		logger.info("Método Add");
 
-		boolean associadoEncontrado = associadoRepository.existsById(voto.getAssociadoId());
+		Optional<Pauta> pauta = pautaRepository.findById(voto.getPautaId());
+		
+		if (pauta.isEmpty() || !Status.ABERTO.toString().equals(pauta.get().getStatus())) 
+			throw new NotFoundException("Pauta não encontrado ou não encontra-se 'ABERTA' ");		
 
-		if (!pautaRepository.existsById(voto.getPautaId())) {
-			logger.log(Level.INFO, "Pauta com id:: {0} não encontrada durante a inserção do voto", voto.getPautaId());
-			throw new NotFoundException("Pauta não encontrado");
-		}
-
-		Pauta pauta = pautaRepository.getById(voto.getPautaId());
-
-		if (!associadoEncontrado) {
-			logger.info("Não é possível realizar um voto sem um associado vinculado ao sistema");
+		if (associadoRepository.existsById(voto.getAssociadoId())) 
 			throw new NotFoundException("Associado não encontrado");
-		}
 
-		if (pauta.getStatus() != (Status.ABERTO)) {
-			logger.info("Não é possível realizar um voto em uma pauta que não esteja aberta para votação");
-			throw new PautaNaoAbertaException("Para votar é necessário que a pauta esteja aberta !");
-		}
-
-		Boolean votoUnico = getJaVotou(voto.getAssociadoId(), pauta.getId());
-
-		if (!votoUnico) {
-			logger.info("Cada associado só pode votar uma vez por pauta.");
-			throw new VotoNaoUnicoExcepiton("Votos devem ser únicos por pauta.");
-		}
-
+		getJaVotou(voto.getAssociadoId(), pauta.get().getId());
+		
 		return votoRepository.save(voto);
-
 	}
 
-	private Boolean getJaVotou(Integer associadoId, Integer pautaId) {
+	private void getJaVotou(Integer associadoId, Integer pautaId) {
 		logger.info("Método GetJaVotou");
 
 		Optional<Voto> votoAssociado = votoRepository.findAll().stream()
 				.filter(x -> x.getAssociadoId().equals(associadoId) && x.getPautaId().equals(pautaId)).findFirst();
-		return votoAssociado.isEmpty();
+		
+		if (votoAssociado.isEmpty()) 
+			throw new VotoNaoUnicoExcepiton("Votos devem ser únicos por pauta.");
+		
 	}
 
 	@Override
 	public Optional<Voto> getById(Integer id) {
 		logger.log(Level.INFO, "Método GetById com id:: {0} ", id);
 		
-		if(!votoRepository.existsById(id))
+		var voto = votoRepository.findById(id);
+				
+		if(voto.isEmpty())
 			throw new NotFoundException("Voto não encontrada");
 		
-		return votoRepository.findById(id);
+		return voto;
 	}
 
 	@Override

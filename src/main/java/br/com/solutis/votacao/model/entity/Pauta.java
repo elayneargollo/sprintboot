@@ -21,8 +21,10 @@ public class Pauta {
 	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "native")
 	@Column(name = "id", nullable = false, unique = true)
 	private Integer id;
+	
 	@Enumerated(EnumType.STRING)
 	private Status status;
+	
 	@OneToOne
 	private Sessao sessao;
 	public LocalDateTime dataAbertura;

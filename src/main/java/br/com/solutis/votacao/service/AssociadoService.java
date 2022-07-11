@@ -29,10 +29,12 @@ public class AssociadoService implements IAssociadoService {
 	public Optional<Associado> getById(Integer id) {
 		logger.log(Level.INFO, "Método GetById com id:: {0} ", id);
 		
-		if(!associadoRepository.existsById(id))
+		var associado = associadoRepository.findById(id);
+		
+		if(associado.isEmpty())
 			throw new NotFoundException("Associado não encontrado");
 			
-		return associadoRepository.findById(id);
+		return associado;
 	}
 
 	@Override

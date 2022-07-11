@@ -12,7 +12,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.com.solutis.votacao.exception.NotFoundException;
-import br.com.solutis.votacao.exception.PautaNaoAbertaException;
 import br.com.solutis.votacao.model.entity.Pauta;
 import br.com.solutis.votacao.model.entity.ResultadoVotacao;
 import br.com.solutis.votacao.model.entity.Sessao;
@@ -51,10 +50,12 @@ public class PautaService implements IPautaService {
 	public Optional<Pauta> getById(Integer id) {
 		logger.log(Level.INFO, "Método GetById com id:: {0} ", id);
 		
-		if(!pautaRepository.existsById(id))
+		Optional<Pauta> pauta = pautaRepository.findById(id);
+		
+		if(pauta.isEmpty())
 			throw new NotFoundException("Pauta não encontrada");
 		
-		return pautaRepository.findById(id);
+		return pauta;
 	}
 
 	@Override
@@ -73,22 +74,22 @@ public class PautaService implements IPautaService {
 	public String iniciarPauta(Integer id) {
 		logger.log(Level.INFO, "Método IniciarPauta com id:: {0} ", id);
 
-		if(!pautaRepository.existsById(id))
-		{
-			logger.log(Level.INFO, "Pauta com id:: {0} não encontrada", id);
-			throw new NotFoundException("Pauta não encontrada");
-		}
-		
-		Pauta pauta = pautaRepository.getById(id);
-
-		if (pauta.getStatus() == Status.ABERTO || pauta.getStatus() == Status.FECHADO)
-		{
-			logger.info("Solicitação de iniciar pauta com status: " +pauta.getStatus());
-			throw new PautaNaoAbertaException("Pauta encontra-se aberta ou fechada !");
-		}
-
+		var pauta = getByIdAndStatus(id, Status.ABERTO.toString(), Status.FECHADO.toString());
 		pautaRepository.alterarStatusPauta(Status.ABERTO, id);
-		return ("Pauta referente a sessão " + pauta.getSessao().getDescricao() + " aberta para votação !");
+		
+		return ("Pauta " + pauta.get().getSessao().getDescricao() + "aberta para votação !");
+	}
+	
+	@SuppressWarnings("unlikely-arg-type")
+	private Optional<Pauta> getByIdAndStatus(Integer id, String status, String olderStatus) {
+		logger.log(Level.INFO, "Método GetByIdAndStatus com id:: {0}", id);
+		
+		Optional<Pauta> pauta = pautaRepository.findById(id);
+		
+		if(pauta.isEmpty() || status.equals(pauta.get().getStatus()) || olderStatus.equals(pauta.get().getStatus()))
+			throw new NotFoundException("Pauta não econtrada ou não atende ao status necessário para esta ação.");
+		
+		return pauta;
 	}
 
 	public void fecharVotacao(Integer id, long duracao) {
@@ -108,19 +109,10 @@ public class PautaService implements IPautaService {
 	public ResultadoVotacao obterResultadoPorPauta(Integer id) {
 
 		logger.log(Level.INFO, "Método ObterResultadoPorPauta com id:: {0} ", id);
-		
-		Pauta pauta = pautaRepository.getById(id);
-		
-		if(!pautaRepository.existsById(id))
-		{
-			logger.log(Level.INFO, "Pauta com id:: {0} não encontrada", id);
-			throw new NotFoundException("Pauta não encontrada");
-		}
 
-		if (pauta.getStatus() == Status.ABERTO || pauta.getStatus() == Status.CRIADO) {
-			logger.info("Fechar a pauta para contagem dos votos !");
-			pautaRepository.alterarStatusPauta(Status.FECHADO, id);
-		}
+		@SuppressWarnings("unused")
+		var pauta = getByIdAndStatus(id, Status.ABERTO.toString(), Status.CRIADO.toString());
+		pautaRepository.alterarStatusPauta(Status.FECHADO, id);
 
 		return obterResultadoVotacao(id);
 	}

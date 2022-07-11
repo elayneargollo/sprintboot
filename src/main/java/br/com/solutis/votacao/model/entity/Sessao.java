@@ -20,16 +20,19 @@ public class Sessao {
 	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "native")
 	@Column(name = "id", nullable = false, unique = true)
 	private Integer id;
-	@NotEmpty
-	@NotBlank
-	@NotNull
+	
+	@NotEmpty(message = "Descrição não pode ser vazio")
+	@NotBlank(message = "Descrição é obrigatório")
+	@NotNull(message = "Descrição não pode está nulo")
 	@Size(min = 10, max = 255)
 	private String descricao;
-	@NotEmpty
-	@NotBlank
-	@NotNull
+	
+	@NotEmpty(message = "Tipo não pode ser vazio")
+	@NotBlank(message = "Tipo é obrigatório")
+	@NotNull(message = "Tipo não pode está nulo")
 	@Size(min = 10, max = 255)
 	private String tipo;
+	
 	private long tempoDuracao;
 
 	public Sessao() {
