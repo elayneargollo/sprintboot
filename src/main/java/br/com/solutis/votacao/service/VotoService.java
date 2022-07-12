@@ -38,10 +38,10 @@ public class VotoService implements IVotoService {
 
 		Optional<Pauta> pauta = pautaRepository.findById(voto.getPautaId());
 		
-		if (pauta.isEmpty() || !Status.ABERTO.toString().equals(pauta.get().getStatus())) 
+		if (pauta.isEmpty() || Status.FECHADO.toString().equals(pauta.get().getStatus())) 
 			throw new NotFoundException("Pauta não encontrado ou não encontra-se 'ABERTA' ");		
 
-		if (associadoRepository.existsById(voto.getAssociadoId())) 
+		if (!associadoRepository.existsById(voto.getAssociadoId())) 
 			throw new NotFoundException("Associado não encontrado");
 
 		getJaVotou(voto.getAssociadoId(), pauta.get().getId());
@@ -55,7 +55,7 @@ public class VotoService implements IVotoService {
 		Optional<Voto> votoAssociado = votoRepository.findAll().stream()
 				.filter(x -> x.getAssociadoId().equals(associadoId) && x.getPautaId().equals(pautaId)).findFirst();
 		
-		if (votoAssociado.isEmpty()) 
+		if (!votoAssociado.isEmpty()) 
 			throw new VotoNaoUnicoExcepiton("Votos devem ser únicos por pauta.");
 		
 	}

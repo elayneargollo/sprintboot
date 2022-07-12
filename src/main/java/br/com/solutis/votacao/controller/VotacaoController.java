@@ -32,7 +32,7 @@ public class VotacaoController {
 		
 		Votacao votacao = modelMapper.map(votacaoDto, Votacao.class);
 		votacao = votacaoService.add(votacao);
-		
+
 		return new ResponseEntity<>(modelMapper.map(votacao, VotacaoViewModel.class), HttpStatus.OK);
 	}
 }

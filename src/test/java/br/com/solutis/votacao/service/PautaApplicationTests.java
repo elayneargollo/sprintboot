@@ -158,5 +158,4 @@ class PautaServiceTest {
 		
 		assertNotNull(resultado);
 	}
-
 }

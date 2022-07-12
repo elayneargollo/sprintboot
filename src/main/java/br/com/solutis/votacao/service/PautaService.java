@@ -1,5 +1,6 @@
 package br.com.solutis.votacao.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
@@ -87,7 +88,7 @@ public class PautaService implements IPautaService {
 		Optional<Pauta> pauta = pautaRepository.findById(id);
 		
 		if(pauta.isEmpty() || status.equals(pauta.get().getStatus()) || olderStatus.equals(pauta.get().getStatus()))
-			throw new NotFoundException("Pauta não econtrada ou não atende ao status necessário para esta ação.");
+			throw new NotFoundException("Pauta não encontrada ou não atende ao status necessário para esta ação.");
 		
 		return pauta;
 	}
@@ -108,33 +109,49 @@ public class PautaService implements IPautaService {
 	@Override
 	public ResultadoVotacao obterResultadoPorPauta(Integer id) {
 
-		logger.log(Level.INFO, "Método ObterResultadoPorPauta com id:: {0} ", id);
-
-		@SuppressWarnings("unused")
-		var pauta = getByIdAndStatus(id, Status.ABERTO.toString(), Status.CRIADO.toString());
-		pautaRepository.alterarStatusPauta(Status.FECHADO, id);
-
-		return obterResultadoVotacao(id);
+		logger.log(Level.INFO, "Método ObterResultadoPorPauta com id:: {0} ", id);	
+		
+		Optional<Pauta> pauta = pautaRepository.findById(id);
+		
+		if(pauta.isEmpty()) throw new NotFoundException("Pauta não encontrada.");
+			
+		return obterResultadoVotacao(pauta);		
 	}
-
-	private ResultadoVotacao obterResultadoVotacao(Integer idPauta) {
-		logger.log(Level.INFO, "Método ObterResultadoVotacao com id:: {0} ", idPauta);
-
-		List<Voto> votosTotaisPauta = votoRepository.obterVotosPorPauta(idPauta);
+	
+	private ResultadoVotacao obterResultadoVotacao(Optional<Pauta> pauta)
+	{
+		logger.log(Level.INFO, "Método obterResultadoVotacao");	
+		
+		List<Voto> votosTotaisPauta = votoRepository.obterVotosPorPauta(pauta.get().getId());
 
 		var quantidadeVotoPositivo = votosTotaisPauta.stream().filter(v -> v.getDescricao() == OpcaoVoto.SIM).collect(Collectors.toList()).size();
 		var quantidadeVotoNegativo = votosTotaisPauta.stream().filter(v -> v.getDescricao() == OpcaoVoto.NAO).collect(Collectors.toList()).size();
 		
 		var vencedor = quantidadeVotoPositivo > quantidadeVotoNegativo ? OpcaoVoto.SIM : OpcaoVoto.NAO;
+		var tipoVotacao = pauta.get().getStatus().equals(Status.FECHADO) ? "Completa" : "Parcial";
 
+		return montarResultado(votosTotaisPauta.size(), vencedor, tipoVotacao, quantidadeVotoNegativo, quantidadeVotoPositivo );
+	}
+	
+	private ResultadoVotacao montarResultado(int votosTotaisPauta, OpcaoVoto vencedor, String tipoVotacao, int quantidadeVotoNegativo, int quantidadeVotoPositivo)
+	{
+		logger.log(Level.INFO, "Método montarResultado");	
+		
 		ResultadoVotacao resultado = new ResultadoVotacao();
-
-		resultado.setPercentualVotoNegativo((quantidadeVotoNegativo * 100) / votosTotaisPauta.size());
-		resultado.setPercentualVotoPositivo((quantidadeVotoPositivo * 100) / votosTotaisPauta.size());
+		
+		var votos = votosTotaisPauta == 0 ? 1 : votosTotaisPauta;
+		
+		resultado.setPercentualVotoNegativo((quantidadeVotoNegativo * 100) / votos);
+		resultado.setPercentualVotoPositivo((quantidadeVotoPositivo * 100) / votos);
+		
 		resultado.setQuantidadeVotoNegativo(quantidadeVotoNegativo);
 		resultado.setQuantidadeVotoPositivo(quantidadeVotoPositivo);
+		
 		resultado.setVencedor(vencedor);
-
+		resultado.setTipoResultado(tipoVotacao);
+		
+		resultado.setDataApuracao(new Date());
+		
 		return resultado;
 	}
 }
